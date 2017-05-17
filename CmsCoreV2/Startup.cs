@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using CmsCoreV2.Services;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace CmsCoreV2
 {
@@ -40,14 +41,24 @@ namespace CmsCoreV2
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<HostDbContext>(options =>
+                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddMultitenancy<AppTenant, CachingAppTenantResolver>();
+            services.AddEntityFrameworkSqlServer().AddDbContext<ApplicationDbContext>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddOptions();
             services.AddMvc();
+
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.ViewLocationExpanders.Add(new TenantViewLocationExpander());
+            });
+
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -72,13 +83,24 @@ namespace CmsCoreV2
             }
 
             app.UseStaticFiles();
-
+            // ana veritabanın kayıtları girilir
+            app.ApplicationServices.GetRequiredService<HostDbContext>().Seed();
+            // multi-tenancy kullanılmaya başlanılır
+            app.UseMultitenancy<AppTenant>();
+            // üyelik sistemi devreye alınır
             app.UseIdentity();
+
+
+        
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
 
             app.UseMvc(routes =>
             {
+            
+                routes.MapRoute(name: "areaRoute",
+                template: "{area:exists}/{controller=Dashboard}/{action=Index}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

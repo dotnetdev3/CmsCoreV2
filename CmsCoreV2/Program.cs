@@ -14,6 +14,7 @@ namespace CmsCoreV2
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseUrls("http://localhost:60002", "http://localhost:60001")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseApplicationInsights()
