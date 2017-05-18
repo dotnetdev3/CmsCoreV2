@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CmsCoreV2.Controllers
+namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
 
-    [Area("cmscore")]
+    [Area("CmsCore")]
 
     public class DashboardController: Controller
     {

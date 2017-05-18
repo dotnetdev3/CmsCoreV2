@@ -36,7 +36,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Content Update="Areas\cmscore\Views\Dashboard\Index.cshtml">
+    <Content Update="Areas\CmsCore\Views\Dashboard\Index.cshtml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
