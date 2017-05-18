@@ -9,7 +9,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
 
     [Area("CmsCore")]
 
-    public class DashboardController: Controller
+    public class DashboardController: ControllerBase
     {
         public IActionResult Index()
         {

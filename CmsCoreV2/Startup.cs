@@ -13,6 +13,10 @@ using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using CmsCoreV2.Services;
 using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace CmsCoreV2
 {
@@ -52,7 +56,29 @@ namespace CmsCoreV2
                 .AddDefaultTokenProviders();
 
             services.AddOptions();
-            services.AddMvc();
+            services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
+
+            services.AddMvc()
+                .AddViewLocalization(
+                    LanguageViewLocationExpanderFormat.Suffix,
+                    opts => { opts.ResourcesPath = "Resources"; })
+                .AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(
+                    opts =>
+                    {
+                        var supportedCultures = new List<CultureInfo>
+                        {
+                new CultureInfo("en-US"),
+                new CultureInfo("tr-TR"),
+                        };
+
+                        opts.DefaultRequestCulture = new RequestCulture("en-US");
+            // Formatting numbers, dates, etc.
+            opts.SupportedCultures = supportedCultures;
+            // UI strings that we have localized.
+            opts.SupportedUICultures = supportedCultures;
+                    });
 
             services.Configure<RazorViewEngineOptions>(options =>
             {
@@ -81,12 +107,14 @@ namespace CmsCoreV2
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(options.Value);
             app.UseStaticFiles();
             // ana veritabanın kayıtları girilir
             app.ApplicationServices.GetRequiredService<HostDbContext>().Seed();
             // multi-tenancy kullanılmaya başlanılır
             app.UseMultitenancy<AppTenant>();
+            
             // üyelik sistemi devreye alınır
             app.UseIdentity();
 
@@ -97,7 +125,23 @@ namespace CmsCoreV2
 
             app.UseMvc(routes =>
             {
-            
+                routes.MapRoute(
+                    name: "areaCultureRoute",
+                    template: "{culture}/{area:exists}/{controller}/{action}",
+                    defaults: new { controller = "Dashboard", action = "Index" },
+                    constraints: new
+                    {
+                        culture = new RegexRouteConstraint("^[a-z]{2}(?:-[A-Z]{2})?$")
+                    });
+                routes.MapRoute(
+                    name: "cultureRoute",
+                    template: "{culture}/{controller}/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "Index" },
+                    constraints: new
+                    {
+                        culture = new RegexRouteConstraint("^[a-z]{2}(?:-[A-Z]{2})?$")
+                    });
+
                 routes.MapRoute(name: "areaRoute",
                 template: "{area:exists}/{controller=Dashboard}/{action=Index}");
 
