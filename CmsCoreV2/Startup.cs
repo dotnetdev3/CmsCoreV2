@@ -56,11 +56,11 @@ namespace CmsCoreV2
                 .AddDefaultTokenProviders();
 
             services.AddOptions();
-            services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
+            services.AddLocalization();
 
             services.AddMvc()
                 .AddViewLocalization(
-                    LanguageViewLocationExpanderFormat.Suffix,
+                    Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.SubFolder,
                     opts => { opts.ResourcesPath = "Resources"; })
                 .AddDataAnnotationsLocalization();
 
