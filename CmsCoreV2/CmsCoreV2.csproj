@@ -11,6 +11,14 @@
   <PropertyGroup>
     <UserSecretsId>aspnet-CmsCoreV2-eebe0436-0b59-4b6c-9a4f-a1c0513e1122</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\edugate\css\Custom.css" />
+    <Content Include="wwwroot\edugate\images\video_foto.png" />
+    <Content Include="wwwroot\uploads\13036596003383465.mov" />
+    <Content Include="wwwroot\uploads\946468297image-slider-2.jpg" />
+    <Content Include="wwwroot\uploads\9a2ef92e2e0ca0fb061171e27596dfeb.png" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
