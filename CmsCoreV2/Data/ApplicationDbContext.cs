@@ -34,6 +34,7 @@ namespace CmsCoreV2.Data
         }
 
         public DbSet<Page> Pages { get; set; }
+        public DbSet<Setting> Settings { get; set; }
         // diğer dbsetler buraya eklenir
 
         protected override void OnModelCreating(ModelBuilder builder)

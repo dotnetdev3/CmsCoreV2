@@ -21,6 +21,7 @@ namespace CmsCoreV2.Data
             }
             // Perform seed operations
             AddPages(context, tenant);
+          
 
 
         }
@@ -32,6 +33,7 @@ namespace CmsCoreV2.Data
             context.Pages.Add(p);
             context.SaveChanges();
         }
+        
     }
 }
 
