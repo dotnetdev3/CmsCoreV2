@@ -58,6 +58,12 @@ namespace CmsCoreV2.Data
         }
         // diğer dbsetler buraya eklenir
 
+        public DbSet<CmsCoreV2.Models.Slide> Slide { get; set; }
+        // diğer dbsetler buraya eklenir
+
+        public DbSet<CmsCoreV2.Models.Slider> Slider { get; set; }
+        // diğer dbsetler buraya eklenir
+
         public DbSet<CmsCoreV2.Models.Media> Media { get; set; }
     }
 }
