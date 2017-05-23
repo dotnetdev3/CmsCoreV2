@@ -44,8 +44,6 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="/metronic/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css" />
 </head>
 <!-- END HEAD -->
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
@@ -71,7 +69,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!-- END RESPONSIVE MENU TOGGLER -->
                 <!-- BEGIN TOP NAVIGATION MENU -->
                 <div class="top-menu">
-                    
+
                     <ul class="nav navbar-nav pull-right">
                         <!-- BEGIN NOTIFICATION DROPDOWN -->
                         <!-- DOC: Apply "dropdown-dark" class after "dropdown-extended" to change the dropdown styte -->
@@ -176,122 +174,310 @@ License: You must have a valid license purchased only from themeforest(the above
                         <li class="heading">
                             <h3 class="uppercase">Modüller</h3>
                         </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="companies"?"active":string.Empty) ">
-                            <a href="/Companies/Index" class="nav-link nav-toggle">
-                                <i class="icon-diamond"></i>
-                                <span class="title">Kurumlar</span>
-
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-book-open"></i>
+                                <span class="title">Pages</span>
+                                <span class="arrow"></span>
                             </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a asp-controller="Page" asp-action="Index" class="nav-link">
+                                        <span class="title">All Pages</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Page" asp-action="Create" class="nav-link">
+                                        <span class="title">Add Page</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item  @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="certifications"?"active":string.Empty)">
-                            <a href="/Certifications/Index" class="nav-link nav-toggle">
-                                <i class="icon-puzzle"></i>
-                                <span class="title">Belgelendirmeler</span>
-
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-rocket"></i>
+                                <span class="title">Posts</span>
+                                <span class="arrow"></span>
                             </a>
-                        </li>
-                        <li class="nav-item  @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="consultancies"?"active":string.Empty)">
-                            <a href="/Consultancies/Index" class="nav-link nav-toggle">
-                                <i class="icon-settings"></i>
-                                <span class="title">Danışmanlıklar</span>
-
-                            </a>
-                        </li>
-                        <li class="nav-item  @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="educations"?"active":string.Empty)">
-                            <a href="/Educations/Index" class="nav-link nav-toggle">
-                                <i class="icon-bulb"></i>
-                                <span class="title">Eğitimler</span>
-
-                            </a>
-                        </li>
-                        <li class="nav-item  @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="countries"?"active":string.Empty)">
-                            <a href="/Countries/Index" class="nav-link nav-toggle">
-                                <i class="icon-briefcase"></i>
-                                <span class="title">Ülkeler</span>
-
-                            </a>
-                        </li>
-                        <li class="nav-item  @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="cities"?"active":string.Empty)">
-                            <a href="/Cities/Index" class="nav-link nav-toggle">
-                                <i class="icon-wallet"></i>
-                                <span class="title">Şehirler</span>
-
-                            </a>
-                        </li>
-                        <li class="nav-item  @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="applicationmethods"?"active":string.Empty)">
-                            <a href="/ApplicationMethods/Index" class="nav-link nav-toggle">
-                                <i class="icon-bar-chart"></i>
-                                <span class="title">Başvuru Yöntemleri</span>
-
-                            </a>
-
-                        </li>
-                        <li class="nav-item  @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="marketingmethods"?"active":string.Empty)">
-                            <a href="/MarketingMethods/Index" class="nav-link nav-toggle">
-                                <i class="icon-pointer"></i>
-                                <span class="title">Tanıtım Yöntemleri</span>
-
-                            </a>
-
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a asp-controller="Post" asp-action="Index" class="nav-link">
+                                        <span class="title">All Posts</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Post" asp-action="Create" class="nav-link">
+                                        <span class="title">Add Post</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="PostCategory" asp-action="Index" class="nav-link">
+                                        <span class="title">Post Categories</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
-                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="sources"?"active":string.Empty)">
-                            <a href="/Sources/Index" class="nav-link nav-toggle">
-                                <i class="icon-layers"></i>
-                                <span class="title">Haberdar Olma Şekilleri</span>
-
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fa fa-codepen"></i>
+                                <span class="title">Products</span>
+                                <span class="arrow"></span>
                             </a>
-
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a asp-controller="Product" asp-action="Index" class="nav-link">
+                                        <span class="title">All Products</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Product" asp-action="Create" class="nav-link">
+                                        <span class="title">New Product</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="ProductCategory" asp-action="Index" class="nav-link">
+                                        <span class="title">Product Categories</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item  @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="companyfunctions"?"active":string.Empty)">
-                            <a href="/CompanyFunctions/Index" class="nav-link nav-toggle">
-                                <i class="icon-feed"></i>
-                                <span class="title">Kurum İşlevleri</span>
-
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-link"></i>
+                                <span class="title">Links</span>
+                                <span class="arrow"></span>
                             </a>
-
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a asp-controller="Link" asp-action="Index" class="nav-link">
+                                        <span class="title">All Links</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Link" asp-action="Create" class="nav-link">
+                                        <span class="title">Add Link</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="LinkCategory" asp-action="Index" class="nav-link">
+                                        <span class="title">Link Categories</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item  @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="certificationresults"?"active":string.Empty)">
-                            <a href="/CertificationResults/Index" class="nav-link nav-toggle">
-                                <i class="icon-paper-plane"></i>
-                                <span class="title">Belgelendirme Sonuçları</span>
-
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-list-alt"></i>
+                                <span class="title">Forms</span>
+                                <span class="arrow"></span>
                             </a>
-
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a asp-controller="Form" asp-action="Index" class="nav-link">
+                                        <span class="title">All Forms</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Form" asp-action="Create" class="nav-link">
+                                        <span class="title">Add Forms</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="FormField" asp-action="Index" class="nav-link">
+                                        <span class="title">Form Fields</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Feedback" asp-action="Index" class="nav-link">
+                                        <span class="title">Feedbacks</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item  @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="educationcategories"?"active":string.Empty)">
-                            <a href="/EducationCategories/Index" class="nav-link nav-toggle">
-                                <i class=" icon-wrench"></i>
-                                <span class="title">Eğitim Tipleri</span>
-
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-folder-open"></i>
+                                <span class="title">Medias</span>
+                                <span class="arrow"></span>
                             </a>
-
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a asp-controller="Medias" asp-action="Index" class="nav-link">
+                                        <span class="title">All Media</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Medias" asp-action="Create" class="nav-link">
+                                        <span class="title">Add Media</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-
-                        <li class="nav-item  @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="services"?"active":string.Empty)">
-                            <a href="/Services/Index" class="nav-link nav-toggle">
-                                <i class="icon-basket"></i>
-                                <span class="title">Hizmetler</span>
-
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fa fa-cubes"></i>
+                                <span class="title">Appearance</span>
+                                <span class="arrow"></span>
                             </a>
-
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a asp-controller="Theme" asp-action="Index" class="nav-link">
+                                        <span class="title">Themes</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Theme" asp-action="Customize" class="nav-link">
+                                        <span class="title">Customize</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Theme" asp-action="CustomCSS" class="nav-link">
+                                        <span class="title">Custom CSS</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Menu" asp-action="Index" class="nav-link">
+                                        <span class="title">Menus</span>
+                                    </a>
+                                <li class="nav-item">
+                                    <a asp-controller="Menu" asp-action="MenuLocationIndex" class="nav-link">
+                                        <span class="title">Menu Locations</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="MenuItem" asp-action="Index" class="nav-link">
+                                        <span class="title">Menu Items</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Template" asp-action="Index" class="nav-link">
+                                        <span class="title">Templates</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Section" asp-action="Index" class="nav-link">
+                                        <span class="title">Section</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Widget" asp-action="Index" class="nav-link">
+                                        <span class="title">Widgets</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item  @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="servicefields"?"active":string.Empty)">
-                            <a href="/ServiceFields/Index" class="nav-link nav-toggle">
-                                <i class="icon-docs"></i>
-                                <span class="title">Hizmet Alanları</span>
-
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-th"></i>
+                                <span class="title">Sliders</span>
+                                <span class="arrow"></span>
                             </a>
-
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a asp-controller="Slider" asp-action="Index" class="nav-link">
+                                        <span class="title">Sliders</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Slide" asp-action="Index" class="nav-link">
+                                        <span class="title">Slides</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item  @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="applicationUsers"?"active":string.Empty)">
-                            <a href="/ApplicationUsers/Index" class="nav-link nav-toggle">
-                                <i class="icon-user"></i>
-                                <span class="title">Kişiler</span>
-
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-picture"></i>
+                                <span class="title">Galleries</span>
+                                <span class="arrow"></span>
                             </a>
-
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a asp-controller="Galleries" asp-action="Index" class="nav-link">
+                                        <span class="title">Gallery</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="GalleryItems" asp-action="Index" class="nav-link">
+                                        <span class="title">Gallery Item</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="GalleryItemCategories" asp-action="Index" class="nav-link">
+                                        <span class="title">Gallery Item Category</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fa fa-terminal"></i>
+                                <span class="title">SEO</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a asp-controller="SEO" asp-action="MetaTags" class="nav-link">
+                                        <span class="title">Meta Tags</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Redirect" asp-action="Index" class="nav-link">
+                                        <span class="title">Redirects</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fa fa-users"></i>
+                                <span class="title">Users</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a asp-controller="Account" asp-action="Index" class="nav-link">
+                                        <span class="title">All Users</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Account" asp-action="Register" class="nav-link">
+                                        <span class="title">Create User</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fa fa-gears"></i>
+                                <span class="title">Ayarlar</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a asp-controller="Setting" asp-action="Index" class="nav-link">
+                                        <span class="title">Genel Ayarlar</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Setting" asp-action="Mail" class="nav-link">
+                                        <span class="title">E-Posta Ayarları</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Language" asp-action="Index" class="nav-link">
+                                        <span class="title">Languages</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Resource" asp-action="Index" class="nav-link">
+                                        <span class="title">Resources</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
 
                     </ul>
                     <!-- END SIDEBAR MENU -->
@@ -317,51 +503,8 @@ License: You must have a valid license purchased only from themeforest(the above
                             <li>
                                 @switch (ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant())
                                 {
-                                    case "companies":
-                                        @Html.Raw("Kurumlar");
-                                        break;
-                                    case "consultancies":
-                                        @Html.Raw("Danışmanlıklar");
-                                        break;
-                                    case "certifications":
-                                        @Html.Raw("Belgelendirmeler");
-                                        break;
-                                    case "countries":
-                                        @Html.Raw("Ülkeler");
-                                        break;
-                                    case "educations":
-                                        @Html.Raw("Eğitimler");
-                                        break;
-                                    case "cities":
-                                        @Html.Raw("Şehirler");
-                                        break;
-                                    case "applicationmethods":
-                                        @Html.Raw("Başvuru Yöntemleri");
-                                        break;
-                                    case "marketingmethods":
-                                        @Html.Raw("Tanıtım Yöntemleri");
-                                        break;
-                                    case "sources":
-                                        @Html.Raw("Haberdar Olma Yöntemleri");
-                                        break;
-                                    case "companyfunctions":
-                                        @Html.Raw("Kurum İşlevleri");
-                                        break;
-                                    case "certificationresults":
-                                        @Html.Raw("Belgelendirme Sonuçları");
-                                        break;
-                                    case "educationcategories":
-                                        @Html.Raw("Eğitim Tipleri");
-                                        break;
-                                    case "services":
-                                        @Html.Raw("Hizmetler");
-                                        break;
-                                    case "servicefields":
-                                        @Html.Raw("Hizmet Alanları");
-                                        break;
-                                    case "applicationusers":
-                                        @Html.Raw("Kişiler");
-                                        break;
+                                    
+
                                     default:
                                         @Html.Raw(ViewContext.RouteData.Values["controller"].ToString());
                                         break;
