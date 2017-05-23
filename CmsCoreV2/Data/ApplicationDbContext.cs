@@ -46,7 +46,5 @@ namespace CmsCoreV2.Data
 
         }
         // diğer dbsetler buraya eklenir
-
-        public DbSet<CmsCoreV2.Models.Media> Media { get; set; }
     }
 }
