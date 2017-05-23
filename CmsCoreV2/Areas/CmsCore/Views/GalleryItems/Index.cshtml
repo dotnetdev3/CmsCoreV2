@@ -1,4 +1,4 @@
-@model IEnumerable<CmsCoreV2.Models.Page>
+@model IEnumerable<CmsCoreV2.Models.GalleryItem>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,28 +16,22 @@
                     @Html.DisplayNameFor(model => model.Title)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Slug)
+                    @Html.DisplayNameFor(model => model.Description)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Body)
+                    @Html.DisplayNameFor(model => model.Position)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ViewCount)
+                    @Html.DisplayNameFor(model => model.Photo)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.SeoTitle)
+                    @Html.DisplayNameFor(model => model.Video)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.SeoDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SeoKeywords)
+                    @Html.DisplayNameFor(model => model.Meta1)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.IsPublished)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Template)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.CreateDate)
@@ -55,10 +49,7 @@
                     @Html.DisplayNameFor(model => model.AppTenantId)
                 </th>
             <th>
-                @Html.DisplayNameFor(model => model.Language)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParentPage)
+                @Html.DisplayNameFor(model => model.Gallery)
             </th>
             <th></th>
         </tr>
@@ -70,28 +61,22 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Slug)
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Body)
+                @Html.DisplayFor(modelItem => item.Position)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ViewCount)
+                @Html.DisplayFor(modelItem => item.Photo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SeoTitle)
+                @Html.DisplayFor(modelItem => item.Video)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SeoDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeoKeywords)
+                @Html.DisplayFor(modelItem => item.Meta1)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsPublished)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Template)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreateDate)
@@ -109,10 +94,7 @@
                 @Html.DisplayFor(modelItem => item.AppTenantId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Language.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentPage.Id)
+                @Html.DisplayFor(modelItem => item.Gallery.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

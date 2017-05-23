@@ -15,7 +15,7 @@ using SaasKit.Multitenancy;
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
-    public class MediasController : Controller
+    public class MediasController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IHostingEnvironment env;
@@ -157,35 +157,70 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Title,FileName,Description,Size,FilePath,FileType,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Media media)
+        public async Task<IActionResult> Edit(long id, [Bind("Title,FileName,Description,Size,FilePath,FileType,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Media media, IFormFile uploadFile)
         {
-            if (id != media.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
+                if (uploadFile != null)
                 {
-                    _context.Update(media);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MediaExists(media.Id))
+
+                    media.UpdatedBy = User.Identity.Name ?? "username";
+                    media.UpdateDate = DateTime.Now;
+                    media.AppTenantId = tenant.AppTenantId;
+                    if (Path.GetExtension(uploadFile.FileName) == ".jpg" || Path.GetExtension(uploadFile.FileName) == ".jpeg" || Path.GetExtension(uploadFile.FileName) == ".png")
                     {
-                        return NotFound();
+                        media.FileType = "Image";
+                    }
+                    else if (Path.GetExtension(uploadFile.FileName) == ".mp4" || Path.GetExtension(uploadFile.FileName) == ".gif")
+                    {
+                        media.FileType = "Video";
                     }
                     else
                     {
-                        throw;
+                        media.FileType = "Document";
+                    }
+                    if (Path.GetExtension(uploadFile.FileName) == ".doc"
+                    || Path.GetExtension(uploadFile.FileName) == ".pdf"
+                    || Path.GetExtension(uploadFile.FileName) == ".rtf"
+                    || Path.GetExtension(uploadFile.FileName) == ".docx"
+                    || Path.GetExtension(uploadFile.FileName) == ".jpg"
+                    || Path.GetExtension(uploadFile.FileName) == ".gif"
+                    || Path.GetExtension(uploadFile.FileName) == ".png"
+                    || Path.GetExtension(uploadFile.FileName) == ".jpeg"
+                     )
+                    {
+                        string FilePath = ViewBag.UploadPath + DateTime.Now.Month + DateTime.Now.Year + "\\";
+                        string dosyaismi = Path.GetFileName(uploadFile.FileName);
+                        var yuklemeYeri = Path.Combine(FilePath, dosyaismi);
+                        media.FilePath = "uploads/media/" + DateTime.Now.Month + "-" + DateTime.Now.Year + "/";
+                        try
+                        {
+                            if (!Directory.Exists(FilePath))
+                            {
+                                Directory.CreateDirectory(FilePath);//Eðer klasör yoksa oluþtur
+                                uploadFile.CopyTo(new FileStream(yuklemeYeri, FileMode.Create));
+                            }
+                            else
+                            {
+                                uploadFile.CopyTo(new FileStream(yuklemeYeri, FileMode.Create));
+                                media.FileName = uploadFile.FileName;
+                            }
+                            _context.Update(media);
+                            await _context.SaveChangesAsync();
+                            return RedirectToAction("Index");
+                        }
+                        catch (Exception ex) { }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("FileName", "Dosya uzantýsý izin verilen uzantýlardan olmalýdýr.");
                     }
                 }
-                return RedirectToAction("Index");
+                else { ModelState.AddModelError("FileExist", "Lütfen bir dosya seçiniz!"); }
             }
             return View(media);
         }
+     
 
         // GET: CmsCore/Medias/Delete/5
         public async Task<IActionResult> Delete(long? id)

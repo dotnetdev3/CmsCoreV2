@@ -1,0 +1,135 @@
+@model CmsCoreV2.Models.Form
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Form</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="FormName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="FormName" class="form-control" />
+                <span asp-validation-for="FormName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="EmailTo" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="EmailTo" class="form-control" />
+                <span asp-validation-for="EmailTo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="EmailBcc" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="EmailBcc" class="form-control" />
+                <span asp-validation-for="EmailBcc" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="EmailCc" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="EmailCc" class="form-control" />
+                <span asp-validation-for="EmailCc" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Template" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Template" class="form-control" />
+                <span asp-validation-for="Template" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ClosingDescription" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ClosingDescription" class="form-control" />
+                <span asp-validation-for="ClosingDescription" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="GoogleAnalyticsCode" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="GoogleAnalyticsCode" class="form-control" />
+                <span asp-validation-for="GoogleAnalyticsCode" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="IsPublished" />
+                    <label asp-for="IsPublished"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="LanguageId" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.LanguageId"></select>
+                <span asp-validation-for="LanguageId" class="text-danger"></span>
+            </div>
+        </div>
+    <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="CreateDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CreateDate" class="form-control" />
+                <span asp-validation-for="CreateDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreatedBy" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CreatedBy" class="form-control" />
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UpdateDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UpdateDate" class="form-control" />
+                <span asp-validation-for="UpdateDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UpdatedBy" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UpdatedBy" class="form-control" />
+                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="AppTenantId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="AppTenantId" class="form-control" />
+                <span asp-validation-for="AppTenantId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

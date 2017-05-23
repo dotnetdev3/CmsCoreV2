@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CmsCoreV2.Models
 {
-    public class GalleryItemGalleryItemCategory:BaseEntity
+    public class GalleryItemGalleryItemCategory
     {
         public long GalleryItemId { get; set; }
         public virtual GalleryItem GalleryItem { get; set; }

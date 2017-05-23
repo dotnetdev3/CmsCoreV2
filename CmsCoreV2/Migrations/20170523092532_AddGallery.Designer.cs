@@ -9,8 +9,8 @@ using CmsCoreV2.Models;
 namespace CmsCoreV2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170523081042_initialCreate")]
-    partial class initialCreate
+    [Migration("20170523092532_AddGallery")]
+    partial class AddGallery
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -207,6 +207,111 @@ namespace CmsCoreV2.Migrations
                     b.HasIndex("FormId");
 
                     b.ToTable("FormFields");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.Gallery", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Galleries");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.GalleryItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<string>("Description");
+
+                    b.Property<long>("GalleryId");
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<string>("Meta1");
+
+                    b.Property<string>("Photo");
+
+                    b.Property<int>("Position");
+
+                    b.Property<string>("Title");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("Video");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GalleryId");
+
+                    b.ToTable("GalleryItems");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.GalleryItemCategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<long?>("ParentCategoryId");
+
+                    b.Property<string>("Slug");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentCategoryId");
+
+                    b.ToTable("GalleryItemCategories");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.GalleryItemGalleryItemCategory", b =>
+                {
+                    b.Property<long>("GalleryItemId");
+
+                    b.Property<long>("GalleryItemCategoryId");
+
+                    b.HasKey("GalleryItemId", "GalleryItemCategoryId");
+
+                    b.HasIndex("GalleryItemCategoryId");
+
+                    b.ToTable("GalleryItemGalleryItemCategories");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Language", b =>
@@ -638,6 +743,34 @@ namespace CmsCoreV2.Migrations
                     b.HasOne("CmsCoreV2.Models.Form", "Form")
                         .WithMany("FormFields")
                         .HasForeignKey("FormId");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.GalleryItem", b =>
+                {
+                    b.HasOne("CmsCoreV2.Models.Gallery", "Gallery")
+                        .WithMany("GalleryItems")
+                        .HasForeignKey("GalleryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.GalleryItemCategory", b =>
+                {
+                    b.HasOne("CmsCoreV2.Models.GalleryItemCategory", "ParentCategory")
+                        .WithMany("ChildCategories")
+                        .HasForeignKey("ParentCategoryId");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.GalleryItemGalleryItemCategory", b =>
+                {
+                    b.HasOne("CmsCoreV2.Models.GalleryItemCategory", "GalleryItemCategory")
+                        .WithMany("GalleryItemGalleryItemCategories")
+                        .HasForeignKey("GalleryItemCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CmsCoreV2.Models.GalleryItem", "GalleryItem")
+                        .WithMany("GalleryItemGalleryItemCategories")
+                        .HasForeignKey("GalleryItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Menu", b =>
