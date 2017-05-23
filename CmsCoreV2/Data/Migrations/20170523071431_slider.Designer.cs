@@ -8,14 +8,85 @@ using CmsCoreV2.Data;
 namespace CmsCoreV2.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170523062746_MediasAdd")]
-    partial class MediasAdd
+    [Migration("20170523071431_slider")]
+    partial class slider
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("CmsCore.Model.Entities.Slide", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<string>("CallToActionText");
+
+                    b.Property<string>("CallToActionUrl");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("DisplayTexts");
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<string>("Photo");
+
+                    b.Property<int>("Position");
+
+                    b.Property<long>("SliderId");
+
+                    b.Property<string>("SubTitle");
+
+                    b.Property<string>("Title");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("Video");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SliderId");
+
+                    b.ToTable("Slide");
+                });
+
+            modelBuilder.Entity("CmsCore.Model.Entities.Slider", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Template")
+                        .HasMaxLength(200);
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Slider");
+                });
 
             modelBuilder.Entity("CmsCoreV2.Models.ApplicationUser", b =>
                 {
@@ -65,38 +136,6 @@ namespace CmsCoreV2.Data.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("CmsCoreV2.Models.Media", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AppTenantId");
-
-                    b.Property<DateTime>("CreateDate");
-
-                    b.Property<string>("CreatedBy");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("FileName");
-
-                    b.Property<string>("FilePath");
-
-                    b.Property<string>("FileType");
-
-                    b.Property<decimal>("Size");
-
-                    b.Property<string>("Title");
-
-                    b.Property<DateTime>("UpdateDate");
-
-                    b.Property<string>("UpdatedBy");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Media");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Page", b =>
@@ -229,6 +268,14 @@ namespace CmsCoreV2.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("CmsCore.Model.Entities.Slide", b =>
+                {
+                    b.HasOne("CmsCore.Model.Entities.Slider", "Slider")
+                        .WithMany("Slides")
+                        .HasForeignKey("SliderId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
