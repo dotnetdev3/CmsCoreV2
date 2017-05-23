@@ -22,7 +22,9 @@ namespace CmsCoreV2.Data
                 var tenantId = this.tenant.AppTenantId;
 
                 QueryFilterManager.Filter<Page>(q => q.Where(x => x.AppTenantId == tenantId));
-
+                QueryFilterManager.Filter<Language>(q => q.Where(x => x.AppTenantId == tenantId));
+                QueryFilterManager.Filter<Media>(q => q.Where(x => x.AppTenantId == tenantId));
+               
                 QueryFilterManager.InitilizeGlobalFilter(this);
             }
         }
@@ -43,6 +45,9 @@ namespace CmsCoreV2.Data
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Resource> Resources { get; set; }
+        public DbSet<Redirect> Redirects { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
+        public DbSet<Slide> Slides { get; set; }
         // diğer dbsetler buraya eklenir
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -53,6 +58,5 @@ namespace CmsCoreV2.Data
             // Add your customizations after calling base.OnModelCreating(builder);
 
         }
-        // diğer dbsetler buraya eklenir
     }
 }

@@ -9,7 +9,7 @@ using CmsCoreV2.Models;
 namespace CmsCoreV2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170523074109_initialCreate")]
+    [Migration("20170523081042_initialCreate")]
     partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -266,7 +266,7 @@ namespace CmsCoreV2.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Media");
+                    b.ToTable("Medias");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Menu", b =>
@@ -383,6 +383,34 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("Pages");
                 });
 
+            modelBuilder.Entity("CmsCoreV2.Models.Redirect", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("NewUrl");
+
+                    b.Property<string>("OldUrl");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Redirects");
+                });
+
             modelBuilder.Entity("CmsCoreV2.Models.Resource", b =>
                 {
                     b.Property<long>("Id")
@@ -409,6 +437,77 @@ namespace CmsCoreV2.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("Resources");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.Slide", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<string>("CallToActionText");
+
+                    b.Property<string>("CallToActionUrl");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("DisplayTexts");
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<string>("Photo");
+
+                    b.Property<int>("Position");
+
+                    b.Property<long>("SliderId");
+
+                    b.Property<string>("SubTitle");
+
+                    b.Property<string>("Title");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("Video");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SliderId");
+
+                    b.ToTable("Slides");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.Slider", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Template")
+                        .HasMaxLength(200);
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -577,6 +676,14 @@ namespace CmsCoreV2.Migrations
                     b.HasOne("CmsCoreV2.Models.Language", "Language")
                         .WithMany()
                         .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.Slide", b =>
+                {
+                    b.HasOne("CmsCoreV2.Models.Slider", "Slider")
+                        .WithMany("Slides")
+                        .HasForeignKey("SliderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
