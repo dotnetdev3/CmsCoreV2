@@ -5,13 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CmsCoreV2.Models;
 using CmsCoreV2.Data;
-using CmsCoreV2.Data.Migrations;
+using CmsCoreV2.Models;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
-    [Area("CmsCoreV2")]
+    [Area("CmsCore")]
     public class SlidesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,7 +23,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Slides
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Slide.Include(s => s.Slider);
+            var applicationDbContext = _context.Slides.Include(s => s.Slider);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -36,7 +35,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var slide = await _context.Slide
+            var slide = await _context.Slides
                 .Include(s => s.Slider)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (slide == null)
@@ -50,7 +49,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Slides/Create
         public IActionResult Create()
         {
-            ViewData["SliderId"] = new SelectList(_context.Slider, "Id", "Id");
+            ViewData["SliderId"] = new SelectList(_context.Sliders, "Id", "Id");
             return View();
         }
 
@@ -67,7 +66,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["SliderId"] = new SelectList(_context.Slider, "Id", "Id", slide.SliderId);
+            ViewData["SliderId"] = new SelectList(_context.Sliders, "Id", "Id", slide.SliderId);
             return View(slide);
         }
 
@@ -79,12 +78,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var slide = await _context.Slide.SingleOrDefaultAsync(m => m.Id == id);
+            var slide = await _context.Slides.SingleOrDefaultAsync(m => m.Id == id);
             if (slide == null)
             {
                 return NotFound();
             }
-            ViewData["SliderId"] = new SelectList(_context.Slider, "Id", "Id", slide.SliderId);
+            ViewData["SliderId"] = new SelectList(_context.Sliders, "Id", "Id", slide.SliderId);
             return View(slide);
         }
 
@@ -120,7 +119,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["SliderId"] = new SelectList(_context.Slider, "Id", "Id", slide.SliderId);
+            ViewData["SliderId"] = new SelectList(_context.Sliders, "Id", "Id", slide.SliderId);
             return View(slide);
         }
 
@@ -132,7 +131,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var slide = await _context.Slide
+            var slide = await _context.Slides
                 .Include(s => s.Slider)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (slide == null)
@@ -148,15 +147,15 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var slide = await _context.Slide.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Slide.Remove(slide);
+            var slide = await _context.Slides.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Slides.Remove(slide);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         private bool SlideExists(long id)
         {
-            return _context.Slide.Any(e => e.Id == id);
+            return _context.Slides.Any(e => e.Id == id);
         }
     }
 }

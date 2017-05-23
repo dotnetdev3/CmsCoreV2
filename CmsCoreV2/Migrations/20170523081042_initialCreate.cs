@@ -78,7 +78,7 @@ namespace CmsCoreV2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Media",
+                name: "Medias",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -97,7 +97,48 @@ namespace CmsCoreV2.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Media", x => x.Id);
+                    table.PrimaryKey("PK_Medias", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Redirects",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    NewUrl = table.Column<string>(nullable: true),
+                    OldUrl = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Redirects", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sliders",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Template = table.Column<string>(maxLength: 200, nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sliders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -324,6 +365,40 @@ namespace CmsCoreV2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Slides",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CallToActionText = table.Column<string>(nullable: true),
+                    CallToActionUrl = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    DisplayTexts = table.Column<bool>(nullable: false),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    Photo = table.Column<string>(nullable: true),
+                    Position = table.Column<int>(nullable: false),
+                    SliderId = table.Column<long>(nullable: false),
+                    SubTitle = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true),
+                    Video = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Slides", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Slides_Sliders_SliderId",
+                        column: x => x.SliderId,
+                        principalTable: "Sliders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -490,6 +565,11 @@ namespace CmsCoreV2.Migrations
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Slides_SliderId",
+                table: "Slides",
+                column: "SliderId");
+
+            migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
@@ -525,7 +605,7 @@ namespace CmsCoreV2.Migrations
                 name: "FormFields");
 
             migrationBuilder.DropTable(
-                name: "Media");
+                name: "Medias");
 
             migrationBuilder.DropTable(
                 name: "MenuItems");
@@ -534,7 +614,13 @@ namespace CmsCoreV2.Migrations
                 name: "Pages");
 
             migrationBuilder.DropTable(
+                name: "Redirects");
+
+            migrationBuilder.DropTable(
                 name: "Resources");
+
+            migrationBuilder.DropTable(
+                name: "Slides");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -559,6 +645,9 @@ namespace CmsCoreV2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Menus");
+
+            migrationBuilder.DropTable(
+                name: "Sliders");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

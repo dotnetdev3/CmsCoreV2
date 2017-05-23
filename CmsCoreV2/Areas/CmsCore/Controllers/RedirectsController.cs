@@ -11,22 +11,22 @@ using CmsCoreV2.Models;
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
-    public class SlidersController : Controller
+    public class RedirectsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public SlidersController(ApplicationDbContext context)
+        public RedirectsController(ApplicationDbContext context)
         {
             _context = context;    
         }
 
-        // GET: CmsCore/Sliders
+        // GET: CmsCore/Redirects
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Sliders.ToListAsync());
+            return View(await _context.Redirects.ToListAsync());
         }
 
-        // GET: CmsCore/Sliders/Details/5
+        // GET: CmsCore/Redirects/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -34,39 +34,39 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var slider = await _context.Sliders
+            var redirect = await _context.Redirects
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (slider == null)
+            if (redirect == null)
             {
                 return NotFound();
             }
 
-            return View(slider);
+            return View(redirect);
         }
 
-        // GET: CmsCore/Sliders/Create
+        // GET: CmsCore/Redirects/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: CmsCore/Sliders/Create
+        // POST: CmsCore/Redirects/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,IsPublished,Template,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Slider slider)
+        public async Task<IActionResult> Create([Bind("Name,OldUrl,NewUrl,IsActive,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Redirect redirect)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(slider);
+                _context.Add(redirect);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(slider);
+            return View(redirect);
         }
 
-        // GET: CmsCore/Sliders/Edit/5
+        // GET: CmsCore/Redirects/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -74,22 +74,22 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var slider = await _context.Sliders.SingleOrDefaultAsync(m => m.Id == id);
-            if (slider == null)
+            var redirect = await _context.Redirects.SingleOrDefaultAsync(m => m.Id == id);
+            if (redirect == null)
             {
                 return NotFound();
             }
-            return View(slider);
+            return View(redirect);
         }
 
-        // POST: CmsCore/Sliders/Edit/5
+        // POST: CmsCore/Redirects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,IsPublished,Template,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Slider slider)
+        public async Task<IActionResult> Edit(long id, [Bind("Name,OldUrl,NewUrl,IsActive,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Redirect redirect)
         {
-            if (id != slider.Id)
+            if (id != redirect.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
-                    _context.Update(slider);
+                    _context.Update(redirect);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SliderExists(slider.Id))
+                    if (!RedirectExists(redirect.Id))
                     {
                         return NotFound();
                     }
@@ -114,10 +114,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(slider);
+            return View(redirect);
         }
 
-        // GET: CmsCore/Sliders/Delete/5
+        // GET: CmsCore/Redirects/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -125,30 +125,30 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var slider = await _context.Sliders
+            var redirect = await _context.Redirects
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (slider == null)
+            if (redirect == null)
             {
                 return NotFound();
             }
 
-            return View(slider);
+            return View(redirect);
         }
 
-        // POST: CmsCore/Sliders/Delete/5
+        // POST: CmsCore/Redirects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var slider = await _context.Sliders.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Sliders.Remove(slider);
+            var redirect = await _context.Redirects.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Redirects.Remove(redirect);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool SliderExists(long id)
+        private bool RedirectExists(long id)
         {
-            return _context.Sliders.Any(e => e.Id == id);
+            return _context.Redirects.Any(e => e.Id == id);
         }
     }
 }

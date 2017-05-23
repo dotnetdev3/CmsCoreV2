@@ -8,25 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 
-namespace CmsCoreV2.Areas.CmsCore.Controllers
+namespace CmsCoreV2.Controllers
 {
-    [Area("CmsCore")]
-    public class SlidersController : Controller
+    public class PagesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public SlidersController(ApplicationDbContext context)
+        public PagesController(ApplicationDbContext context)
         {
             _context = context;    
         }
 
-        // GET: CmsCore/Sliders
+        // GET: Pages
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Sliders.ToListAsync());
+            var applicationDbContext = _context.Pages.Include(p => p.Language).Include(p => p.ParentPage);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: CmsCore/Sliders/Details/5
+        // GET: Pages/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -34,39 +34,45 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var slider = await _context.Sliders
+            var page = await _context.Pages
+                .Include(p => p.Language)
+                .Include(p => p.ParentPage)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (slider == null)
+            if (page == null)
             {
                 return NotFound();
             }
 
-            return View(slider);
+            return View(page);
         }
 
-        // GET: CmsCore/Sliders/Create
+        // GET: Pages/Create
         public IActionResult Create()
         {
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id");
+            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Id");
             return View();
         }
 
-        // POST: CmsCore/Sliders/Create
+        // POST: Pages/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,IsPublished,Template,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Slider slider)
+        public async Task<IActionResult> Create([Bind("Title,Slug,Body,ViewCount,ParentPageId,SeoTitle,SeoDescription,SeoKeywords,IsPublished,Template,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Page page)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(slider);
+                _context.Add(page);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(slider);
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id", page.LanguageId);
+            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Id", page.ParentPageId);
+            return View(page);
         }
 
-        // GET: CmsCore/Sliders/Edit/5
+        // GET: Pages/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -74,22 +80,24 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var slider = await _context.Sliders.SingleOrDefaultAsync(m => m.Id == id);
-            if (slider == null)
+            var page = await _context.Pages.SingleOrDefaultAsync(m => m.Id == id);
+            if (page == null)
             {
                 return NotFound();
             }
-            return View(slider);
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id", page.LanguageId);
+            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Id", page.ParentPageId);
+            return View(page);
         }
 
-        // POST: CmsCore/Sliders/Edit/5
+        // POST: Pages/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,IsPublished,Template,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Slider slider)
+        public async Task<IActionResult> Edit(long id, [Bind("Title,Slug,Body,ViewCount,ParentPageId,SeoTitle,SeoDescription,SeoKeywords,IsPublished,Template,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Page page)
         {
-            if (id != slider.Id)
+            if (id != page.Id)
             {
                 return NotFound();
             }
@@ -98,12 +106,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
-                    _context.Update(slider);
+                    _context.Update(page);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SliderExists(slider.Id))
+                    if (!PageExists(page.Id))
                     {
                         return NotFound();
                     }
@@ -114,10 +122,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(slider);
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id", page.LanguageId);
+            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Id", page.ParentPageId);
+            return View(page);
         }
 
-        // GET: CmsCore/Sliders/Delete/5
+        // GET: Pages/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -125,30 +135,32 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var slider = await _context.Sliders
+            var page = await _context.Pages
+                .Include(p => p.Language)
+                .Include(p => p.ParentPage)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (slider == null)
+            if (page == null)
             {
                 return NotFound();
             }
 
-            return View(slider);
+            return View(page);
         }
 
-        // POST: CmsCore/Sliders/Delete/5
+        // POST: Pages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var slider = await _context.Sliders.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Sliders.Remove(slider);
+            var page = await _context.Pages.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Pages.Remove(page);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool SliderExists(long id)
+        private bool PageExists(long id)
         {
-            return _context.Sliders.Any(e => e.Id == id);
+            return _context.Pages.Any(e => e.Id == id);
         }
     }
 }

@@ -1,4 +1,4 @@
-@model CmsCoreV2.Models.Slide
+@model CmsCoreV2.Models.Page
 
 @{
     ViewData["Title"] = "Details";
@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Slide</h4>
+    <h4>Page</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -17,58 +17,52 @@
             @Html.DisplayFor(model => model.Title)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.SubTitle)
+            @Html.DisplayNameFor(model => model.Slug)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.SubTitle)
+            @Html.DisplayFor(model => model.Slug)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Body)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.Body)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Position)
+            @Html.DisplayNameFor(model => model.ViewCount)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Position)
+            @Html.DisplayFor(model => model.ViewCount)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Photo)
+            @Html.DisplayNameFor(model => model.SeoTitle)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Photo)
+            @Html.DisplayFor(model => model.SeoTitle)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Video)
+            @Html.DisplayNameFor(model => model.SeoDescription)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Video)
+            @Html.DisplayFor(model => model.SeoDescription)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.CallToActionText)
+            @Html.DisplayNameFor(model => model.SeoKeywords)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CallToActionText)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CallToActionUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CallToActionUrl)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DisplayTexts)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DisplayTexts)
+            @Html.DisplayFor(model => model.SeoKeywords)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.IsPublished)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.IsPublished)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Template)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Template)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.CreateDate)
@@ -101,10 +95,16 @@
             @Html.DisplayFor(model => model.AppTenantId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Slider)
+            @Html.DisplayNameFor(model => model.Language)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Slider.Id)
+            @Html.DisplayFor(model => model.Language.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentPage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParentPage.Id)
         </dd>
     </dl>
 </div>
