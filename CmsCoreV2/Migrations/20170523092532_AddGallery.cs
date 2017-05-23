@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CmsCoreV2.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class AddGallery : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,6 +54,52 @@ namespace CmsCoreV2.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Feedbacks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Galleries",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Galleries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GalleryItemCategories",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    ParentCategoryId = table.Column<long>(nullable: true),
+                    Slug = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GalleryItemCategories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GalleryItemCategories_GalleryItemCategories_ParentCategoryId",
+                        column: x => x.ParentCategoryId,
+                        principalTable: "GalleryItemCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -235,6 +281,37 @@ namespace CmsCoreV2.Migrations
                         name: "FK_FeedbackValues_Feedbacks_FeedbackId",
                         column: x => x.FeedbackId,
                         principalTable: "Feedbacks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GalleryItems",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    GalleryId = table.Column<long>(nullable: false),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    Meta1 = table.Column<string>(nullable: true),
+                    Photo = table.Column<string>(nullable: true),
+                    Position = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true),
+                    Video = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GalleryItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GalleryItems_Galleries_GalleryId",
+                        column: x => x.GalleryId,
+                        principalTable: "Galleries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -444,6 +521,30 @@ namespace CmsCoreV2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GalleryItemGalleryItemCategories",
+                columns: table => new
+                {
+                    GalleryItemId = table.Column<long>(nullable: false),
+                    GalleryItemCategoryId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GalleryItemGalleryItemCategories", x => new { x.GalleryItemId, x.GalleryItemCategoryId });
+                    table.ForeignKey(
+                        name: "FK_GalleryItemGalleryItemCategories_GalleryItemCategories_GalleryItemCategoryId",
+                        column: x => x.GalleryItemCategoryId,
+                        principalTable: "GalleryItemCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GalleryItemGalleryItemCategories_GalleryItems_GalleryItemId",
+                        column: x => x.GalleryItemId,
+                        principalTable: "GalleryItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FormFields",
                 columns: table => new
                 {
@@ -535,6 +636,21 @@ namespace CmsCoreV2.Migrations
                 column: "FormId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GalleryItems_GalleryId",
+                table: "GalleryItems",
+                column: "GalleryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GalleryItemCategories_ParentCategoryId",
+                table: "GalleryItemCategories",
+                column: "ParentCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GalleryItemGalleryItemCategories_GalleryItemCategoryId",
+                table: "GalleryItemGalleryItemCategories",
+                column: "GalleryItemCategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Menus_LanguageId",
                 table: "Menus",
                 column: "LanguageId");
@@ -605,6 +721,9 @@ namespace CmsCoreV2.Migrations
                 name: "FormFields");
 
             migrationBuilder.DropTable(
+                name: "GalleryItemGalleryItemCategories");
+
+            migrationBuilder.DropTable(
                 name: "Medias");
 
             migrationBuilder.DropTable(
@@ -644,6 +763,12 @@ namespace CmsCoreV2.Migrations
                 name: "Forms");
 
             migrationBuilder.DropTable(
+                name: "GalleryItemCategories");
+
+            migrationBuilder.DropTable(
+                name: "GalleryItems");
+
+            migrationBuilder.DropTable(
                 name: "Menus");
 
             migrationBuilder.DropTable(
@@ -654,6 +779,9 @@ namespace CmsCoreV2.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Galleries");
 
             migrationBuilder.DropTable(
                 name: "Languages");
