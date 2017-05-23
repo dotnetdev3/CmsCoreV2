@@ -1,4 +1,4 @@
-@model IEnumerable<CmsCoreV2.Models.Gallery>
+@model IEnumerable<CmsCoreV2.Models.MenuItem>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,6 +16,15 @@
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Url)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Target)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Position)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.IsPublished)
                 </th>
                 <th>
@@ -30,8 +39,16 @@
                 <th>
                     @Html.DisplayNameFor(model => model.UpdatedBy)
                 </th>
-                
-            <th>Actions</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AppTenantId)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Menu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParentMenuItem)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -39,6 +56,15 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Url)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Target)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsPublished)
@@ -55,7 +81,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.UpdatedBy)
             </td>
-           
+            <td>
+                @Html.DisplayFor(modelItem => item.AppTenantId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Menu.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentMenuItem.Id)
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
