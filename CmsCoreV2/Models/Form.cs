@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,7 +14,6 @@ namespace CmsCoreV2.Models
             IsPublished = true;
             FormFields = new HashSet<FormField>();
             LanguageId = 1;
-            Translations = new HashSet<Form>();
         }
         public string FormName { get; set; }
 
@@ -37,7 +37,7 @@ namespace CmsCoreV2.Models
         public bool IsPublished { get; set; }
 
         public long LanguageId { get; set; }
+        [ForeignKey("LanguageId")]
         public virtual Language Language { get; set; }
-        public virtual ICollection<Form> Translations { get; set; }
     }
 }

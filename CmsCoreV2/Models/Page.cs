@@ -15,15 +15,16 @@ namespace CmsCoreV2.Models
             ViewCount = 0;
             ChildPages = new HashSet<Page>();
             LanguageId = 1;
-            Translations = new HashSet<Page>();
         }
         public string Title { get; set; }
         public string Slug { get; set; }
         public string Body { get; set; }
         public long ViewCount { get; set; }
 
+        
         public long? ParentPageId { get; set; }
-        public virtual Page ParentPage { get; set; }
+        [ForeignKey("ParentPageId")]
+        public Page ParentPage { get; set; }
         public virtual ICollection<Page> ChildPages { get; set; }
 
         public string SeoTitle { get; set; }
@@ -36,7 +37,8 @@ namespace CmsCoreV2.Models
         public string Template  { get; set; } 
 
         public long LanguageId { get; set; }
-        public virtual Language Language { get; set; }
-        public virtual ICollection<Page> Translations { get; set; }
+        [ForeignKey("LanguageId")]
+        public Language Language { get; set; }
+       
     }
 }

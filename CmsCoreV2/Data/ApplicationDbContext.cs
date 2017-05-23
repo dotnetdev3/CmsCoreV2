@@ -41,6 +41,8 @@ namespace CmsCoreV2.Data
         public DbSet<FeedbackValue> FeedbackValues { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<Menu> Menus { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<Resource> Resources { get; set; }
         // diğer dbsetler buraya eklenir
 
         protected override void OnModelCreating(ModelBuilder builder)

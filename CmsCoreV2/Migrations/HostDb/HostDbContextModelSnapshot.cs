@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using CmsCoreV2.Data;
 
-namespace CmsCoreV2.Migrations
+namespace CmsCoreV2.Migrations.HostDb
 {
     [DbContext(typeof(HostDbContext))]
     partial class HostDbContextModelSnapshot : ModelSnapshot
