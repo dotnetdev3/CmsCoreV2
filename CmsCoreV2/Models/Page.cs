@@ -9,17 +9,34 @@ namespace CmsCoreV2.Models
 {
     public class Page : BaseEntity
     {
-        public Page() : base()
-        {         
-            CreateDate = DateTime.Now;
-            CreatedBy = "username";
-            UpdateDate = DateTime.Now;
-            UpdatedBy = "username";
+        public Page()
+        {
+            IsPublished = true;
+            ViewCount = 0;
+            ChildPages = new HashSet<Page>();
+            LanguageId = 1;
+            Translations = new HashSet<Page>();
         }
-        [StringLength(200)]
         public string Title { get; set; }
-      
+        public string Slug { get; set; }
         public string Body { get; set; }
-    }
+        public long ViewCount { get; set; }
 
+        public long? ParentPageId { get; set; }
+        public virtual Page ParentPage { get; set; }
+        public virtual ICollection<Page> ChildPages { get; set; }
+
+        public string SeoTitle { get; set; }
+        public string SeoDescription { get; set; }
+        public string SeoKeywords { get; set; }
+
+        public bool IsPublished { get; set; }
+
+        [StringLength(200)]
+        public string Template  { get; set; } 
+
+        public long LanguageId { get; set; }
+        public virtual Language Language { get; set; }
+        public virtual ICollection<Page> Translations { get; set; }
+    }
 }
