@@ -37,6 +37,7 @@ namespace CmsCoreV2.Models
         public bool IsPublished { get; set; }
 
         public long LanguageId { get; set; }
+        public virtual Language Language { get; set; }
         public virtual ICollection<Form> Translations { get; set; }
     }
 }
