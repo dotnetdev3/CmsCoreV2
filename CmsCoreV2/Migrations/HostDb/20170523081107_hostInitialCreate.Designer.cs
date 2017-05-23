@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using CmsCoreV2.Data;
 
-namespace CmsCoreV2.Migrations
+namespace CmsCoreV2.Migrations.HostDb
 {
     [DbContext(typeof(HostDbContext))]
-    [Migration("20170517091419_HostDbInitialCreate")]
-    partial class HostDbInitialCreate
+    [Migration("20170523081107_hostInitialCreate")]
+    partial class hostInitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

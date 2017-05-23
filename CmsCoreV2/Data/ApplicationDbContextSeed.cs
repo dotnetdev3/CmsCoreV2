@@ -15,22 +15,33 @@ namespace CmsCoreV2.Data
             context.Database.Migrate();
 
             // Look for any pages record.
-            if (context.Pages.Any())
+            if (context.Languages.Any())
             {
                 return;   // DB has been seeded
             }
             // Perform seed operations
-            AddPages(context, tenant);
-            AddPosts(context);
-            AddPostCategories(context);
-            AddPostPostCategories(context);
+            var languageId = AddLanguages(context, tenant);
+            AddPages(context, tenant, languageId);
 
 
         }
-        public static void AddPages(ApplicationDbContext context, AppTenant tenant)
+        public static long AddLanguages(ApplicationDbContext context, AppTenant tenant)
+        {
+            var l = new Language();
+            l.Name = "Turkish";
+            l.NativeName = "Türkçe";
+            l.IsActive = true;
+            l.AppTenantId = tenant.AppTenantId;
+            context.Languages.Add(l);
+            context.SaveChanges();
+            return l.Id;
+        }
+        public static void AddPages(ApplicationDbContext context, AppTenant tenant, long languageId)
         {
             var p = new Page();
             p.Title = "Home";
+            p.Slug = "home";
+            p.LanguageId = languageId;
             p.AppTenantId = tenant.AppTenantId;
             context.Pages.Add(p);
             context.SaveChanges();

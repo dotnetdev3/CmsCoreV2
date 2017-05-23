@@ -22,7 +22,9 @@ namespace CmsCoreV2.Data
                 var tenantId = this.tenant.AppTenantId;
 
                 QueryFilterManager.Filter<Page>(q => q.Where(x => x.AppTenantId == tenantId));
-
+                QueryFilterManager.Filter<Language>(q => q.Where(x => x.AppTenantId == tenantId));
+                QueryFilterManager.Filter<Media>(q => q.Where(x => x.AppTenantId == tenantId));
+               
                 QueryFilterManager.InitilizeGlobalFilter(this);
             }
         }
@@ -37,6 +39,22 @@ namespace CmsCoreV2.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<PostPostCategory>PostPostCategories { get; set; }
+        public DbSet<Media> Medias { get; set; }
+        public DbSet<Form> Forms { get; set; }
+        public DbSet<FormField> FormFields { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<FeedbackValue> FeedbackValues { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<Resource> Resources { get; set; }
+        public DbSet<Redirect> Redirects { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
+        public DbSet<Slide> Slides { get; set; }
+        public DbSet<Gallery> Galleries { get; set; }
+        public DbSet<GalleryItem> GalleryItems { get; set; }
+        public DbSet<GalleryItemCategory> GalleryItemCategories { get; set; }
+
         // diğer dbsetler buraya eklenir
 
         protected override void OnModelCreating(ModelBuilder builder)
