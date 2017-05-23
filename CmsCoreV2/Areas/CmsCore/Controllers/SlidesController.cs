@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CmsCore.Model.Entities;
+using CmsCoreV2.Models;
 using CmsCoreV2.Data;
+using CmsCoreV2.Data.Migrations;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
-    [Area("CmsCore")]
+    [Area("CmsCoreV2")]
     public class SlidesController : Controller
     {
         private readonly ApplicationDbContext _context;

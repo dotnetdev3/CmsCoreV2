@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CmsCore.Model.Entities;
+using CmsCoreV2.Models;
 using CmsCoreV2.Data;
+using CmsCoreV2.Data.Migrations;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
-    [Area("CmsCore")]
+    [Area("CmsCoreV2")]
     public class SlidersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -55,7 +56,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,IsPublished,Template,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Slider slider)
+        public async Task<IActionResult> Create([Bind("Name,IsPublished,Template,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] slider slider)
         {
             if (ModelState.IsValid)
             {

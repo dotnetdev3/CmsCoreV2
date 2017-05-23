@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CmsCore.Model.Entities
+namespace CmsCoreV2.Models
 {
     public class Slider : BaseEntity
     {
