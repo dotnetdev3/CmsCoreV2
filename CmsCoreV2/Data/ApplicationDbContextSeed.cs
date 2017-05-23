@@ -21,17 +21,30 @@ namespace CmsCoreV2.Data
             }
             // Perform seed operations
             AddPages(context, tenant);
+            AddPosts(context);
+            AddPostCategories(context);
+            AddPostPostCategories(context);
 
 
         }
         public static void AddPages(ApplicationDbContext context, AppTenant tenant)
         {
             var p = new Page();
-            p.Title = "Home";       
+            p.Title = "Home";
             p.AppTenantId = tenant.AppTenantId;
             context.Pages.Add(p);
             context.SaveChanges();
         }
+        public static void AddPosts ( ApplicationDbContext context)
+        {
+        }
+        public static void AddPostCategories(ApplicationDbContext context)
+        {
+        }
+        public static void AddPostPostCategories(ApplicationDbContext context)
+        {
+        }
+
     }
 }
 

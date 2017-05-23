@@ -8,9 +8,10 @@ using CmsCoreV2.Data;
 namespace CmsCoreV2.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170523071351_AddPost")]
+    partial class AddPost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -134,48 +135,7 @@ namespace CmsCoreV2.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("CmsCoreV2.Models.PostCategory", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AppTenantId");
-
-                    b.Property<DateTime>("CreateDate");
-
-                    b.Property<string>("CreatedBy");
-
-                    b.Property<string>("Description");
-
-                    b.Property<long>("LanguageId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Slug");
-
-                    b.Property<DateTime>("UpdateDate");
-
-                    b.Property<string>("UpdatedBy");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PostCategories");
-                });
-
-            modelBuilder.Entity("CmsCoreV2.Models.PostPostCategory", b =>
-                {
-                    b.Property<long>("PostId");
-
-                    b.Property<long>("PostCategoryId");
-
-                    b.HasKey("PostId", "PostCategoryId");
-
-                    b.HasIndex("PostCategoryId");
-
-                    b.ToTable("PostPostCategories");
+                    b.ToTable("Post");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -283,19 +243,6 @@ namespace CmsCoreV2.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("CmsCoreV2.Models.PostPostCategory", b =>
-                {
-                    b.HasOne("CmsCoreV2.Models.PostCategory", "PostCategory")
-                        .WithMany("PostPostCategories")
-                        .HasForeignKey("PostCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CmsCoreV2.Models.Post", "Post")
-                        .WithMany("PostPostCategories")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
