@@ -3,91 +3,106 @@
 @{
     ViewData["Title"] = "Create";
 }
+<link href="@(ViewBag.AssetsUrl)global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css">
+<script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
+<script src="~/js/generate-slug.js"> </script>
+
+<style>
+    textarea {
+        max-width: 100%;
+        max-height: 100%;
+    }
+</style>
+
+<br />
 
 <h2>Create</h2>
 
 <form asp-action="Create">
     <div class="form-horizontal">
-        <h4>Post</h4>
+        <h4>New Post Add</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="Title" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+            <label asp-for="Title"></label>
+            <input type="text" asp-for="Title" class="form-control" tabindex="1" autofocus="autofocus" onblur="if ($('#Slug').val() == '') {$('#Slug').val(slug($('#Title').val().toLowerCase(),'-'));}" />
+            <span class="text-danger" asp-validation-for="Title"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Slug"></label>
+            <input type="text" asp-for="Slug" class="form-control" tabindex="2" onblur="if ($('#Slug').val() == '') {$('#Slug').val(slug($('#Title').val().toLowerCase(),'-'));}" />
+            <span class="text-danger" asp-validation-for="Slug"></span>
+        </div>
+
+        <div class="form-body">
+            <label asp-for="Body"></label>
+            <p>
+                <textarea asp-for="Body" tabindex="3"></textarea>
+                <span class="text-danger" asp-validation-for="Body"></span>
+                <script type="text/javascript">
+                    CKEDITOR.replace('Body');
+                </script>
+            </p>
+            <div id="content2" style="display: none" data-sample="2">
+                <p>The number of <code>change</code> events:<strong><span id="changes"></span></strong>.</p>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Slug" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Slug" class="form-control" />
-                <span asp-validation-for="Slug" class="text-danger"></span>
+            @Html.DisplayNameFor(model => model.Photo)
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.Photo, new { @class = "form-control" })
+                <span class="input-group-btn">
+                    <button class="btn btn-info" id="uploadModal" type="button">...</button>
+                </span>
             </div>
+            @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
         </div>
+
         <div class="form-group">
-            <label asp-for="Body" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Body" class="form-control" />
-                <span asp-validation-for="Body" class="text-danger"></span>
-            </div>
+            @Html.LabelFor(model => model.Description)
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
         </div>
+
+
         <div class="form-group">
-            <label asp-for="Description" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
+            @Html.LabelFor(model => model.Meta1)
+            @Html.TextBoxFor(model => model.Meta1, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Meta1, "", new { @class = "text-danger" })
         </div>
+
+
         <div class="form-group">
-            <label asp-for="Photo" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Photo" class="form-control" />
-                <span asp-validation-for="Photo" class="text-danger"></span>
+            @Html.LabelFor(model => model.Meta2)
+            @Html.TextBoxFor(model => model.Meta2, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Meta2, "", new { @class = "text-danger" })
+        </div>
+
+        <br />
+        <div class="portlet light bordered">
+            <div class="portlet-body form">
+                <fieldset>
+                    <legend>SEO Özellikleri</legend>
+                    <div class="form-group">
+                        <label asp-for="SeoTitle"></label>
+                        <input type="text" asp-for="SeoTitle" class="form-control" tabindex="6" />
+                        <span class="text-danger" asp-validation-for="SeoTitle"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SeoDescription"></label>
+                        <textarea asp-for="SeoDescription" class="form-control" tabindex="7"></textarea>
+                        <span class="text-danger" asp-validation-for="SeoDescription"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SeoKeywords"></label>
+                        <textarea asp-for="SeoKeywords" class="form-control" tabindex="8"></textarea>
+                        <span class="text-danger" asp-validation-for="SeoKeywords"></span>
+                    </div>
+                </fieldset>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Meta1" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Meta1" class="form-control" />
-                <span asp-validation-for="Meta1" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Meta2" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Meta2" class="form-control" />
-                <span asp-validation-for="Meta2" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="ViewCount" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="ViewCount" class="form-control" />
-                <span asp-validation-for="ViewCount" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="SeoTitle" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="SeoTitle" class="form-control" />
-                <span asp-validation-for="SeoTitle" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="SeoDescription" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="SeoDescription" class="form-control" />
-                <span asp-validation-for="SeoDescription" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="SeoKeywords" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="SeoKeywords" class="form-control" />
-                <span asp-validation-for="SeoKeywords" class="text-danger"></span>
-            </div>
-        </div>
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <div class="checkbox">
@@ -96,48 +111,8 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="LanguageId" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="LanguageId" class="form-control" />
-                <span asp-validation-for="LanguageId" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="CreateDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="CreateDate" class="form-control" />
-                <span asp-validation-for="CreateDate" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="CreatedBy" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="UpdateDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="UpdateDate" class="form-control" />
-                <span asp-validation-for="UpdateDate" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="UpdatedBy" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="UpdatedBy" class="form-control" />
-                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="AppTenantId" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="AppTenantId" class="form-control" />
-                <span asp-validation-for="AppTenantId" class="text-danger"></span>
-            </div>
-        </div>
+        
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
