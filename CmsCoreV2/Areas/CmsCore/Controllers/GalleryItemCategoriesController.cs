@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using Microsoft.AspNetCore.Hosting;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -14,10 +16,14 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     public class GalleryItemCategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private IHostingEnvironment env;
+        protected readonly AppTenant tenant;
 
-        public GalleryItemCategoriesController(ApplicationDbContext context)
+        public GalleryItemCategoriesController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context)
         {
-            _context = context;    
+            _context = context;
+            this.env = _env;
+            this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/GalleryItemCategories
