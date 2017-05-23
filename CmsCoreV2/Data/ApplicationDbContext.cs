@@ -35,6 +35,9 @@ namespace CmsCoreV2.Data
 
         public DbSet<Page> Pages { get; set; }
         public DbSet<Media> Medias { get; set; }
+        public DbSet<Gallery> Galleries { get; set; }
+        public DbSet<GalleryItem> GalleryItems { get; set; }
+        public DbSet<GalleryItemCategory> GalleryItemCategories { get; set; }
         // diğer dbsetler buraya eklenir
 
         protected override void OnModelCreating(ModelBuilder builder)
