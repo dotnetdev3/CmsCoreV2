@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,11 +15,12 @@ namespace CmsCoreV2.Models
             LanguageId = 1;
         }
         public string Name { get; set; }
-        public long? MenuLocationId { get; set; }
-       // public virtual MenuLocation MenuLocation { get; set; }
+        [StringLength(200)]
+        public string MenuLocation { get; set; }
         public ICollection<MenuItem> MenuItems { get; set; }
         public long LanguageId { get; set; }
-        //public virtual Language Language { get; set; }
+        [ForeignKey("LanguageId")]
+        public virtual Language Language { get; set; }
 
     }
 }

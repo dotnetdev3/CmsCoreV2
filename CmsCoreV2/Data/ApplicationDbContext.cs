@@ -35,6 +35,14 @@ namespace CmsCoreV2.Data
 
         public DbSet<Page> Pages { get; set; }
         public DbSet<Media> Medias { get; set; }
+        public DbSet<Form> Forms { get; set; }
+        public DbSet<FormField> FormFields { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<FeedbackValue> FeedbackValues { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<Resource> Resources { get; set; }
         public DbSet<Gallery> Galleries { get; set; }
         public DbSet<GalleryItem> GalleryItems { get; set; }
         public DbSet<GalleryItemCategory> GalleryItemCategories { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace CmsCoreV2.Models
         public FieldType FieldType { get; set; }
 
         public long? FormId { get; set; }
+        [ForeignKey("FormId")]
         public virtual Form Form { get; set; }
     }
 }
