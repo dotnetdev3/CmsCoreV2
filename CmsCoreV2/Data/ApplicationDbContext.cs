@@ -24,7 +24,11 @@ namespace CmsCoreV2.Data
                 QueryFilterManager.Filter<Page>(q => q.Where(x => x.AppTenantId == tenantId));
                 QueryFilterManager.Filter<Language>(q => q.Where(x => x.AppTenantId == tenantId));
                 QueryFilterManager.Filter<Media>(q => q.Where(x => x.AppTenantId == tenantId));
+                QueryFilterManager.Filter<Gallery>(q => q.Where(x => x.AppTenantId == tenantId));
+                QueryFilterManager.Filter<GalleryItem>(q => q.Where(x => x.AppTenantId == tenantId));
+                QueryFilterManager.Filter<GalleryItemCategory>(q => q.Where(x => x.AppTenantId == tenantId));
                
+
                 QueryFilterManager.InitilizeGlobalFilter(this);
             }
         }
@@ -51,6 +55,7 @@ namespace CmsCoreV2.Data
         public DbSet<Gallery> Galleries { get; set; }
         public DbSet<GalleryItem> GalleryItems { get; set; }
         public DbSet<GalleryItemCategory> GalleryItemCategories { get; set; }
+        public DbSet<GalleryItemGalleryItemCategory> GalleryItemGalleryItemCategories { get; set; }
 
         // diğer dbsetler buraya eklenir
 
@@ -60,7 +65,15 @@ namespace CmsCoreV2.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+            builder.Entity<GalleryItemGalleryItemCategory>().HasKey(pc => new { pc.GalleryItemId, pc.GalleryItemCategoryId });
 
+            builder.Entity<GalleryItemGalleryItemCategory>().HasOne(bc => bc.GalleryItem)
+                .WithMany(b => b.GalleryItemGalleryItemCategories)
+                .HasForeignKey(bc => bc.GalleryItemId);
+
+            builder.Entity<GalleryItemGalleryItemCategory>().HasOne(bc => bc.GalleryItemCategory)
+                .WithMany(c => c.GalleryItemGalleryItemCategories)
+                .HasForeignKey(bc => bc.GalleryItemCategoryId);
         }
     }
 }

@@ -9,7 +9,7 @@ using CmsCoreV2.Models;
 namespace CmsCoreV2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170523080412_AddGallery")]
+    [Migration("20170523092532_AddGallery")]
     partial class AddGallery
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -303,30 +303,15 @@ namespace CmsCoreV2.Migrations
 
             modelBuilder.Entity("CmsCoreV2.Models.GalleryItemGalleryItemCategory", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AppTenantId");
-
-                    b.Property<DateTime>("CreateDate");
-
-                    b.Property<string>("CreatedBy");
+                    b.Property<long>("GalleryItemId");
 
                     b.Property<long>("GalleryItemCategoryId");
 
-                    b.Property<long>("GalleryItemId");
-
-                    b.Property<DateTime>("UpdateDate");
-
-                    b.Property<string>("UpdatedBy");
-
-                    b.HasKey("Id");
+                    b.HasKey("GalleryItemId", "GalleryItemCategoryId");
 
                     b.HasIndex("GalleryItemCategoryId");
 
-                    b.HasIndex("GalleryItemId");
-
-                    b.ToTable("GalleryItemGalleryItemCategory");
+                    b.ToTable("GalleryItemGalleryItemCategories");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Language", b =>
@@ -386,7 +371,7 @@ namespace CmsCoreV2.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Media");
+                    b.ToTable("Medias");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Menu", b =>
@@ -503,6 +488,34 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("Pages");
                 });
 
+            modelBuilder.Entity("CmsCoreV2.Models.Redirect", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("NewUrl");
+
+                    b.Property<string>("OldUrl");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Redirects");
+                });
+
             modelBuilder.Entity("CmsCoreV2.Models.Resource", b =>
                 {
                     b.Property<long>("Id")
@@ -572,7 +585,7 @@ namespace CmsCoreV2.Migrations
 
                     b.HasIndex("SliderId");
 
-                    b.ToTable("Slide");
+                    b.ToTable("Slides");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Slider", b =>
@@ -599,7 +612,7 @@ namespace CmsCoreV2.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Slider");
+                    b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
