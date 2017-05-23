@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Models;
 using Z.EntityFramework.Plus;
+using CmsCore.Model.Entities;
 
 namespace CmsCoreV2.Data
 {
@@ -44,5 +45,11 @@ namespace CmsCoreV2.Data
             // Add your customizations after calling base.OnModelCreating(builder);
 
         }
+        // diğer dbsetler buraya eklenir
+
+        public DbSet<CmsCore.Model.Entities.Slide> Slide { get; set; }
+        // diğer dbsetler buraya eklenir
+
+        public DbSet<CmsCore.Model.Entities.Slider> Slider { get; set; }
     }
 }
