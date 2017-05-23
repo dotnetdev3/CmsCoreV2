@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CmsCoreV2.Migrations
+namespace CmsCoreV2.Migrations.HostDb
 {
-    public partial class HostDbInitialCreate : Migration
+    public partial class hostInitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
