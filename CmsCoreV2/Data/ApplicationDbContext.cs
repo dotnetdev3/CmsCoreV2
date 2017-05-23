@@ -40,6 +40,9 @@ namespace CmsCoreV2.Data
         }
 
         public DbSet<Page> Pages { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<PostCategory> PostCategories { get; set; }
+        public DbSet<PostPostCategory>PostPostCategories { get; set; }
         public DbSet<Media> Medias { get; set; }
         public DbSet<Form> Forms { get; set; }
         public DbSet<FormField> FormFields { get; set; }
@@ -65,8 +68,16 @@ namespace CmsCoreV2.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+            builder.Entity<PostPostCategory>().HasKey(pc => new { pc.PostId, pc.PostCategoryId });
             builder.Entity<GalleryItemGalleryItemCategory>().HasKey(pc => new { pc.GalleryItemId, pc.GalleryItemCategoryId });
 
+            builder.Entity<PostPostCategory>().HasOne(bc => bc.Post)
+                .WithMany(b => b.PostPostCategories)
+                .HasForeignKey(bc => bc.PostId);
+
+            builder.Entity<PostPostCategory>().HasOne(bc => bc.PostCategory)
+                .WithMany(c => c.PostPostCategories)
+                .HasForeignKey(bc => bc.PostCategoryId);
             builder.Entity<GalleryItemGalleryItemCategory>().HasOne(bc => bc.GalleryItem)
                 .WithMany(b => b.GalleryItemGalleryItemCategories)
                 .HasForeignKey(bc => bc.GalleryItemId);
@@ -75,5 +86,10 @@ namespace CmsCoreV2.Data
                 .WithMany(c => c.GalleryItemGalleryItemCategories)
                 .HasForeignKey(bc => bc.GalleryItemCategoryId);
         }
+
+        // diğer dbsetler buraya eklenir
+
+       
+
     }
 }
