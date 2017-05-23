@@ -46,6 +46,16 @@ namespace CmsCoreV2.Data
             context.Pages.Add(p);
             context.SaveChanges();
         }
+        public static void AddPosts ( ApplicationDbContext context)
+        {
+        }
+        public static void AddPostCategories(ApplicationDbContext context)
+        {
+        }
+        public static void AddPostPostCategories(ApplicationDbContext context)
+        {
+        }
+
     }
 }
 
