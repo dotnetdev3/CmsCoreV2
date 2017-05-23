@@ -48,6 +48,10 @@ namespace CmsCoreV2.Data
         public DbSet<Redirect> Redirects { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Slide> Slides { get; set; }
+        public DbSet<Gallery> Galleries { get; set; }
+        public DbSet<GalleryItem> GalleryItems { get; set; }
+        public DbSet<GalleryItemCategory> GalleryItemCategories { get; set; }
+
         // diğer dbsetler buraya eklenir
 
         protected override void OnModelCreating(ModelBuilder builder)
