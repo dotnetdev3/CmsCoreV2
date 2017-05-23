@@ -1,0 +1,167 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using CmsCoreV2.Data;
+using CmsCoreV2.Models;
+
+namespace CmsCoreV2.Areas.CmsCore.Controllers
+{
+    [Area("CmsCore")]
+    public class MenuItemsController : Controller
+    {
+        private readonly ApplicationDbContext _context;
+
+        public MenuItemsController(ApplicationDbContext context)
+        {
+            _context = context;    
+        }
+
+        // GET: CmsCore/MenuItems
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.MenuItems.Include(m => m.Menu).Include(m => m.ParentMenuItem);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        // GET: CmsCore/MenuItems/Details/5
+        public async Task<IActionResult> Details(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var menuItem = await _context.MenuItems
+                .Include(m => m.Menu)
+                .Include(m => m.ParentMenuItem)
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (menuItem == null)
+            {
+                return NotFound();
+            }
+
+            return View(menuItem);
+        }
+
+        // GET: CmsCore/MenuItems/Create
+        public IActionResult Create()
+        {
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
+            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems, "Id", "Id");
+            return View();
+        }
+
+        // POST: CmsCore/MenuItems/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Name,Url,Target,Position,IsPublished,ParentMenuItemId,MenuId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] MenuItem menuItem)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(menuItem);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id", menuItem.MenuId);
+            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems, "Id", "Id", menuItem.ParentMenuItemId);
+            return View(menuItem);
+        }
+
+        // GET: CmsCore/MenuItems/Edit/5
+        public async Task<IActionResult> Edit(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var menuItem = await _context.MenuItems.SingleOrDefaultAsync(m => m.Id == id);
+            if (menuItem == null)
+            {
+                return NotFound();
+            }
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id", menuItem.MenuId);
+            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems, "Id", "Id", menuItem.ParentMenuItemId);
+            return View(menuItem);
+        }
+
+        // POST: CmsCore/MenuItems/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(long id, [Bind("Name,Url,Target,Position,IsPublished,ParentMenuItemId,MenuId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] MenuItem menuItem)
+        {
+            if (id != menuItem.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(menuItem);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MenuItemExists(menuItem.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id", menuItem.MenuId);
+            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems, "Id", "Id", menuItem.ParentMenuItemId);
+            return View(menuItem);
+        }
+
+        // GET: CmsCore/MenuItems/Delete/5
+        public async Task<IActionResult> Delete(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var menuItem = await _context.MenuItems
+                .Include(m => m.Menu)
+                .Include(m => m.ParentMenuItem)
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (menuItem == null)
+            {
+                return NotFound();
+            }
+
+            return View(menuItem);
+        }
+
+        // POST: CmsCore/MenuItems/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(long id)
+        {
+            var menuItem = await _context.MenuItems.SingleOrDefaultAsync(m => m.Id == id);
+            _context.MenuItems.Remove(menuItem);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        private bool MenuItemExists(long id)
+        {
+            return _context.MenuItems.Any(e => e.Id == id);
+        }
+    }
+}
