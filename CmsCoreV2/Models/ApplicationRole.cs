@@ -8,7 +8,6 @@ namespace CmsCoreV2.Models
 {
     public class Role:IdentityRole<Guid>
     {
-        public int AppTenantId { get; set; }
-        public virtual AppTenant AppTenant { get; set; }
+        public string AppTenantId { get; set; }
     }
 }

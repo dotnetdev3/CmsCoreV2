@@ -9,7 +9,6 @@ namespace CmsCoreV2.Models
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser<Guid>
     {
-        public int AppTenantId { get; set; }
-        public virtual AppTenant AppTenant { get; set; }
+        public string AppTenantId { get; set; }
     }
 }

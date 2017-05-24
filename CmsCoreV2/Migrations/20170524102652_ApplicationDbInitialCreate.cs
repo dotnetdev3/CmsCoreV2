@@ -10,19 +10,29 @@ namespace CmsCoreV2.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AppTenant",
+                name: "AspNetUsers",
                 columns: table => new
                 {
-                    AppTenantId = table.Column<string>(nullable: false),
-                    ConnectionString = table.Column<string>(nullable: true),
-                    Hostname = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Theme = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true)
+                    Id = table.Column<Guid>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppTenant", x => x.AppTenantId);
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -34,13 +44,13 @@ namespace CmsCoreV2.Migrations
                     AppTenantId = table.Column<string>(nullable: true),
                     CreateDate = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    FormId = table.Column<int>(nullable: true),
-                    FormName = table.Column<string>(maxLength: 200, nullable: true),
-                    IP = table.Column<string>(nullable: true),
+                    FormId = table.Column<long>(nullable: false),
+                    FormName = table.Column<string>(maxLength: 200, nullable: false),
+                    IP = table.Column<string>(nullable: false),
                     SentDate = table.Column<DateTime>(nullable: false),
                     UpdateDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    UserName = table.Column<string>(maxLength: 200, nullable: false)
+                    UserName = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,7 +67,7 @@ namespace CmsCoreV2.Migrations
                     CreateDate = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
                     IsPublished = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
                     UpdateDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
                 },
@@ -76,9 +86,9 @@ namespace CmsCoreV2.Migrations
                     CreateDate = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
                     ParentCategoryId = table.Column<long>(nullable: true),
-                    Slug = table.Column<string>(nullable: true),
+                    Slug = table.Column<string>(maxLength: 200, nullable: false),
                     UpdateDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
                 },
@@ -102,10 +112,10 @@ namespace CmsCoreV2.Migrations
                     AppTenantId = table.Column<string>(nullable: true),
                     CreateDate = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    Culture = table.Column<string>(nullable: true),
+                    Culture = table.Column<string>(maxLength: 200, nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    NativeName = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
+                    NativeName = table.Column<string>(maxLength: 200, nullable: false),
                     UpdateDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
                 },
@@ -124,11 +134,11 @@ namespace CmsCoreV2.Migrations
                     CreateDate = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    FileName = table.Column<string>(nullable: true),
-                    FileType = table.Column<string>(nullable: true),
-                    FileUrl = table.Column<string>(nullable: true),
+                    FileName = table.Column<string>(maxLength: 200, nullable: false),
+                    FileType = table.Column<string>(maxLength: 200, nullable: true),
+                    FileUrl = table.Column<string>(nullable: false),
                     Size = table.Column<decimal>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(maxLength: 200, nullable: false),
                     UpdateDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
                 },
@@ -147,15 +157,30 @@ namespace CmsCoreV2.Migrations
                     CreateDate = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    NewUrl = table.Column<string>(nullable: true),
-                    OldUrl = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
+                    NewUrl = table.Column<string>(nullable: false),
+                    OldUrl = table.Column<string>(nullable: false),
                     UpdateDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Redirects", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -197,7 +222,7 @@ namespace CmsCoreV2.Migrations
                     CreateDate = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
                     IsPublished = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
                     Template = table.Column<string>(maxLength: 200, nullable: true),
                     UpdateDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
@@ -219,343 +244,6 @@ namespace CmsCoreV2.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    AppTenantId = table.Column<int>(nullable: false),
-                    AppTenantId1 = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_AppTenant_AppTenantId1",
-                        column: x => x.AppTenantId1,
-                        principalTable: "AppTenant",
-                        principalColumn: "AppTenantId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetRoles",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    AppTenantId = table.Column<int>(nullable: false),
-                    AppTenantId1 = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetRoles_AppTenant_AppTenantId1",
-                        column: x => x.AppTenantId1,
-                        principalTable: "AppTenant",
-                        principalColumn: "AppTenantId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FeedbackValues",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AppTenantId = table.Column<string>(nullable: true),
-                    CreateDate = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    FeedbackId = table.Column<long>(nullable: false),
-                    FieldType = table.Column<int>(nullable: false),
-                    FormFieldId = table.Column<int>(nullable: false),
-                    FormFieldName = table.Column<string>(maxLength: 200, nullable: true),
-                    Position = table.Column<int>(nullable: false),
-                    UpdateDate = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    Value = table.Column<string>(maxLength: 200, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FeedbackValues", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FeedbackValues_Feedbacks_FeedbackId",
-                        column: x => x.FeedbackId,
-                        principalTable: "Feedbacks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GalleryItems",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AppTenantId = table.Column<string>(nullable: true),
-                    CreateDate = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    GalleryId = table.Column<long>(nullable: false),
-                    IsPublished = table.Column<bool>(nullable: false),
-                    Meta1 = table.Column<string>(nullable: true),
-                    Photo = table.Column<string>(nullable: true),
-                    Position = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
-                    UpdateDate = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    Video = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GalleryItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_GalleryItems_Galleries_GalleryId",
-                        column: x => x.GalleryId,
-                        principalTable: "Galleries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Forms",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AppTenantId = table.Column<string>(nullable: true),
-                    ClosingDescription = table.Column<string>(nullable: true),
-                    CreateDate = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    EmailBcc = table.Column<string>(maxLength: 200, nullable: true),
-                    EmailCc = table.Column<string>(maxLength: 200, nullable: true),
-                    EmailTo = table.Column<string>(maxLength: 200, nullable: true),
-                    FormName = table.Column<string>(maxLength: 200, nullable: false),
-                    GoogleAnalyticsCode = table.Column<string>(nullable: true),
-                    IsPublished = table.Column<bool>(nullable: false),
-                    LanguageId = table.Column<long>(nullable: false),
-                    Template = table.Column<string>(nullable: true),
-                    UpdateDate = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Forms", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Forms_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Menus",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AppTenantId = table.Column<string>(nullable: true),
-                    CreateDate = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    LanguageId = table.Column<long>(nullable: false),
-                    MenuLocation = table.Column<string>(maxLength: 200, nullable: true),
-                    Name = table.Column<string>(maxLength: 200, nullable: false),
-                    UpdateDate = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Menus", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Menus_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Pages",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AppTenantId = table.Column<string>(nullable: true),
-                    Body = table.Column<string>(nullable: false),
-                    CreateDate = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    IsPublished = table.Column<bool>(nullable: false),
-                    LanguageId = table.Column<long>(nullable: false),
-                    ParentPageId = table.Column<long>(nullable: true),
-                    SeoDescription = table.Column<string>(nullable: true),
-                    SeoKeywords = table.Column<string>(nullable: true),
-                    SeoTitle = table.Column<string>(maxLength: 200, nullable: true),
-                    Slug = table.Column<string>(maxLength: 200, nullable: false),
-                    Template = table.Column<string>(maxLength: 200, nullable: true),
-                    Title = table.Column<string>(maxLength: 200, nullable: false),
-                    UpdateDate = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    ViewCount = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Pages_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Pages_Pages_ParentPageId",
-                        column: x => x.ParentPageId,
-                        principalTable: "Pages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Posts",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AppTenantId = table.Column<string>(nullable: true),
-                    Body = table.Column<string>(nullable: true),
-                    CreateDate = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    IsPublished = table.Column<bool>(nullable: false),
-                    LanguageId = table.Column<long>(nullable: false),
-                    Meta1 = table.Column<string>(nullable: true),
-                    Meta2 = table.Column<string>(nullable: true),
-                    Photo = table.Column<string>(nullable: true),
-                    SeoDescription = table.Column<string>(nullable: true),
-                    SeoKeywords = table.Column<string>(nullable: true),
-                    SeoTitle = table.Column<string>(nullable: true),
-                    Slug = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    UpdateDate = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    ViewCount = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Posts_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PostCategories",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AppTenantId = table.Column<string>(nullable: true),
-                    CreateDate = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    LanguageId = table.Column<long>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Slug = table.Column<string>(nullable: true),
-                    UpdateDate = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PostCategories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PostCategories_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Resources",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AppTenantId = table.Column<string>(nullable: true),
-                    CreateDate = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    LanguageId = table.Column<long>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    UpdateDate = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    Value = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Resources", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Resources_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Slides",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AppTenantId = table.Column<string>(nullable: true),
-                    CallToActionText = table.Column<string>(nullable: true),
-                    CallToActionUrl = table.Column<string>(nullable: true),
-                    CreateDate = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    DisplayTexts = table.Column<bool>(nullable: false),
-                    IsPublished = table.Column<bool>(nullable: false),
-                    Photo = table.Column<string>(nullable: true),
-                    Position = table.Column<int>(nullable: false),
-                    SliderId = table.Column<long>(nullable: false),
-                    SubTitle = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    UpdateDate = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    Video = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Slides", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Slides_Sliders_SliderId",
-                        column: x => x.SliderId,
-                        principalTable: "Sliders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -597,6 +285,254 @@ namespace CmsCoreV2.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FeedbackValues",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    FeedbackId = table.Column<long>(nullable: true),
+                    FieldType = table.Column<int>(nullable: false),
+                    FormFieldId = table.Column<long>(nullable: false),
+                    FormFieldName = table.Column<string>(maxLength: 200, nullable: false),
+                    Position = table.Column<int>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FeedbackValues", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FeedbackValues_Feedbacks_FeedbackId",
+                        column: x => x.FeedbackId,
+                        principalTable: "Feedbacks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GalleryItems",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    GalleryId = table.Column<long>(nullable: true),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    Meta1 = table.Column<string>(nullable: true),
+                    Photo = table.Column<string>(nullable: true),
+                    Position = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(maxLength: 200, nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    Video = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GalleryItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GalleryItems_Galleries_GalleryId",
+                        column: x => x.GalleryId,
+                        principalTable: "Galleries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Forms",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    ClosingDescription = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    EmailBcc = table.Column<string>(maxLength: 200, nullable: true),
+                    EmailCc = table.Column<string>(maxLength: 200, nullable: true),
+                    EmailTo = table.Column<string>(maxLength: 200, nullable: true),
+                    FormName = table.Column<string>(maxLength: 200, nullable: false),
+                    GoogleAnalyticsCode = table.Column<string>(nullable: true),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    LanguageId = table.Column<long>(nullable: true),
+                    Template = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Forms", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Forms_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Menus",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    LanguageId = table.Column<long>(nullable: true),
+                    MenuLocation = table.Column<string>(maxLength: 200, nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Menus", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Menus_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pages",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    Body = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    LanguageId = table.Column<long>(nullable: true),
+                    ParentPageId = table.Column<long>(nullable: true),
+                    SeoDescription = table.Column<string>(nullable: true),
+                    SeoKeywords = table.Column<string>(nullable: true),
+                    SeoTitle = table.Column<string>(maxLength: 200, nullable: true),
+                    Slug = table.Column<string>(maxLength: 200, nullable: false),
+                    Template = table.Column<string>(maxLength: 200, nullable: true),
+                    Title = table.Column<string>(maxLength: 200, nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    ViewCount = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pages_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Pages_Pages_ParentPageId",
+                        column: x => x.ParentPageId,
+                        principalTable: "Pages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Posts",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    Body = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    LanguageId = table.Column<long>(nullable: true),
+                    Meta1 = table.Column<string>(nullable: true),
+                    Meta2 = table.Column<string>(nullable: true),
+                    Photo = table.Column<string>(maxLength: 200, nullable: true),
+                    SeoDescription = table.Column<string>(nullable: true),
+                    SeoKeywords = table.Column<string>(nullable: true),
+                    SeoTitle = table.Column<string>(maxLength: 200, nullable: true),
+                    Slug = table.Column<string>(maxLength: 200, nullable: false),
+                    Title = table.Column<string>(maxLength: 200, nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    ViewCount = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Posts_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostCategories",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    LanguageId = table.Column<long>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
+                    Slug = table.Column<string>(maxLength: 200, nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostCategories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PostCategories_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Resources",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    LanguageId = table.Column<long>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Resources", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Resources_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -645,6 +581,40 @@ namespace CmsCoreV2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Slides",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CallToActionText = table.Column<string>(nullable: true),
+                    CallToActionUrl = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    DisplayTexts = table.Column<bool>(nullable: false),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    Photo = table.Column<string>(nullable: true),
+                    Position = table.Column<int>(nullable: false),
+                    SliderId = table.Column<long>(nullable: true),
+                    SubTitle = table.Column<string>(maxLength: 200, nullable: false),
+                    Title = table.Column<string>(maxLength: 200, nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    Video = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Slides", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Slides_Sliders_SliderId",
+                        column: x => x.SliderId,
+                        principalTable: "Sliders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GalleryItemGalleryItemCategories",
                 columns: table => new
                 {
@@ -684,7 +654,7 @@ namespace CmsCoreV2.Migrations
                     Required = table.Column<bool>(nullable: false),
                     UpdateDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    Value = table.Column<string>(maxLength: 200, nullable: true)
+                    Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -756,11 +726,6 @@ namespace CmsCoreV2.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_AppTenantId1",
-                table: "AspNetUsers",
-                column: "AppTenantId1");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -847,11 +812,6 @@ namespace CmsCoreV2.Migrations
                 name: "IX_Resources_LanguageId",
                 table: "Resources",
                 column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetRoles_AppTenantId1",
-                table: "AspNetRoles",
-                column: "AppTenantId1");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -970,9 +930,6 @@ namespace CmsCoreV2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Languages");
-
-            migrationBuilder.DropTable(
-                name: "AppTenant");
         }
     }
 }

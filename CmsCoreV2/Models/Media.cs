@@ -10,7 +10,7 @@ namespace CmsCoreV2.Models
     {
         [Required]
         [StringLength(200)]
-        [Display(Name = "Media Adı")]
+        [Display(Name = "Ortam Adı")]
         public string Title { get; set; }
 
         [Required]
@@ -18,16 +18,17 @@ namespace CmsCoreV2.Models
         [Display(Name = "Dosya Adı")]
         public string FileName { get; set; }
 
-        [Required]
-        [StringLength(800)]
-        [Display(Name = "Medya Açıklaması")]
+        [Display(Name = "Açıklama")]
         public string Description { get; set; }
 
+        [Display(Name = "Boyut")]
         public decimal Size { get; set; }
 
         [Required]
+        [Display(Name = "Dosya Adresi")]
         public string FileUrl { get; set; }
-
+        [Display(Name = "Dosya Tipi")]
+        [StringLength(200)]
         public string FileType { get; set; }
 
     }

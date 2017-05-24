@@ -26,7 +26,7 @@ namespace CmsCoreV2.Models
         [Display(Name = "Bağlantı")]
         public string Slug { get; set; }
 
-        [Required]
+
         [Display(Name = "İçerik")]
         public string Body { get; set; }
 
@@ -34,12 +34,12 @@ namespace CmsCoreV2.Models
         public long ViewCount { get; set; }
 
 
-        
+        [Display(Name = "Üst Sayfa")]
         public long? ParentPageId { get; set; }
-
+        [Display(Name = "Üst Sayfa")]
         [ForeignKey("ParentPageId")]
         public Page ParentPage { get; set; }
-
+        [Display(Name = "Alt Sayfalar")]
         public virtual ICollection<Page> ChildPages { get; set; }
 
         [StringLength(200)]
@@ -52,16 +52,18 @@ namespace CmsCoreV2.Models
         [Display(Name = "Seo Anahtar Kelimeler")]
         public string SeoKeywords { get; set; }
 
-        [Display(Name = "Yayınlandı")]
+        [Display(Name = "Yayında Mı?")]
         public bool IsPublished { get; set; }
 
         [StringLength(200)]
-        [Display(Name = "Tema")]    
+        [Display(Name = "Şablon")]    
         public string Template  { get; set; }
 
-        [ForeignKey("LanguageId")]
-        public long LanguageId { get; set; }
+        [Display(Name = "Dil")]
+        public long? LanguageId { get; set; }
 
+
+        [ForeignKey("LanguageId")]
         [Display(Name = "Dil")]
         public Language Language { get; set; }
        

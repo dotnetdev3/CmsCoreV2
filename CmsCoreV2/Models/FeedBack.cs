@@ -12,20 +12,23 @@ namespace CmsCoreV2.Models
         {
             FeedbackValues = new HashSet<FeedbackValue>();
         }
-        [Required]
+     
         [StringLength(200)]
         [Display(Name = "Kullanıcı Adı")]
         public string UserName { get; set; }
+        [Required]
         [Display(Name = "Gönderme Tarihi")]
         public DateTime SentDate { get; set; }
         [Display(Name = "Form Id")]
-        public int? FormId { get; set; }
+        public long FormId { get; set; }
         [StringLength(200)]
+        [Required]
         [Display(Name = "Form Adı")]
         public string FormName { get; set; }
+        [Required]
         [Display(Name = "IP")]
         public string IP { get; set; }
-        [Display(Name = "Geri Bildirim Değeri")]
+        [Display(Name = "Geri Bildirim Değerleri")]
         public virtual ICollection<FeedbackValue> FeedbackValues { get; set; }
     }
 }

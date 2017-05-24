@@ -13,16 +13,18 @@ namespace CmsCoreV2.Models
         {
             MenuItems = new HashSet<MenuItem>();
             LanguageId = 1;
-        }[Required]
+        }
+        [Required]
         [Display(Name = "Menü Adı")]
         [StringLength(200)]
         public string Name { get; set; }
         [StringLength(200)]
         [Display(Name = "Menu Konumu")]
         public string MenuLocation { get; set; }
-        [Display(Name = "Menü Öğesi")]
+        [Display(Name = "Menü Öğeleri")]
         public ICollection<MenuItem> MenuItems { get; set; }
-        public long LanguageId { get; set; }
+        [Display(Name = "Dil")]
+        public long? LanguageId { get; set; }
         [ForeignKey("LanguageId")]
         [Display(Name = "Dil")]
         public virtual Language Language { get; set; }

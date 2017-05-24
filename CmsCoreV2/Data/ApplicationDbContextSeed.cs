@@ -31,6 +31,7 @@ namespace CmsCoreV2.Data
             var l = new Language();
             l.Name = "Turkish";
             l.NativeName = "Türkçe";
+            l.Culture = "tr-TR";
             l.IsActive = true;
             l.AppTenantId = tenant.AppTenantId;
             context.Languages.Add(l);
@@ -42,7 +43,6 @@ namespace CmsCoreV2.Data
             var p = new Page();
             p.Title = "Home";
             p.Slug = "home";
-            p.Body = "deneme";
             p.LanguageId = languageId;
             p.AppTenantId = tenant.AppTenantId;
             context.Pages.Add(p);

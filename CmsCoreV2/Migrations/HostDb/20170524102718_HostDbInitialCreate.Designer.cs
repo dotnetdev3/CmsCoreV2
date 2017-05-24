@@ -8,7 +8,7 @@ using CmsCoreV2.Data;
 namespace CmsCoreV2.Migrations.HostDb
 {
     [DbContext(typeof(HostDbContext))]
-    [Migration("20170524094100_HostDbInitialCreate")]
+    [Migration("20170524102718_HostDbInitialCreate")]
     partial class HostDbInitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

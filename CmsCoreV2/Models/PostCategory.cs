@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,12 +15,23 @@ namespace CmsCoreV2.Models
             LanguageId = 1;
 
         }
+        [StringLength(200)]
+        [Required]
+        [Display(Name = "Ad")]
         public string Name { get; set; }
+        [StringLength(200)]
+        [Required]
+        [Display(Name = "Bağlantı")]
         public string Slug { get; set; }
+
+        [Display(Name = "Açıklama")]
         public string Description { get; set; }
-
+        [Display(Name = "Yazı Kategorileri")]
         public virtual ICollection<PostPostCategory> PostPostCategories { get; set; }
-        public long LanguageId { get; set; }
-
+        [Display(Name = "Dil")]
+        public long? LanguageId { get; set; }
+        [Display(Name = "Dil")]
+        [ForeignKey("LanguageId")]
+        public Language Language { get; set; }
     }
 }
