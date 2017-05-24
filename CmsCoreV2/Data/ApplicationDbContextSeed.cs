@@ -31,7 +31,7 @@ namespace CmsCoreV2.Data
             var l = new Language();
             l.Name = "Turkish";
             l.NativeName = "Türkçe";
-            l.Culture = "tr-TR";
+            l.Culture = "tr";
             l.IsActive = true;
             l.AppTenantId = tenant.AppTenantId;
             context.Languages.Add(l);

@@ -70,11 +70,11 @@ namespace CmsCoreV2
                     {
                         var supportedCultures = new List<CultureInfo>
                         {
-                new CultureInfo("en-US"),
-                new CultureInfo("tr-TR"),
+                new CultureInfo("en"),
+                new CultureInfo("tr"),
                         };
 
-                        opts.DefaultRequestCulture = new RequestCulture("en-US");
+                        opts.DefaultRequestCulture = new RequestCulture("tr");
             // Formatting numbers, dates, etc.
             opts.SupportedCultures = supportedCultures;
             // UI strings that we have localized.
@@ -126,14 +126,7 @@ namespace CmsCoreV2
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "areaCultureRoute",
-                    template: "{culture}/{area:exists}/{controller}/{action}",
-                    defaults: new { controller = "Dashboard", action = "Index" },
-                    constraints: new
-                    {
-                        culture = new RegexRouteConstraint("^[a-z]{2}(?:-[A-Z]{2})?$")
-                    });
+                
                 routes.MapRoute(
                     name: "cultureRoute",
                     template: "{culture}/{controller}/{action}/{id?}",
@@ -144,11 +137,13 @@ namespace CmsCoreV2
                     });
 
                 routes.MapRoute(name: "areaRoute",
-                template: "{area:exists}/{controller=Dashboard}/{action=Index}");
+                    template: "{area:exists}/{controller=Dashboard}/{action=Index}");
 
+                
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{*catchall}",
+                    defaults: new { controller = "Home", action = "RedirectToDefaultLanguage", culture = "tr-TR" });
             });
         }
     }
