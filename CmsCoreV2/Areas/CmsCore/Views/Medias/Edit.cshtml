@@ -1,6 +1,88 @@
 ﻿@model CmsCoreV2.Models.Media
 
 @{
+    ViewBag.Title = "Edit Fİle";
+}
+<link href="/metronic/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+<link href="/metronic/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" /><br />
+
+
+<form asp-controller="Medias" asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-12 ">
+            <!-- BEGIN SAMPLE FORM PORTLET-->
+            <div class="portlet light bordered">
+                <div class="portlet-title" style="border-bottom-width: 1px;margin-bottom: 10px;">
+                    <div class="caption font-dark"><i class="icon-settings font-dark"></i><span class="caption-subject bold uppercase">Edit File</span></div>
+                </div>
+                <div class="portlet-body form">
+                    <div class="form-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Id)
+                        @Html.HiddenFor(model => model.FileName)
+                        @Html.HiddenFor(model => model.CreateDate)
+                        @Html.HiddenFor(model => model.CreatedBy)
+                        @Html.HiddenFor(model => model.UpdateDate)
+                        @Html.HiddenFor(model => model.UpdatedBy)
+                        <div class="form-group">
+                            <label asp-for="Title"></label>
+                            <input type="text" asp-for="Title" class="form-control" tabindex="1" autofocus="autofocus" />
+                            <span class="text-danger" asp-validation-for="Title"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description"></label>
+                            <input type="text" asp-for="Description" class="form-control" tabindex="2" />
+                            <span class="text-danger" asp-validation-for="Description"></span>
+                        </div>
+                       
+                        <div class="form-group">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="input-group input-large">
+                            
+                                    <span class="input-group-addon btn default btn-file">
+                                
+                                        <input type="file" id="FileName" name="uploadFile">
+                                    </span>
+                                </div>
+                                <a href="/@Model.FileUrl@Model.FileName">@Model.FileName</a>
+                                @Html.ValidationMessage("FileExist", new { @class = "text-danger" })
+                            
+
+                                <span class="text-danger" asp-validation-for="FileName"></span>
+                            </div>
+                            <div class="clearfix margin-top-10">
+                                <span class="label label-success">UYARI !</span> Dosyanın uzantısı <strong>.doc, .docx, .pdf, .rtf, .jpg, .gif</strong> ya da <strong>.png</strong> olmalıdır.
+                            </div>
+                        </div>
+                      
+
+
+                    </div>
+
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" tabindex="2" class="btn blue">Save</button>
+                        <button type="button" tabindex="3" class="btn default" onclick="window.location='@Url.Action("Index","Medias")';">Cancel</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+</form>
+
+
+
+<div class="row ">
+
+</div>
+
+
+
+
+ 
+@*@{
     ViewData["Title"] = "Edit";
 }
 
@@ -10,6 +92,7 @@
     <div class="form-horizontal">
         <h4>Media</h4>
         <hr />
+        <input type="hidden" asp-for="Id" />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="Title" class="col-md-2 control-label"></label>
@@ -28,22 +111,16 @@
         </div>
         
         <div class="form-group">
-            <label asp-for="FilePath" class="col-md-2 control-label"></label>
+            <label asp-for="FileUrl" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input title="Dosya Yükle" type="file" name="uploadFile" class="form-control" accept=".doc, .docx, .pdf, .rtf, .jpg, .gif , .png" />
-                <input asp-for="FilePath" type="hidden" />
-                    
-                <span asp-validation-for="FilePath" class="text-danger"></span>
+                <input asp-for="FileUrl" type="hidden" />
+                <a href="/@Model.FileUrl@Model.FileName">@Model.FileName</a>
+                <span asp-validation-for="FileUrl" class="text-danger"></span>
 
             </div>
         </div>
-      
-
-
-
-  
-    
-        
+       
         
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -59,4 +136,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+}*@

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CmsCoreV2.Migrations.HostDb
 {
-    public partial class hostInitialCreate : Migration
+    public partial class hostDbInitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
