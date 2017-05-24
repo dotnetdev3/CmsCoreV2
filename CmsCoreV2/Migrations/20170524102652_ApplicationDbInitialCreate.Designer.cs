@@ -9,8 +9,8 @@ using CmsCoreV2.Models;
 namespace CmsCoreV2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170524063036_applicationDbInitialCreate")]
-    partial class applicationDbInitialCreate
+    [Migration("20170524102652_ApplicationDbInitialCreate")]
+    partial class ApplicationDbInitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,10 +20,12 @@ namespace CmsCoreV2.Migrations
 
             modelBuilder.Entity("CmsCoreV2.Models.ApplicationUser", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("AppTenantId");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -77,21 +79,27 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
-                    b.Property<int?>("FormId");
+                    b.Property<long>("FormId");
 
-                    b.Property<string>("FormName");
+                    b.Property<string>("FormName")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
-                    b.Property<string>("IP");
+                    b.Property<string>("IP")
+                        .IsRequired();
 
                     b.Property<DateTime>("SentDate");
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("UserName");
+                    b.Property<string>("UserName")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -107,21 +115,25 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
-                    b.Property<long>("FeedbackId");
+                    b.Property<long?>("FeedbackId");
 
                     b.Property<int>("FieldType");
 
-                    b.Property<int?>("FormFieldId");
+                    b.Property<long>("FormFieldId");
 
-                    b.Property<string>("FormFieldName");
+                    b.Property<string>("FormFieldName")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<int>("Position");
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Value");
 
@@ -143,30 +155,36 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("EmailBcc");
+                    b.Property<string>("EmailBcc")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("EmailCc");
+                    b.Property<string>("EmailCc")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("EmailTo");
+                    b.Property<string>("EmailTo")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("FormName");
+                    b.Property<string>("FormName")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<string>("GoogleAnalyticsCode");
 
                     b.Property<bool>("IsPublished");
 
-                    b.Property<long>("LanguageId");
+                    b.Property<long?>("LanguageId");
 
-                    b.Property<string>("Template")
-                        .HasMaxLength(200);
+                    b.Property<string>("Template");
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -184,13 +202,16 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<int>("FieldType");
 
                     b.Property<long?>("FormId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<int>("Position");
 
@@ -198,7 +219,8 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Value");
 
@@ -218,15 +240,19 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<bool>("IsPublished");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -242,11 +268,12 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Description");
 
-                    b.Property<long>("GalleryId");
+                    b.Property<long?>("GalleryId");
 
                     b.Property<bool>("IsPublished");
 
@@ -256,11 +283,14 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<int>("Position");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Video");
 
@@ -280,19 +310,25 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<long?>("ParentCategoryId");
 
-                    b.Property<string>("Slug");
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -323,19 +359,27 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("Culture");
+                    b.Property<string>("Culture")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
-                    b.Property<string>("NativeName");
+                    b.Property<string>("NativeName")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -351,23 +395,31 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("FileName");
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
-                    b.Property<string>("FileType");
+                    b.Property<string>("FileType")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("FileUrl");
+                    b.Property<string>("FileUrl")
+                        .IsRequired();
 
                     b.Property<decimal>("Size");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -383,18 +435,22 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
-                    b.Property<long>("LanguageId");
+                    b.Property<long?>("LanguageId");
 
                     b.Property<string>("MenuLocation")
                         .HasMaxLength(200);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -412,25 +468,31 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<bool>("IsPublished");
 
                     b.Property<long?>("MenuId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<long?>("ParentMenuItemId");
 
                     b.Property<int>("Position");
 
-                    b.Property<string>("Target");
+                    b.Property<string>("Target")
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("Url");
+                    b.Property<string>("Url")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -452,11 +514,12 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<bool>("IsPublished");
 
-                    b.Property<long>("LanguageId");
+                    b.Property<long?>("LanguageId");
 
                     b.Property<long?>("ParentPageId");
 
@@ -464,18 +527,24 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("SeoKeywords");
 
-                    b.Property<string>("SeoTitle");
+                    b.Property<string>("SeoTitle")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("Slug");
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<string>("Template")
                         .HasMaxLength(200);
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<long>("ViewCount");
 
@@ -499,37 +568,47 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Description");
 
                     b.Property<bool>("IsPublished");
 
-                    b.Property<long>("LanguageId");
+                    b.Property<long?>("LanguageId");
 
                     b.Property<string>("Meta1");
 
                     b.Property<string>("Meta2");
 
-                    b.Property<string>("Photo");
+                    b.Property<string>("Photo")
+                        .HasMaxLength(200);
 
                     b.Property<string>("SeoDescription");
 
                     b.Property<string>("SeoKeywords");
 
-                    b.Property<string>("SeoTitle");
+                    b.Property<string>("SeoTitle")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("Slug");
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<long>("ViewCount");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
 
                     b.ToTable("Posts");
                 });
@@ -543,21 +622,29 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Description");
 
-                    b.Property<long>("LanguageId");
+                    b.Property<long?>("LanguageId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
-                    b.Property<string>("Slug");
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
 
                     b.ToTable("PostCategories");
                 });
@@ -584,19 +671,25 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
-                    b.Property<string>("NewUrl");
+                    b.Property<string>("NewUrl")
+                        .IsRequired();
 
-                    b.Property<string>("OldUrl");
+                    b.Property<string>("OldUrl")
+                        .IsRequired();
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -612,15 +705,19 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
-                    b.Property<long>("LanguageId");
+                    b.Property<long?>("LanguageId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Value");
 
@@ -629,6 +726,31 @@ namespace CmsCoreV2.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("Resources");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Setting", b =>
@@ -640,7 +762,8 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("FooterScript");
 
@@ -666,7 +789,8 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Value");
 
@@ -688,7 +812,8 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Description");
 
@@ -700,15 +825,20 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<int>("Position");
 
-                    b.Property<long>("SliderId");
+                    b.Property<long?>("SliderId");
 
-                    b.Property<string>("SubTitle");
+                    b.Property<string>("SubTitle")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Video");
 
@@ -728,48 +858,29 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
 
                     b.Property<bool>("IsPublished");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<string>("Template")
                         .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
-                    b.Property<string>("UpdatedBy");
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
                     b.ToTable("Sliders");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex");
-
-                    b.ToTable("AspNetRoles");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -778,8 +889,7 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired();
+                    b.Property<Guid>("RoleId");
 
                     b.HasKey("Id");
 
@@ -788,7 +898,7 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("AspNetRoleClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -797,8 +907,7 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
@@ -807,7 +916,7 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("AspNetUserClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.Property<string>("LoginProvider");
 
@@ -815,8 +924,7 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("ProviderDisplayName");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -825,11 +933,11 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("AspNetUserLogins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("UserId");
 
-                    b.Property<string>("RoleId");
+                    b.Property<Guid>("RoleId");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -838,9 +946,9 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("UserId");
 
                     b.Property<string>("LoginProvider");
 
@@ -857,16 +965,14 @@ namespace CmsCoreV2.Migrations
                 {
                     b.HasOne("CmsCoreV2.Models.Feedback", "Feedback")
                         .WithMany("FeedbackValues")
-                        .HasForeignKey("FeedbackId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FeedbackId");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Form", b =>
                 {
                     b.HasOne("CmsCoreV2.Models.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("Forms")
+                        .HasForeignKey("LanguageId");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.FormField", b =>
@@ -880,8 +986,7 @@ namespace CmsCoreV2.Migrations
                 {
                     b.HasOne("CmsCoreV2.Models.Gallery", "Gallery")
                         .WithMany("GalleryItems")
-                        .HasForeignKey("GalleryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("GalleryId");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.GalleryItemCategory", b =>
@@ -895,21 +1000,18 @@ namespace CmsCoreV2.Migrations
                 {
                     b.HasOne("CmsCoreV2.Models.GalleryItemCategory", "GalleryItemCategory")
                         .WithMany("GalleryItemGalleryItemCategories")
-                        .HasForeignKey("GalleryItemCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("GalleryItemCategoryId");
 
                     b.HasOne("CmsCoreV2.Models.GalleryItem", "GalleryItem")
                         .WithMany("GalleryItemGalleryItemCategories")
-                        .HasForeignKey("GalleryItemId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("GalleryItemId");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Menu", b =>
                 {
                     b.HasOne("CmsCoreV2.Models.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("Menus")
+                        .HasForeignKey("LanguageId");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.MenuItem", b =>
@@ -927,52 +1029,61 @@ namespace CmsCoreV2.Migrations
                 {
                     b.HasOne("CmsCoreV2.Models.Language", "Language")
                         .WithMany("Pages")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("LanguageId");
 
                     b.HasOne("CmsCoreV2.Models.Page", "ParentPage")
                         .WithMany("ChildPages")
                         .HasForeignKey("ParentPageId");
                 });
 
+            modelBuilder.Entity("CmsCoreV2.Models.Post", b =>
+                {
+                    b.HasOne("CmsCoreV2.Models.Language", "Language")
+                        .WithMany("Posts")
+                        .HasForeignKey("LanguageId");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.PostCategory", b =>
+                {
+                    b.HasOne("CmsCoreV2.Models.Language", "Language")
+                        .WithMany("PostCategories")
+                        .HasForeignKey("LanguageId");
+                });
+
             modelBuilder.Entity("CmsCoreV2.Models.PostPostCategory", b =>
                 {
                     b.HasOne("CmsCoreV2.Models.PostCategory", "PostCategory")
                         .WithMany("PostPostCategories")
-                        .HasForeignKey("PostCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PostCategoryId");
 
                     b.HasOne("CmsCoreV2.Models.Post", "Post")
                         .WithMany("PostPostCategories")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Resource", b =>
                 {
                     b.HasOne("CmsCoreV2.Models.Language", "Language")
                         .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("LanguageId");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Slide", b =>
                 {
                     b.HasOne("CmsCoreV2.Models.Slider", "Slider")
                         .WithMany("Slides")
-                        .HasForeignKey("SliderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SliderId");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
+                    b.HasOne("CmsCoreV2.Models.Role")
                         .WithMany("Claims")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.HasOne("CmsCoreV2.Models.ApplicationUser")
                         .WithMany("Claims")
@@ -980,7 +1091,7 @@ namespace CmsCoreV2.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.HasOne("CmsCoreV2.Models.ApplicationUser")
                         .WithMany("Logins")
@@ -988,9 +1099,9 @@ namespace CmsCoreV2.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
+                    b.HasOne("CmsCoreV2.Models.Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);

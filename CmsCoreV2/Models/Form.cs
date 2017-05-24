@@ -30,19 +30,19 @@ namespace CmsCoreV2.Models
         public string EmailCc { get; set; }
         [Display(Name = "Açıklama")]
         public string Description { get; set; }
-        [Display(Name = "Tema")]
+        [Display(Name = "Şablon")]
         public string Template { get; set; }
         [Display(Name = "Kapanış Açıklaması")]
         public string ClosingDescription { get; set; }
-        [Display(Name = "Google Analitik Kodu")]
+        [Display(Name = "Google Analytics Kodu")]
         public string GoogleAnalyticsCode { get; set; }
-        [Display(Name = "Form Alanı")]
+        [Display(Name = "Form Alanları")]
         public virtual ICollection<FormField> FormFields { get; set; }
-        [Display(Name = "Yayınlandı mı?")]
+        [Display(Name = "Yayında mı?")]
         public bool IsPublished { get; set; }
-        [Required]
-        [Display(Name = "Dil Id")]
-        public long LanguageId { get; set; }
+
+        [Display(Name = "Dil")]
+        public long? LanguageId { get; set; }
         [ForeignKey("LanguageId")]
         [Display(Name = "Dil")]
         public virtual Language Language { get; set; }

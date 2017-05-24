@@ -176,7 +176,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <li class="heading">
                             <h3 class="uppercase">Modüller</h3>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="pages"?"active":string.Empty) ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="icon-book-open"></i>
                                 <span class="title">Pages</span>
@@ -184,18 +184,18 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a asp-controller="Page" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Pages" asp-action="Index" class="nav-link">
                                         <span class="title">All Pages</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Page" asp-action="Create" class="nav-link">
+                                    <a asp-controller="Pages" asp-action="Create" class="nav-link">
                                         <span class="title">Add Page</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="posts"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="postcategories"?"active":string.Empty) ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="icon-rocket"></i>
                                 <span class="title">Posts</span>
@@ -203,24 +203,24 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a asp-controller="Post" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Posts" asp-action="Index" class="nav-link">
                                         <span class="title">All Posts</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Post" asp-action="Create" class="nav-link">
+                                    <a asp-controller="Posts" asp-action="Create" class="nav-link">
                                         <span class="title">Add Post</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="PostCategory" asp-action="Index" class="nav-link">
+                                    <a asp-controller="PostCategories" asp-action="Index" class="nav-link">
                                         <span class="title">Post Categories</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="products"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="productcategories"?"active":string.Empty) ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-codepen"></i>
                                 <span class="title">Products</span>
@@ -228,23 +228,23 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a asp-controller="Product" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Products" asp-action="Index" class="nav-link">
                                         <span class="title">All Products</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Product" asp-action="Create" class="nav-link">
+                                    <a asp-controller="Products" asp-action="Create" class="nav-link">
                                         <span class="title">New Product</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="ProductCategory" asp-action="Index" class="nav-link">
+                                    <a asp-controller="ProductCategories" asp-action="Index" class="nav-link">
                                         <span class="title">Product Categories</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="links"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="linkcategories"?"active":string.Empty) ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="glyphicon glyphicon-link"></i>
                                 <span class="title">Links</span>
@@ -252,23 +252,23 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a asp-controller="Link" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Links" asp-action="Index" class="nav-link">
                                         <span class="title">All Links</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Link" asp-action="Create" class="nav-link">
+                                    <a asp-controller="Links" asp-action="Create" class="nav-link">
                                         <span class="title">Add Link</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="LinkCategory" asp-action="Index" class="nav-link">
+                                    <a asp-controller="LinkCategories" asp-action="Index" class="nav-link">
                                         <span class="title">Link Categories</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="forms"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="formfields"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="feedbacks"?"active":string.Empty) ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="glyphicon glyphicon-list-alt"></i>
                                 <span class="title">Forms</span>
@@ -276,28 +276,28 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a asp-controller="Form" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Forms" asp-action="Index" class="nav-link">
                                         <span class="title">All Forms</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Form" asp-action="Create" class="nav-link">
+                                    <a asp-controller="Forms" asp-action="Create" class="nav-link">
                                         <span class="title">Add Forms</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="FormField" asp-action="Index" class="nav-link">
+                                    <a asp-controller="FormFields" asp-action="Index" class="nav-link">
                                         <span class="title">Form Fields</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Feedback" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Feedbacks" asp-action="Index" class="nav-link">
                                         <span class="title">Feedbacks</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="medias"?"active":string.Empty) ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="glyphicon glyphicon-folder-open"></i>
                                 <span class="title">Medias</span>
@@ -316,60 +316,60 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="themes"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="menus"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="menuitems"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="templates"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="sections"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="widgets"?"active":string.Empty) ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-cubes"></i>
-                                <span class="title">Appearance</span>
+                                <span class="title">Appearances</span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a asp-controller="Theme" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Themes" asp-action="Index" class="nav-link">
                                         <span class="title">Themes</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Theme" asp-action="Customize" class="nav-link">
+                                    <a asp-controller="Themes" asp-action="Customize" class="nav-link">
                                         <span class="title">Customize</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Theme" asp-action="CustomCSS" class="nav-link">
+                                    <a asp-controller="Themes" asp-action="CustomCSS" class="nav-link">
                                         <span class="title">Custom CSS</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Menu" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Menus" asp-action="Index" class="nav-link">
                                         <span class="title">Menus</span>
                                     </a>
                                 <li class="nav-item">
-                                    <a asp-controller="Menu" asp-action="MenuLocationIndex" class="nav-link">
+                                    <a asp-controller="Menus" asp-action="MenuLocationIndex" class="nav-link">
                                         <span class="title">Menu Locations</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="MenuItem" asp-action="Index" class="nav-link">
+                                    <a asp-controller="MenuItems" asp-action="Index" class="nav-link">
                                         <span class="title">Menu Items</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Template" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Templates" asp-action="Index" class="nav-link">
                                         <span class="title">Templates</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Section" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Sections" asp-action="Index" class="nav-link">
                                         <span class="title">Section</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Widget" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Widgets" asp-action="Index" class="nav-link">
                                         <span class="title">Widgets</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="sliders"?"active":string.Empty) ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="glyphicon glyphicon-th"></i>
                                 <span class="title">Sliders</span>
@@ -377,18 +377,13 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a asp-controller="Slider" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Sliders" asp-action="Index" class="nav-link">
                                         <span class="title">Sliders</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-controller="Slide" asp-action="Index" class="nav-link">
-                                        <span class="title">Slides</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="galleries"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="galleryitems"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="galleryitemcategories"?"active":string.Empty) ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="glyphicon glyphicon-picture"></i>
                                 <span class="title">Galleries</span>
@@ -412,7 +407,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="seos"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="redirects"?"active":string.Empty) ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-terminal"></i>
                                 <span class="title">SEO</span>
@@ -420,18 +415,18 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a asp-controller="SEO" asp-action="MetaTags" class="nav-link">
+                                    <a asp-controller="SEOs" asp-action="MetaTags" class="nav-link">
                                         <span class="title">Meta Tags</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Redirect" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Redirects" asp-action="Index" class="nav-link">
                                         <span class="title">Redirects</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="pages"?"users":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="accounts"?"active":string.Empty) ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-users"></i>
                                 <span class="title">Users</span>
@@ -439,18 +434,18 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a asp-controller="Account" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Accounts" asp-action="Index" class="nav-link">
                                         <span class="title">All Users</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Account" asp-action="Register" class="nav-link">
+                                    <a asp-controller="Accounts" asp-action="Register" class="nav-link">
                                         <span class="title">Create User</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="settings"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="languages"?"active":string.Empty)@(ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant()=="resources"?"active":string.Empty) ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-gears"></i>
                                 <span class="title">Ayarlar</span>
@@ -458,22 +453,22 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a asp-controller="Setting" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Settings" asp-action="Index" class="nav-link">
                                         <span class="title">Genel Ayarlar</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Setting" asp-action="Mail" class="nav-link">
+                                    <a asp-controller="Settings" asp-action="Mail" class="nav-link">
                                         <span class="title">E-Posta Ayarları</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Language" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Languages" asp-action="Index" class="nav-link">
                                         <span class="title">Languages</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Resource" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Resources" asp-action="Index" class="nav-link">
                                         <span class="title">Resources</span>
                                     </a>
                                 </li>
@@ -505,7 +500,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <li>
                                 @switch (ViewContext.RouteData.Values["controller"].ToString().ToLowerInvariant())
                                 {
-                                    
+
 
                                     default:
                                         @Html.Raw(ViewContext.RouteData.Values["controller"].ToString());

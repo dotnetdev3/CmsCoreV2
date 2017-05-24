@@ -51,9 +51,10 @@ namespace CmsCoreV2
             services.AddMultitenancy<AppTenant, CachingAppTenantResolver>();
             services.AddEntityFrameworkSqlServer().AddDbContext<ApplicationDbContext>();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, Role>()
+               .AddEntityFrameworkStores<ApplicationDbContext, Guid>()
+               .AddDefaultTokenProviders();
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddOptions();
             services.AddLocalization();
