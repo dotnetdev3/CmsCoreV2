@@ -13,7 +13,7 @@ using SaasKit.Multitenancy;
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
-    public class GalleryItemCategoriesController : Controller
+    public class GalleryItemCategoriesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IHostingEnvironment env;
@@ -68,6 +68,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                galleryItemCategory.CreatedBy = User.Identity.Name ?? "username";
+                galleryItemCategory.CreateDate = DateTime.Now;
+                galleryItemCategory.UpdatedBy = User.Identity.Name ?? "username";
+                galleryItemCategory.UpdateDate = DateTime.Now;
+                galleryItemCategory.AppTenantId = tenant.AppTenantId;
                 _context.Add(galleryItemCategory);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");

@@ -9,7 +9,7 @@ using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Role, Guid>
     {
         private readonly AppTenant tenant;
         public ApplicationDbContext() { }
@@ -70,22 +70,20 @@ namespace CmsCoreV2.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
             builder.Entity<PostPostCategory>().HasKey(pc => new { pc.PostId, pc.PostCategoryId });
-            builder.Entity<GalleryItemGalleryItemCategory>().HasKey(pc => new { pc.GalleryItemId, pc.GalleryItemCategoryId });
-
             builder.Entity<PostPostCategory>().HasOne(bc => bc.Post)
                 .WithMany(b => b.PostPostCategories)
-                .HasForeignKey(bc => bc.PostId);
-
+                .HasForeignKey(bc => bc.PostId).OnDelete(Microsoft.EntityFrameworkCore.Metadata.DeleteBehavior.Restrict);
             builder.Entity<PostPostCategory>().HasOne(bc => bc.PostCategory)
                 .WithMany(c => c.PostPostCategories)
-                .HasForeignKey(bc => bc.PostCategoryId);
+                .HasForeignKey(bc => bc.PostCategoryId).OnDelete(Microsoft.EntityFrameworkCore.Metadata.DeleteBehavior.Restrict);
+            
+            builder.Entity<GalleryItemGalleryItemCategory>().HasKey(pc => new { pc.GalleryItemId, pc.GalleryItemCategoryId });
             builder.Entity<GalleryItemGalleryItemCategory>().HasOne(bc => bc.GalleryItem)
                 .WithMany(b => b.GalleryItemGalleryItemCategories)
-                .HasForeignKey(bc => bc.GalleryItemId);
-
+                .HasForeignKey(bc => bc.GalleryItemId).OnDelete(Microsoft.EntityFrameworkCore.Metadata.DeleteBehavior.Restrict);
             builder.Entity<GalleryItemGalleryItemCategory>().HasOne(bc => bc.GalleryItemCategory)
                 .WithMany(c => c.GalleryItemGalleryItemCategories)
-                .HasForeignKey(bc => bc.GalleryItemCategoryId);
+                .HasForeignKey(bc => bc.GalleryItemCategoryId).OnDelete(Microsoft.EntityFrameworkCore.Metadata.DeleteBehavior.Restrict);
         }
 
         // diğer dbsetler buraya eklenir

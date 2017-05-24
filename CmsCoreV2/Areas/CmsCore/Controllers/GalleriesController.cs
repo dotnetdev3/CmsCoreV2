@@ -13,7 +13,7 @@ using SaasKit.Multitenancy;
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
-    public class GalleriesController : Controller
+    public class GalleriesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private IHostingEnvironment env;
@@ -64,6 +64,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                gallery.CreatedBy = User.Identity.Name ?? "username";
+                gallery.CreateDate = DateTime.Now;
+                gallery.UpdatedBy = User.Identity.Name ?? "username";
+                gallery.UpdateDate = DateTime.Now;
+                gallery.AppTenantId = tenant.AppTenantId;
+
                 _context.Add(gallery);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");

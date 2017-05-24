@@ -42,6 +42,7 @@ namespace CmsCoreV2.Data
             var p = new Page();
             p.Title = "Home";
             p.Slug = "home";
+            p.Body = "deneme";
             p.LanguageId = languageId;
             p.AppTenantId = tenant.AppTenantId;
             context.Pages.Add(p);
