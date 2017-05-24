@@ -74,7 +74,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 if (uploadFile != null)
                 {                               
                     media.FileName = uploadFile.FileName;
-                    media.Size = (uploadFile.Length / 1024) / 1024;
+                    media.Size = (uploadFile.Length / 1024);
                     media.CreatedBy = User.Identity.Name ?? "username";
                     media.CreateDate = DateTime.Now;
                     media.UpdatedBy = User.Identity.Name ?? "username";
@@ -103,28 +103,28 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                     || Path.GetExtension(uploadFile.FileName) == ".png"
                      )
                     {
-                        string FilePath = ViewBag.UploadPath + DateTime.Now.Month + "-" + DateTime.Now.Year + "\\";
+                        string category = DateTime.Now.Month + "-" + DateTime.Now.Year;
+                        string FilePath = UploadPath + category + "\\";
                         string dosyaismi = Path.GetFileName(uploadFile.FileName);
                         var yuklemeYeri = Path.Combine(FilePath, dosyaismi);
-                        media.FilePath = "uploads/media/" + DateTime.Now.Month + "-" + DateTime.Now.Year + "/";
+                        media.FileUrl = "uploads/" + category + "/";
                         try
                         {
                             if (!Directory.Exists(FilePath))
                             {
-                                Directory.CreateDirectory(FilePath);//Eðer klasör yoksa oluþtur
-                                uploadFile.CopyTo(new FileStream(yuklemeYeri, FileMode.Create));
+                                Directory.CreateDirectory(FilePath);//Eðer klasör yoksa oluþtur    
                             }
-                            else
+                            using (var stream = new FileStream(yuklemeYeri, FileMode.Create))
                             {
-                                uploadFile.CopyTo(new FileStream(yuklemeYeri, FileMode.Create));
+                                await uploadFile.CopyToAsync(stream);
                             }
-                       
-                        
+
+
                             _context.Add(media);
                             await _context.SaveChangesAsync();
                             return RedirectToAction("Index");
                         }
-                        catch (Exception exc) { }
+                        catch (Exception exc) { ModelState.AddModelError("FileName", "Hata: " + exc.Message); }
                     }
                     else
                     {
@@ -163,7 +163,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 if (uploadFile != null)
                 {
-
+                    media.Id = id;
                     media.UpdatedBy = User.Identity.Name ?? "username";
                     media.UpdateDate = DateTime.Now;
                     media.AppTenantId = tenant.AppTenantId;
@@ -189,27 +189,29 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                     || Path.GetExtension(uploadFile.FileName) == ".jpeg"
                      )
                     {
-                        string FilePath = ViewBag.UploadPath + DateTime.Now.Month + DateTime.Now.Year + "\\";
+                        string category = DateTime.Now.Month + "-" + DateTime.Now.Year;
+                        string FilePath = UploadPath + category + "\\";
                         string dosyaismi = Path.GetFileName(uploadFile.FileName);
                         var yuklemeYeri = Path.Combine(FilePath, dosyaismi);
-                        media.FilePath = "uploads/media/" + DateTime.Now.Month + "-" + DateTime.Now.Year + "/";
+                        media.FileUrl = "uploads/" + category + "/";
                         try
                         {
                             if (!Directory.Exists(FilePath))
                             {
                                 Directory.CreateDirectory(FilePath);//Eðer klasör yoksa oluþtur
-                                uploadFile.CopyTo(new FileStream(yuklemeYeri, FileMode.Create));
+                                
                             }
-                            else
+                            using (var stream = new FileStream(yuklemeYeri, FileMode.Create))
                             {
-                                uploadFile.CopyTo(new FileStream(yuklemeYeri, FileMode.Create));
-                                media.FileName = uploadFile.FileName;
+                                await uploadFile.CopyToAsync(stream);
                             }
+                            media.FileName = uploadFile.FileName;
+                            media.Size = (uploadFile.Length / 1024);
                             _context.Update(media);
                             await _context.SaveChangesAsync();
                             return RedirectToAction("Index");
                         }
-                        catch (Exception ex) { }
+                        catch (Exception ex) { ModelState.AddModelError("FileName", "Hata: " + ex.Message); }
                     }
                     else
                     {

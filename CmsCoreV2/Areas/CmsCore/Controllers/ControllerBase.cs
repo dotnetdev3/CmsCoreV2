@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
+using CmsCoreV2.Models;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -22,8 +23,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {             
-            ViewBag.UploadPath = "C:\\Users\\Admin\\Source\\Repos\\CmsCoreV2\\CmsCoreV2\\-2017\\";
+        {
+            var appSettings = (IOptions<AppSettings>)this.HttpContext.RequestServices.GetService(typeof(IOptions<AppSettings>));
+            this.AssetsUrl = appSettings.Value.AssetsUrl;
+            this.UploadPath = appSettings.Value.UploadPath;
+            ViewBag.AssetsUrl = this.AssetsUrl;
+            ViewBag.UploadPath = this.UploadPath;
             base.OnActionExecuting(filterContext);
 
         }
