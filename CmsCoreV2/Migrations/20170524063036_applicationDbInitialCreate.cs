@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CmsCoreV2.Migrations
 {
-    public partial class AddGallery : Migration
+    public partial class applicationDbInitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -134,8 +134,8 @@ namespace CmsCoreV2.Migrations
                     CreatedBy = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     FileName = table.Column<string>(nullable: true),
-                    FilePath = table.Column<string>(nullable: true),
                     FileType = table.Column<string>(nullable: true),
+                    FileUrl = table.Column<string>(nullable: true),
                     Size = table.Column<decimal>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     UpdateDate = table.Column<DateTime>(nullable: false),
@@ -144,6 +144,57 @@ namespace CmsCoreV2.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Medias", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Posts",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    Body = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    LanguageId = table.Column<long>(nullable: false),
+                    Meta1 = table.Column<string>(nullable: true),
+                    Meta2 = table.Column<string>(nullable: true),
+                    Photo = table.Column<string>(nullable: true),
+                    SeoDescription = table.Column<string>(nullable: true),
+                    SeoKeywords = table.Column<string>(nullable: true),
+                    SeoTitle = table.Column<string>(nullable: true),
+                    Slug = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true),
+                    ViewCount = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostCategories",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    LanguageId = table.Column<long>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Slug = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostCategories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -165,6 +216,35 @@ namespace CmsCoreV2.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Redirects", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Settings",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    FooterScript = table.Column<string>(nullable: true),
+                    GoogleAnalytics = table.Column<string>(nullable: true),
+                    HeaderString = table.Column<string>(nullable: true),
+                    MapLat = table.Column<string>(nullable: true),
+                    MapLon = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    SmtpHost = table.Column<string>(nullable: true),
+                    SmtpPassword = table.Column<string>(nullable: true),
+                    SmtpPort = table.Column<string>(nullable: true),
+                    SmtpUseSSL = table.Column<string>(nullable: true),
+                    SmtpUserName = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Settings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -442,6 +522,30 @@ namespace CmsCoreV2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PostPostCategories",
+                columns: table => new
+                {
+                    PostId = table.Column<long>(nullable: false),
+                    PostCategoryId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostPostCategories", x => new { x.PostId, x.PostCategoryId });
+                    table.ForeignKey(
+                        name: "FK_PostPostCategories_PostCategories_PostCategoryId",
+                        column: x => x.PostCategoryId,
+                        principalTable: "PostCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PostPostCategories_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Slides",
                 columns: table => new
                 {
@@ -676,6 +780,11 @@ namespace CmsCoreV2.Migrations
                 column: "ParentPageId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PostPostCategories_PostCategoryId",
+                table: "PostPostCategories",
+                column: "PostCategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Resources_LanguageId",
                 table: "Resources",
                 column: "LanguageId");
@@ -733,10 +842,16 @@ namespace CmsCoreV2.Migrations
                 name: "Pages");
 
             migrationBuilder.DropTable(
+                name: "PostPostCategories");
+
+            migrationBuilder.DropTable(
                 name: "Redirects");
 
             migrationBuilder.DropTable(
                 name: "Resources");
+
+            migrationBuilder.DropTable(
+                name: "Settings");
 
             migrationBuilder.DropTable(
                 name: "Slides");
@@ -770,6 +885,12 @@ namespace CmsCoreV2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Menus");
+
+            migrationBuilder.DropTable(
+                name: "PostCategories");
+
+            migrationBuilder.DropTable(
+                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Sliders");

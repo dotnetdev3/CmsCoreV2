@@ -356,9 +356,9 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("FileName");
 
-                    b.Property<string>("FilePath");
-
                     b.Property<string>("FileType");
+
+                    b.Property<string>("FileUrl");
 
                     b.Property<decimal>("Size");
 
@@ -487,6 +487,93 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("Pages");
                 });
 
+            modelBuilder.Entity("CmsCoreV2.Models.Post", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<string>("Body");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<long>("LanguageId");
+
+                    b.Property<string>("Meta1");
+
+                    b.Property<string>("Meta2");
+
+                    b.Property<string>("Photo");
+
+                    b.Property<string>("SeoDescription");
+
+                    b.Property<string>("SeoKeywords");
+
+                    b.Property<string>("SeoTitle");
+
+                    b.Property<string>("Slug");
+
+                    b.Property<string>("Title");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<long>("ViewCount");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.PostCategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<string>("Description");
+
+                    b.Property<long>("LanguageId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Slug");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PostCategories");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.PostPostCategory", b =>
+                {
+                    b.Property<long>("PostId");
+
+                    b.Property<long>("PostCategoryId");
+
+                    b.HasKey("PostId", "PostCategoryId");
+
+                    b.HasIndex("PostCategoryId");
+
+                    b.ToTable("PostPostCategories");
+                });
+
             modelBuilder.Entity("CmsCoreV2.Models.Redirect", b =>
                 {
                     b.Property<long>("Id")
@@ -541,6 +628,50 @@ namespace CmsCoreV2.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("Resources");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.Setting", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<string>("FooterScript");
+
+                    b.Property<string>("GoogleAnalytics");
+
+                    b.Property<string>("HeaderString");
+
+                    b.Property<string>("MapLat");
+
+                    b.Property<string>("MapLon");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("SmtpHost");
+
+                    b.Property<string>("SmtpPassword");
+
+                    b.Property<string>("SmtpPort");
+
+                    b.Property<string>("SmtpUseSSL");
+
+                    b.Property<string>("SmtpUserName");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Slide", b =>
@@ -801,6 +932,19 @@ namespace CmsCoreV2.Migrations
                     b.HasOne("CmsCoreV2.Models.Page", "ParentPage")
                         .WithMany("ChildPages")
                         .HasForeignKey("ParentPageId");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.PostPostCategory", b =>
+                {
+                    b.HasOne("CmsCoreV2.Models.PostCategory", "PostCategory")
+                        .WithMany("PostPostCategories")
+                        .HasForeignKey("PostCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CmsCoreV2.Models.Post", "Post")
+                        .WithMany("PostPostCategories")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Resource", b =>
