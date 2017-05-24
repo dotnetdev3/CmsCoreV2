@@ -7,30 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
-using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
-    public class MenusController : Controller
+    public class LanguagesController : Controller
     {
         private readonly ApplicationDbContext _context;
-        protected readonly AppTenant tenant;
 
-        public MenusController(ApplicationDbContext context, ITenant<AppTenant> tenant)
+        public LanguagesController(ApplicationDbContext context)
         {
-            _context = context;
-            this.tenant = tenant?.Value;
+            _context = context;    
         }
 
-        // GET: CmsCore/Menus
+        // GET: CmsCore/Languages
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Menus.Include(m => m.Language);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.Languages.ToListAsync());
         }
 
-        // GET: CmsCore/Menus/Details/5
+        // GET: CmsCore/Languages/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -38,48 +34,39 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var menu = await _context.Menus
-                .Include(m => m.Language)
+            var language = await _context.Languages
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (menu == null)
+            if (language == null)
             {
                 return NotFound();
             }
 
-            return View(menu);
+            return View(language);
         }
 
-        // GET: CmsCore/Menus/Create
+        // GET: CmsCore/Languages/Create
         public IActionResult Create()
         {
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id");
             return View();
         }
 
-        // POST: CmsCore/Menus/Create
+        // POST: CmsCore/Languages/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,MenuLocation,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Menu menu)
+        public async Task<IActionResult> Create([Bind("Name,NativeName,Culture,IsActive,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Language language)
         {
-            menu.CreatedBy = User.Identity.Name ?? "username";
-            menu.CreateDate = DateTime.Now;
-            menu.UpdatedBy = User.Identity.Name ?? "username";
-            menu.UpdateDate = DateTime.Now;
-            menu.AppTenantId = tenant.AppTenantId;
             if (ModelState.IsValid)
             {
-                _context.Add(menu);
+                _context.Add(language);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
-               
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id", menu.LanguageId);
-            return View(menu);
+            return View(language);
         }
 
-        // GET: CmsCore/Menus/Edit/5
+        // GET: CmsCore/Languages/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -87,39 +74,36 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var menu = await _context.Menus.SingleOrDefaultAsync(m => m.Id == id);
-            if (menu == null)
+            var language = await _context.Languages.SingleOrDefaultAsync(m => m.Id == id);
+            if (language == null)
             {
                 return NotFound();
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id", menu.LanguageId);
-            return View(menu);
+            return View(language);
         }
 
-        // POST: CmsCore/Menus/Edit/5
+        // POST: CmsCore/Languages/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,MenuLocation,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Menu menu)
+        public async Task<IActionResult> Edit(long id, [Bind("Name,NativeName,Culture,IsActive,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Language language)
         {
-            if (id != menu.Id)
+            if (id != language.Id)
             {
                 return NotFound();
             }
-            menu.UpdatedBy = User.Identity.Name ?? "username";
-            menu.UpdateDate = DateTime.Now;
-            menu.AppTenantId = tenant.AppTenantId;
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(menu);
+                    _context.Update(language);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MenuExists(menu.Id))
+                    if (!LanguageExists(language.Id))
                     {
                         return NotFound();
                     }
@@ -130,11 +114,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id", menu.LanguageId);
-            return View(menu);
+            return View(language);
         }
 
-        // GET: CmsCore/Menus/Delete/5
+        // GET: CmsCore/Languages/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -142,31 +125,30 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var menu = await _context.Menus
-                .Include(m => m.Language)
+            var language = await _context.Languages
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (menu == null)
+            if (language == null)
             {
                 return NotFound();
             }
 
-            return View(menu);
+            return View(language);
         }
 
-        // POST: CmsCore/Menus/Delete/5
+        // POST: CmsCore/Languages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var menu = await _context.Menus.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Menus.Remove(menu);
+            var language = await _context.Languages.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Languages.Remove(language);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool MenuExists(long id)
+        private bool LanguageExists(long id)
         {
-            return _context.Menus.Any(e => e.Id == id);
+            return _context.Languages.Any(e => e.Id == id);
         }
     }
 }

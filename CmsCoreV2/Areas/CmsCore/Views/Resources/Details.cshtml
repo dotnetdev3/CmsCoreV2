@@ -1,13 +1,13 @@
-﻿@model CmsCoreV2.Models.MenuItem
+@model CmsCoreV2.Models.Resource
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Detaylar</h2>
+<h2>Details</h2>
 
 <div>
-    
+    <h4>Resource</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -17,28 +17,10 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Url)
+            @Html.DisplayNameFor(model => model.Value)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Url)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Target)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Target)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Position)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Position)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsPublished)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsPublished)
+            @Html.DisplayFor(model => model.Value)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.CreateDate)
@@ -71,20 +53,14 @@
             @Html.DisplayFor(model => model.AppTenantId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Menu)
+            @Html.DisplayNameFor(model => model.Language)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Menu.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ParentMenuItem)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ParentMenuItem.Id)
+            @Html.DisplayFor(model => model.Language.Id)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a> |
-    <a asp-action="Index">Listeye Geri Dön</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>

@@ -1,14 +1,14 @@
-@model CmsCoreV2.Models.Page
+﻿@model CmsCoreV2.Models.Page
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Sil</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Page</h4>
+    <h4>Sayfalar</h4>
     <hr />
     <form asp-action="Delete">
         <dl class="dl-horizontal">
@@ -113,8 +113,8 @@
 
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            <a asp-action="Index">Back to List</a>
+            <input type="submit" value="Sil" class="btn btn-danger" /> |
+            <a asp-action="Index">Listeye Geri Dön</a>
         </div>
     </form>
 </div>

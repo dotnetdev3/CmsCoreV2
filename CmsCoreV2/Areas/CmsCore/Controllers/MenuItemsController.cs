@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -14,10 +15,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     public class MenuItemsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        protected readonly AppTenant tenant;
 
-        public MenuItemsController(ApplicationDbContext context)
+        public MenuItemsController(ApplicationDbContext context, ITenant<AppTenant> tenant)
         {
-            _context = context;    
+            _context = context;
+            this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/MenuItems
@@ -62,6 +65,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Url,Target,Position,IsPublished,ParentMenuItemId,MenuId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] MenuItem menuItem)
         {
+            menuItem.CreatedBy = User.Identity.Name ?? "username";
+            menuItem.CreateDate = DateTime.Now;
+            menuItem.UpdatedBy = User.Identity.Name ?? "username";
+            menuItem.UpdateDate = DateTime.Now;
+            menuItem.AppTenantId = tenant.AppTenantId;
             if (ModelState.IsValid)
             {
                 _context.Add(menuItem);
@@ -105,6 +113,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
 
             if (ModelState.IsValid)
             {
+                menuItem.UpdatedBy = User.Identity.Name ?? "username";
+                menuItem.UpdateDate = DateTime.Now;
+                menuItem.AppTenantId = tenant.AppTenantId;
                 try
                 {
                     _context.Update(menuItem);
