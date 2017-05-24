@@ -16,28 +16,53 @@ namespace CmsCoreV2.Models
             ChildPages = new HashSet<Page>();
             LanguageId = 1;
         }
+        [StringLength(200)]
+        [Required]
+        [Display(Name ="Başlık")]
         public string Title { get; set; }
+
+        [StringLength(200)]
+        [Required]
+        [Display(Name = "Bağlantı")]
         public string Slug { get; set; }
+
+        [Required]
+        [Display(Name = "İçerik")]
         public string Body { get; set; }
+
+        [Display(Name = "Görüntülenme Sayısı")]
         public long ViewCount { get; set; }
+
 
         
         public long? ParentPageId { get; set; }
+
         [ForeignKey("ParentPageId")]
         public Page ParentPage { get; set; }
+
         public virtual ICollection<Page> ChildPages { get; set; }
 
+        [StringLength(200)]
+        [Display(Name = "Seo Başlığı")]
         public string SeoTitle { get; set; }
+
+        [Display(Name = "Seo Açıklama")]
         public string SeoDescription { get; set; }
+
+        [Display(Name = "Seo Anahtar Kelimeler")]
         public string SeoKeywords { get; set; }
 
+        [Display(Name = "Yayınlandı")]
         public bool IsPublished { get; set; }
 
         [StringLength(200)]
-        public string Template  { get; set; } 
+        [Display(Name = "Tema")]    
+        public string Template  { get; set; }
 
-        public long LanguageId { get; set; }
         [ForeignKey("LanguageId")]
+        public long LanguageId { get; set; }
+
+        [Display(Name = "Dil")]
         public Language Language { get; set; }
        
     }
