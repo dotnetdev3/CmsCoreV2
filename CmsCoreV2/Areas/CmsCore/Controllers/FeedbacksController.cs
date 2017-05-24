@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -14,10 +15,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     public class FeedbacksController : Controller
     {
         private readonly ApplicationDbContext _context;
+        protected readonly AppTenant tenant;
 
-        public FeedbacksController(ApplicationDbContext context)
+        public FeedbacksController(ApplicationDbContext context, ITenant<AppTenant> tenant)
         {
-            _context = context;    
+            _context = context;
+            this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/Feedbacks
@@ -57,6 +60,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserName,SentDate,FormId,FormName,IP,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Feedback feedback)
         {
+            feedback.CreatedBy = User.Identity.Name ?? "username";
+            feedback.CreateDate = DateTime.Now;
+            feedback.UpdatedBy = User.Identity.Name ?? "username";
+            feedback.UpdateDate = DateTime.Now;
+            feedback.AppTenantId = tenant.AppTenantId;
             if (ModelState.IsValid)
             {
                 _context.Add(feedback);
@@ -93,7 +101,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-
+            feedback.UpdatedBy = User.Identity.Name ?? "username";
+            feedback.UpdateDate = DateTime.Now;
+            feedback.AppTenantId = tenant.AppTenantId;
             if (ModelState.IsValid)
             {
                 try

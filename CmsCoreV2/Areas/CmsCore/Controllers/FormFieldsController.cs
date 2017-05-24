@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -15,11 +16,13 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public FormFieldsController(ApplicationDbContext context)
-        {
-            _context = context;    
-        }
+        protected readonly AppTenant tenant;
 
+        public FormFieldsController(ApplicationDbContext context, ITenant<AppTenant> tenant)
+        {
+            _context = context;
+            this.tenant = tenant?.Value;
+        }
         // GET: CmsCore/FormFields
         public async Task<IActionResult> Index()
         {
@@ -60,6 +63,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Required,Value,Position,FieldType,FormId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] FormField formField)
         {
+            formField.CreatedBy = User.Identity.Name ?? "username";
+            formField.CreateDate = DateTime.Now;
+            formField.UpdatedBy = User.Identity.Name ?? "username";
+            formField.UpdateDate = DateTime.Now;
+            formField.AppTenantId = tenant.AppTenantId;
             if (ModelState.IsValid)
             {
                 _context.Add(formField);
@@ -98,7 +106,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-
+            formField.UpdatedBy = User.Identity.Name ?? "username";
+            formField.UpdateDate = DateTime.Now;
+            formField.AppTenantId = tenant.AppTenantId;
             if (ModelState.IsValid)
             {
                 try

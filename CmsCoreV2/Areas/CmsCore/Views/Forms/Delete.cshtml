@@ -1,113 +1,111 @@
-@model CmsCoreV2.Models.Form
+﻿@model CmsCoreV2.Models.Form
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Sil";
 }
 
-<h2>Delete</h2>
+<h2>Form Sil</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bu kaydı silmek istediğinize emin misiniz?</h3>
 <div>
-    <h4>Form</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FormName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FormName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailTo)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EmailTo)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailBcc)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EmailBcc)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailCc)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EmailCc)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Template)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Template)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ClosingDescription)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ClosingDescription)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.GoogleAnalyticsCode)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.GoogleAnalyticsCode)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsPublished)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsPublished)
-        </dd>
-        <input type="hidden" asp-for="Id" />
-        <dt>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreateDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdateDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UpdateDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AppTenantId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AppTenantId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Language)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Language.Id)
-        </dd>
-    </dl>
-    
     <form asp-action="Delete">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FormName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FormName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EmailTo)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EmailTo)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EmailBcc)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EmailBcc)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EmailCc)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EmailCc)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Template)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Template)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ClosingDescription)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ClosingDescription)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.GoogleAnalyticsCode)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.GoogleAnalyticsCode)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsPublished)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IsPublished)
+            </dd>
+            <input type="hidden" asp-for="Id" />
+            <dt>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreateDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedBy)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UpdateDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UpdateDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UpdatedBy)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AppTenantId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AppTenantId)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Language)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Language.Id)
+            </dd>
+        </dl>
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            <a asp-action="Index">Back to List</a>
+            <input type="submit" value="Sil" class="btn btn-danger" /> 
+            <a asp-action="Index">Listeye Geri Dön</a>
         </div>
     </form>
 </div>

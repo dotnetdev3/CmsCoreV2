@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -14,10 +15,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     public class FormsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        protected readonly AppTenant tenant;
 
-        public FormsController(ApplicationDbContext context)
+        public FormsController(ApplicationDbContext context, ITenant<AppTenant> tenant)
         {
-            _context = context;    
+            _context = context;
+            this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/Forms
@@ -60,6 +63,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FormName,EmailTo,EmailBcc,EmailCc,Description,Template,ClosingDescription,GoogleAnalyticsCode,IsPublished,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Form form)
         {
+            form.CreatedBy = User.Identity.Name ?? "username";
+            form.CreateDate = DateTime.Now;
+            form.UpdatedBy = User.Identity.Name ?? "username";
+            form.UpdateDate = DateTime.Now;
+            form.AppTenantId = tenant.AppTenantId;
             if (ModelState.IsValid)
             {
                 _context.Add(form);
@@ -98,7 +106,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-
+            form.UpdatedBy = User.Identity.Name ?? "username";
+            form.UpdateDate = DateTime.Now;
+            form.AppTenantId = tenant.AppTenantId;
             if (ModelState.IsValid)
             {
                 try
