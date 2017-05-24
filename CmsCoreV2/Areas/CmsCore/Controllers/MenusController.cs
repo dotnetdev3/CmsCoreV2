@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -14,10 +15,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     public class MenusController : Controller
     {
         private readonly ApplicationDbContext _context;
+        protected readonly AppTenant tenant;
 
-        public MenusController(ApplicationDbContext context)
+        public MenusController(ApplicationDbContext context, ITenant<AppTenant> tenant)
         {
-            _context = context;    
+            _context = context;
+            this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/Menus
@@ -60,11 +63,17 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,MenuLocation,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Menu menu)
         {
+            menu.CreatedBy = User.Identity.Name ?? "username";
+            menu.CreateDate = DateTime.Now;
+            menu.UpdatedBy = User.Identity.Name ?? "username";
+            menu.UpdateDate = DateTime.Now;
+            menu.AppTenantId = tenant.AppTenantId;
             if (ModelState.IsValid)
             {
                 _context.Add(menu);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
+               
             }
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id", menu.LanguageId);
             return View(menu);
@@ -98,7 +107,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-
+            menu.UpdatedBy = User.Identity.Name ?? "username";
+            menu.UpdateDate = DateTime.Now;
+            menu.AppTenantId = tenant.AppTenantId;
             if (ModelState.IsValid)
             {
                 try

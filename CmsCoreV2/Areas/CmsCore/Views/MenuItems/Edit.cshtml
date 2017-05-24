@@ -1,14 +1,14 @@
-@model CmsCoreV2.Models.MenuItem
+﻿@model CmsCoreV2.Models.MenuItem
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Menü Düzenle</h2>
 
 <form asp-action="Edit">
     <div class="form-horizontal">
-        <h4>MenuItem</h4>
+        
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
@@ -76,37 +76,18 @@
                 <span asp-validation-for="CreatedBy" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="UpdateDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="UpdateDate" class="form-control" />
-                <span asp-validation-for="UpdateDate" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="UpdatedBy" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="UpdatedBy" class="form-control" />
-                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="AppTenantId" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="AppTenantId" class="form-control" />
-                <span asp-validation-for="AppTenantId" class="text-danger"></span>
-            </div>
-        </div>
+       
+       
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Kaydet" class="btn btn-default" />
             </div>
         </div>
     </div>
 </form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Listeye Geri Dön</a>
 </div>
 
 @section Scripts {
