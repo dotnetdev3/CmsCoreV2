@@ -1,84 +1,95 @@
 @model CmsCoreV2.Models.Media
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Create File";
 }
 
-<h2>Details</h2>
+<link href="/metronic/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+<link href="/metronic/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" /><br />
 
-<div>
-    <h4>Media</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FileName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FileName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Size)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Size)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FileUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FileUrl)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FileType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FileType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreateDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdateDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UpdateDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AppTenantId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AppTenantId)
-        </dd>
-    </dl>
+<script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
+<script src="~/js/generate-slug.js"> </script><br />
+
+<div class="row">
+    <div class="col-md-12 ">
+        <!-- BEGIN SAMPLE FORM PORTLET-->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-dark">
+                    <i class="icon-settings font-dark"></i>
+                    <span class="caption-subject bold uppercase ">Media Details</span>
+                </div>
+            </div>
+
+            <form asp-controller="Media" asp-action="Details" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        @* @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+                <div class="portlet-body form">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <legend>@Html.DisplayNameFor(model => model.Title)</legend>
+                            @Html.DisplayFor(model => model.Title)
+                        </div>
+                        <div class="form-group">
+                            <legend>@Html.DisplayNameFor(model => model.FileUrl)</legend>
+                            <a href="/@Model.FileUrl@Model.FileName">@Model.FileName</a>
+                        </div>
+                        <div class="form-group">
+                            <legend>@Html.DisplayNameFor(model => model.FileName)</legend>
+                            @Html.Raw(Model.FileName)
+                        </div>
+                        <div class="form-group">
+                            <legend>@Html.DisplayNameFor(model => model.Description)</legend>
+                            @Html.Raw(Model.Description)
+                        </div>
+
+                        <div class="form-group">
+                            <legend>@Html.DisplayNameFor(model => model.Size)</legend>
+                            @Html.Raw(Model.Size) Mb
+                        </div>
+                        <div class="form-group">
+                            <legend>@Html.DisplayNameFor(model => model.FileType)</legend>
+                            @Html.DisplayFor(model => model.FileType)
+                        </div>
+                        <div class="form-group">
+                            <legend>@Html.DisplayNameFor(model => model.CreateDate)</legend>
+                            @Html.DisplayFor(model => model.CreateDate)
+                        </div>
+                        <div class="form-group">
+                            <legend>@Html.DisplayNameFor(model => model.CreatedBy)</legend>
+                            @Html.DisplayFor(model => model.CreatedBy)
+                        </div>
+                        <div class="form-group">
+                            <legend>@Html.DisplayNameFor(model => model.UpdateDate)</legend>
+                            @Html.DisplayFor(model => model.UpdateDate)
+                        </div>
+                        <div class="form-group">
+                            <legend>@Html.DisplayNameFor(model => model.UpdatedBy)</legend>
+                            @Html.DisplayFor(model => model.UpdatedBy)
+                        </div>
+                     
+
+
+
+                        <div class="form-group">
+                            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.Id">Edit</a> |
+                            <a asp-action="Index" class="btn btn-default" tabindex="11" >Cancel</a>
+                    
+                         
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+
+
+
+
+ 
