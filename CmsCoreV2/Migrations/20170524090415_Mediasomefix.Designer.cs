@@ -9,9 +9,10 @@ using CmsCoreV2.Models;
 namespace CmsCoreV2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170524090415_Mediasomefix")]
+    partial class Mediasomefix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -19,14 +20,10 @@ namespace CmsCoreV2.Migrations
 
             modelBuilder.Entity("CmsCoreV2.Models.ApplicationUser", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
-
-                    b.Property<int>("AppTenantId");
-
-                    b.Property<string>("AppTenantId1");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -61,8 +58,6 @@ namespace CmsCoreV2.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppTenantId1");
-
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -71,26 +66,6 @@ namespace CmsCoreV2.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("CmsCoreV2.Models.AppTenant", b =>
-                {
-                    b.Property<string>("AppTenantId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ConnectionString");
-
-                    b.Property<string>("Hostname");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Theme");
-
-                    b.Property<string>("Title");
-
-                    b.HasKey("AppTenantId");
-
-                    b.ToTable("AppTenant");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Feedback", b =>
@@ -454,9 +429,7 @@ namespace CmsCoreV2.Migrations
                     b.Property<string>("MenuLocation")
                         .HasMaxLength(200);
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200);
+                    b.Property<string>("Name");
 
                     b.Property<DateTime>("UpdateDate");
 
@@ -486,24 +459,20 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<long?>("MenuId");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200);
+                    b.Property<string>("Name");
 
                     b.Property<long?>("ParentMenuItemId");
 
                     b.Property<int>("Position");
 
-                    b.Property<string>("Target")
-                        .HasMaxLength(200);
+                    b.Property<string>("Target");
 
                     b.Property<DateTime>("UpdateDate");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(200);
 
-                    b.Property<string>("Url")
-                        .HasMaxLength(200);
+                    b.Property<string>("Url");
 
                     b.HasKey("Id");
 
@@ -521,8 +490,7 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("AppTenantId");
 
-                    b.Property<string>("Body")
-                        .IsRequired();
+                    b.Property<string>("Body");
 
                     b.Property<DateTime>("CreateDate");
 
@@ -539,19 +507,14 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("SeoKeywords");
 
-                    b.Property<string>("SeoTitle")
-                        .HasMaxLength(200);
+                    b.Property<string>("SeoTitle");
 
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(200);
+                    b.Property<string>("Slug");
 
                     b.Property<string>("Template")
                         .HasMaxLength(200);
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200);
+                    b.Property<string>("Title");
 
                     b.Property<DateTime>("UpdateDate");
 
@@ -614,8 +577,6 @@ namespace CmsCoreV2.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
-
                     b.ToTable("Posts");
                 });
 
@@ -645,8 +606,6 @@ namespace CmsCoreV2.Migrations
                         .HasMaxLength(200);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("PostCategories");
                 });
@@ -722,35 +681,6 @@ namespace CmsCoreV2.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("Resources");
-                });
-
-            modelBuilder.Entity("CmsCoreV2.Models.Role", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AppTenantId");
-
-                    b.Property<string>("AppTenantId1");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppTenantId1");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex");
-
-                    b.ToTable("AspNetRoles");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Setting", b =>
@@ -874,7 +804,30 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("Sliders");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -883,7 +836,8 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<Guid>("RoleId");
+                    b.Property<string>("RoleId")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -892,7 +846,7 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("AspNetRoleClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -901,7 +855,8 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -910,7 +865,7 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("AspNetUserClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider");
 
@@ -918,7 +873,8 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("ProviderDisplayName");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -927,11 +883,11 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("AspNetUserLogins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
                 {
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("UserId");
 
-                    b.Property<Guid>("RoleId");
+                    b.Property<string>("RoleId");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -940,9 +896,9 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserToken<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserToken<string>", b =>
                 {
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("UserId");
 
                     b.Property<string>("LoginProvider");
 
@@ -953,13 +909,6 @@ namespace CmsCoreV2.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("CmsCoreV2.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("CmsCoreV2.Models.AppTenant", "AppTenant")
-                        .WithMany()
-                        .HasForeignKey("AppTenantId1");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.FeedbackValue", b =>
@@ -973,7 +922,7 @@ namespace CmsCoreV2.Migrations
             modelBuilder.Entity("CmsCoreV2.Models.Form", b =>
                 {
                     b.HasOne("CmsCoreV2.Models.Language", "Language")
-                        .WithMany("Forms")
+                        .WithMany()
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -1004,17 +953,19 @@ namespace CmsCoreV2.Migrations
                 {
                     b.HasOne("CmsCoreV2.Models.GalleryItemCategory", "GalleryItemCategory")
                         .WithMany("GalleryItemGalleryItemCategories")
-                        .HasForeignKey("GalleryItemCategoryId");
+                        .HasForeignKey("GalleryItemCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CmsCoreV2.Models.GalleryItem", "GalleryItem")
                         .WithMany("GalleryItemGalleryItemCategories")
-                        .HasForeignKey("GalleryItemId");
+                        .HasForeignKey("GalleryItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Menu", b =>
                 {
                     b.HasOne("CmsCoreV2.Models.Language", "Language")
-                        .WithMany("Menus")
+                        .WithMany()
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -1042,31 +993,17 @@ namespace CmsCoreV2.Migrations
                         .HasForeignKey("ParentPageId");
                 });
 
-            modelBuilder.Entity("CmsCoreV2.Models.Post", b =>
-                {
-                    b.HasOne("CmsCoreV2.Models.Language")
-                        .WithMany("Posts")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CmsCoreV2.Models.PostCategory", b =>
-                {
-                    b.HasOne("CmsCoreV2.Models.Language")
-                        .WithMany("PostCategories")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("CmsCoreV2.Models.PostPostCategory", b =>
                 {
                     b.HasOne("CmsCoreV2.Models.PostCategory", "PostCategory")
                         .WithMany("PostPostCategories")
-                        .HasForeignKey("PostCategoryId");
+                        .HasForeignKey("PostCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CmsCoreV2.Models.Post", "Post")
                         .WithMany("PostPostCategories")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.Resource", b =>
@@ -1077,13 +1014,6 @@ namespace CmsCoreV2.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("CmsCoreV2.Models.Role", b =>
-                {
-                    b.HasOne("CmsCoreV2.Models.AppTenant", "AppTenant")
-                        .WithMany()
-                        .HasForeignKey("AppTenantId1");
-                });
-
             modelBuilder.Entity("CmsCoreV2.Models.Slide", b =>
                 {
                     b.HasOne("CmsCoreV2.Models.Slider", "Slider")
@@ -1092,15 +1022,15 @@ namespace CmsCoreV2.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("CmsCoreV2.Models.Role")
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
                         .WithMany("Claims")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
                     b.HasOne("CmsCoreV2.Models.ApplicationUser")
                         .WithMany("Claims")
@@ -1108,7 +1038,7 @@ namespace CmsCoreV2.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
                     b.HasOne("CmsCoreV2.Models.ApplicationUser")
                         .WithMany("Logins")
@@ -1116,9 +1046,9 @@ namespace CmsCoreV2.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("CmsCoreV2.Models.Role")
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);

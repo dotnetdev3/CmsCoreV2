@@ -12,37 +12,37 @@
 <p>
     <a asp-action="Create" class="btn sbold green" >Create New</a>
 </p>
-<table class="table table-striped table-bordered table-hover table-checkable order-column" id="tblRecords">
+<table class="table table-striped table-bordered table-hover table-checkable" id="tblRecords">
     <thead>
         <tr>
             <th class="all">
                 @Html.DisplayNameFor(model => model.Title)
             </th>
-            <th class="all">
+            <th>
                 @Html.DisplayNameFor(model => model.FileName)
             </th>
-            <th class="all">
+            <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th class="all">
+            <th>
                 @Html.DisplayNameFor(model => model.Size)
             </th>
-            <th class="none">
+            <th>
                 @Html.DisplayNameFor(model => model.FileUrl)
             </th>
-            <th class="none">
+            <th>
                 @Html.DisplayNameFor(model => model.FileType)
             </th>
-            <th class="none">
+            <th>
                 @Html.DisplayNameFor(model => model.CreateDate)
             </th>
-            <th class="none">
+            <th>
                 @Html.DisplayNameFor(model => model.CreatedBy)
             </th>
-            <th class="all">
+            <th>
                 @Html.DisplayNameFor(model => model.UpdateDate)
             </th>
-            <th class="none">
+            <th>
                 @Html.DisplayNameFor(model => model.UpdatedBy)
             </th>          
             <th data-orderable="false" class="all dt-right ">Eylemler
