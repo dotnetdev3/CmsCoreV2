@@ -56,7 +56,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         public IActionResult Create()
         {
             ViewData["ParentCategoryId"] = new SelectList(_context.GalleryItemCategories, "Id", "Id");
-            return View();
+            var galeryItemCategory = new GalleryItemCategory();
+            return View(galeryItemCategory);
         }
 
         // POST: CmsCore/GalleryItemCategories/Create
@@ -114,6 +115,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
+                    galleryItemCategory.UpdatedBy = User.Identity.Name ?? "username";
+                    galleryItemCategory.UpdateDate = DateTime.Now;
+                    galleryItemCategory.AppTenantId = tenant.AppTenantId;
                     _context.Update(galleryItemCategory);
                     await _context.SaveChangesAsync();
                 }

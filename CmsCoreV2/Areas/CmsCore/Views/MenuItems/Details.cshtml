@@ -1,10 +1,10 @@
 ﻿@model CmsCoreV2.Models.MenuItem
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Menü Öge Detayları";
 }
 
-<h2>Detaylar</h2>
+<h2>Menü Öğeleri Detaylar</h2>
 
 <div>
     
@@ -85,6 +85,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a> |
-    <a asp-action="Index">Listeye Geri Dön</a>
+  
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a>
+    <a class="btn btn-default" asp-action="Index">Listeye Geri Dön</a>
 </div>

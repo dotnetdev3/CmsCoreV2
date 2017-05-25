@@ -22,6 +22,8 @@ namespace CmsCoreV2.Data
             // Perform seed operations
             var languageId = AddLanguages(context, tenant);
             AddPages(context, tenant, languageId);
+            AddSettings(context, tenant);
+           
             AddCustomization(context, tenant);
 
 
@@ -48,6 +50,29 @@ namespace CmsCoreV2.Data
             p.AppTenantId = tenant.AppTenantId;
             context.Pages.Add(p);
             context.SaveChanges();
+        }
+        private static void AddSettings(ApplicationDbContext context,AppTenant tenant)
+        {
+            var s = new Setting();
+            s.AppTenantId = tenant.AppTenantId;
+            s.HeaderString = "";
+            s.GoogleAnalytics = "";
+            s.FooterScript = "";
+            s.MapLat = "";
+            s.MapLon = "";
+            s.SmtpUserName = "";
+            s.SmtpPassword = "";
+            s.SmtpHost = "";
+            s.SmtpPort = "487";
+            s.SmtpUseSSL = true;
+            s.CreateDate = DateTime.Now;
+            s.CreatedBy = "username";
+            s.UpdateDate = DateTime.Now;
+            s.UpdatedBy = "username";
+            context.Settings.Add(s);
+            context.SaveChanges();
+            
+           
         }
         public static void AddCustomization(ApplicationDbContext context, AppTenant tenant)
         {
