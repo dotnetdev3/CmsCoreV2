@@ -105,6 +105,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             }
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", page.LanguageId);
             ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Title", page.ParentPageId);
+
+            page.UpdatedBy = User.Identity.Name ?? "username";
+            page.UpdateDate = DateTime.Now;
+            page.AppTenantId = tenant.AppTenantId;
+
             return View(page);
         }
 
@@ -122,6 +127,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
 
             if (ModelState.IsValid)
             {
+                page.UpdatedBy = User.Identity.Name ?? "username";
+                page.UpdateDate = DateTime.Now;
+                page.AppTenantId = tenant.AppTenantId;
                 try
                 {
                     _context.Update(page);
