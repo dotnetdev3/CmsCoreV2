@@ -7,18 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using Microsoft.AspNetCore.Hosting;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
-    public class LanguagesController : Controller
+    public class LanguagesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private IHostingEnvironment env;
+        protected readonly AppTenant tenant;
 
-        public LanguagesController(ApplicationDbContext context)
+
+        public LanguagesController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context)
         {
-            _context = context;    
+            _context = context;
+            this.env = _env;
+            this.tenant = tenant?.Value;
         }
+
+
 
         // GET: CmsCore/Languages
         public async Task<IActionResult> Index()
@@ -59,6 +68,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                language.CreateDate = DateTime.Now;
+                language.CreatedBy = User.Identity.Name ?? "username";
+                language.UpdateDate = DateTime.Now;
+                language.UpdatedBy = User.Identity.Name ?? "username";
+                language.AppTenantId = tenant.AppTenantId;
+
                 _context.Add(language);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -98,6 +113,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
+
+                    language.UpdateDate = DateTime.Now;
+                    language.UpdatedBy = User.Identity.Name ?? "username";
+                    language.AppTenantId = tenant.AppTenantId;
+
                     _context.Update(language);
                     await _context.SaveChangesAsync();
                 }

@@ -96,6 +96,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", post.LanguageId);
+
+            post.UpdatedBy = User.Identity.Name ?? "username";
+            post.UpdateDate = DateTime.Now;
+            post.AppTenantId = tenant.AppTenantId;
+
             return View(post);
         }
 
@@ -132,6 +137,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", post.LanguageId);
+            post.UpdatedBy = User.Identity.Name ?? "username";
+            post.UpdateDate = DateTime.Now;
+            post.AppTenantId = tenant.AppTenantId;
+
             return View(post);
         }
 

@@ -13,85 +13,49 @@ using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
-    [Area("Cmscore")]
+    [Area("CmsCore")]
     public class SettingsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;      
-        private IHostingEnvironment env;
+
         protected readonly AppTenant tenant;
-        public SettingsController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context)
+        public SettingsController( ITenant<AppTenant> tenant, ApplicationDbContext context)
         {
             _context = context;
-            this.env = _env;
+    
             this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/Settings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Settings.ToListAsync());
+            var setting = await _context.Settings.FirstOrDefaultAsync();
+
+            return View(setting);
+        }
+        [HttpPost]
+        public IActionResult Index(Setting setting)
+        {
+            setting.UpdateDate = DateTime.Now;
+            setting.UpdatedBy = User.Identity.Name;
+            setting.AppTenantId = tenant.AppTenantId;
+            _context.Update(setting);
+            ViewBag.Message = "Ayarlar baþarýyla kaydedildi";
+            return View(setting);
         }
         public async Task<IActionResult> Mail()
         {
-            return View(await _context.Settings.ToListAsync());
-        }
-        // GET: CmsCore/Settings/Details/5
-        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var setting = await _context.Settings
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (setting == null)
-            {
-                return NotFound();
-            }
-
+            var setting = await _context.Settings.FirstOrDefaultAsync();
             return View(setting);
         }
-
-        // GET: CmsCore/Settings/Create
-        public IActionResult Create()
-        {
-            var setting = new Setting();
-            return View(setting);
-        }
-
-        // POST: CmsCore/Settings/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HeaderString,GoogleAnalytics,FooterScript,MapLat,MapLon,SmtpUserName,SmtpPassword,SmtpHost,SmtpPort,SmtpUseSSL,Name,Value,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Setting setting)
+        public IActionResult Mail(Setting setting)
         {
-            if (ModelState.IsValid)
-            {
-                setting.CreatedBy = User.Identity.Name ?? "username";
-                setting.CreateDate = DateTime.Now;
-                setting.UpdatedBy = User.Identity.Name ?? "username";
-                setting.UpdateDate = DateTime.Now;
-                setting.AppTenantId = tenant.AppTenantId;
-                _context.Add(setting);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(setting);
-        }
-
-        // GET: CmsCore/Settings/Edit/5
-        public async Task<IActionResult> Edit()
-        {
-
-         
-
-            var setting = await _context.Settings.SingleOrDefaultAsync(m => m.AppTenantId == tenant.AppTenantId);
-            if (setting == null)
-            {
-                return NotFound();
-            }
+            setting.UpdateDate = DateTime.Now;
+            setting.UpdatedBy = User.Identity.Name;
+            setting.AppTenantId = tenant.AppTenantId;
+            _context.Update(setting);
+            ViewBag.Message = "Ayarlar baþarýyla kaydedildi";
             return View(setting);
         }
 
