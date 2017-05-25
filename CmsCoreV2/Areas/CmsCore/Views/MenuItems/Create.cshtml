@@ -60,8 +60,9 @@
             <label asp-for="MenuId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <select asp-for="MenuId" class ="form-control" asp-items="ViewBag.MenuId">
-                    <option value="">Lütfen Menü Seçiniz!</option>
+                    <option value="">Lütfen Menü Seçiniz! Alan zorunludur!</option>
                 </select>
+                <span asp-validation-for="MenuId" class="text-danger"></span>
             </div>
         </div>
         
