@@ -41,10 +41,14 @@
                             
                                     <span class="input-group-addon btn default btn-file">
                                 
-                                        <input type="file" id="FileName" name="uploadFile">
+                                        <input class="inline" type="file" id="FileName" name="uploadFile">
+                                      
                                     </span>
-                                </div>
-                                <a href="/@Model.FileUrl@Model.FileName">@Model.FileName</a>
+                                    <span class="input-group-addon">
+                                        <a class="inline-block" href="/@Model.FileUrl@Model.FileName"> @Model.FileName</a>
+                                    </span>
+                               </div>
+                                
                                 @Html.ValidationMessage("FileExist", new { @class = "text-danger" })
                             
 
