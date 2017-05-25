@@ -1,74 +1,102 @@
-@model IEnumerable<CmsCoreV2.Models.Setting>
+﻿@model CmsCoreV2.Models.Setting
 
 @{
-    ViewData["Title"] = "Setting";
+    ViewData["Title"] = "Genel Ayarlar";
 }
 
-<br/>
-<div class="row">
-    <div class="col-md-12">
-        <form action="/Setting" method="post">
-            <div class="portlet light bordered">
-                <div class="portlet-title">
-                    <h1 class="page-title">Genel Ayarlar</h1>
-                </div>
-                <div class="portlet-body form">
-                    <form role="form">
-                        <div class="form-body">
-                            <div class="form-group">
-                                <div class="theme-option">
-                                    <span>Header Script:</span><br />
-                                    <textarea class="form-control" name="HeaderScript"></textarea>
-                                </div>
-                            </div>
+<h2>Genel Ayarlar</h2>
 
-
-                            <div class="form-group">
-                                <div class="theme-option">
-                                    <span>Google Analytics:</span><br />
-                                    <textarea class="form-control" name="GoogleAnalytics"></textarea>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <div class="theme-option">
-                                    <span>Footer Script:</span><br />
-                                    <textarea class="form-control" name="FooterScript"></textarea>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <div class="theme-option">
-                                    <span>Map Lat:</span><br />
-                                    <input type="text" class="form-control" name="MapLat">
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <div class="theme-option">
-                                    <span>Map Lon:</span><br />
-                                    <input type="text" class="form-control" name="MapLon">
-                                </div>
-                            </div>
-                            <br />
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <button type="submit" success="true" class="btn blue ">Kaydet</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+<form asp-action="Index">
+    <div class="form-horizontal">
+        <h4>Setting</h4>
+        <hr />
+        @if (!String.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div class="alert alert-success">
+                @ViewBag.Message
             </div>
-        </form>
+
+        }
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="HeaderString" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea rows="6" asp-for="HeaderString" class="form-control"></textarea>
+                <span asp-validation-for="HeaderString" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="GoogleAnalytics" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea rows="6" asp-for="GoogleAnalytics" class="form-control"></textarea>
+                <span asp-validation-for="GoogleAnalytics" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="FooterScript" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea rows="6" asp-for="FooterScript" class="form-control"></textarea>
+                <span asp-validation-for="FooterScript" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="MapLat" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="MapLat" class="form-control" />
+                <span asp-validation-for="MapLat" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="MapLon" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="MapLon" class="form-control" />
+                <span asp-validation-for="MapLon" class="text-danger"></span>
+            </div>
+        </div>
+       
+    <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="CreateDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input readonly asp-for="CreateDate" class="form-control" />
+                <span asp-validation-for="CreateDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreatedBy" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input readonly asp-for="CreatedBy" class="form-control" />
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UpdateDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input readonly asp-for="UpdateDate" class="form-control" />
+                <span asp-validation-for="UpdateDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UpdatedBy" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input readonly asp-for="UpdatedBy" class="form-control" />
+                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="AppTenantId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input type="hidden" asp-for="AppTenantId" class="form-control" />
+                <span asp-validation-for="AppTenantId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
     </div>
-</div>
-
-
-
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>

@@ -54,13 +54,17 @@ namespace CmsCoreV2.Data
             s.HeaderString = "";
             s.GoogleAnalytics = "";
             s.FooterScript = "";
-            s.MapLat = "40.9891303";
-            s.MapLon = "29.0288929";
-            s.SmtpUserName = "username";
-            s.SmtpPassword = "value";
+            s.MapLat = "";
+            s.MapLon = "";
+            s.SmtpUserName = "";
+            s.SmtpPassword = "";
             s.SmtpHost = "";
-            s.SmtpPort = "";
-            s.SmtpUseSSL = "";
+            s.SmtpPort = "487";
+            s.SmtpUseSSL = true;
+            s.CreateDate = DateTime.Now;
+            s.CreatedBy = "username";
+            s.UpdateDate = DateTime.Now;
+            s.UpdatedBy = "username";
             context.Settings.Add(s);
             context.SaveChanges();
             
