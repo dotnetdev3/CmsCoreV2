@@ -9,9 +9,10 @@ using CmsCoreV2.Models;
 namespace CmsCoreV2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170525060317_AddPostPostCategories")]
+    partial class AddPostPostCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -400,12 +401,14 @@ namespace CmsCoreV2.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("FileName")
+                        .IsRequired()
                         .HasMaxLength(200);
 
                     b.Property<string>("FileType")
                         .HasMaxLength(200);
 
-                    b.Property<string>("FileUrl");
+                    b.Property<string>("FileUrl")
+                        .IsRequired();
 
                     b.Property<decimal>("Size");
 
