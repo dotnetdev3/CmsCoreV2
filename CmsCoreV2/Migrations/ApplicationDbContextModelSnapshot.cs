@@ -526,7 +526,8 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<bool>("IsPublished");
 
-                    b.Property<long?>("MenuId");
+                    b.Property<long?>("MenuId")
+                        .IsRequired();
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1075,7 +1076,8 @@ namespace CmsCoreV2.Migrations
                 {
                     b.HasOne("CmsCoreV2.Models.Menu", "Menu")
                         .WithMany("MenuItems")
-                        .HasForeignKey("MenuId");
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CmsCoreV2.Models.MenuItem", "ParentMenuItem")
                         .WithMany("ChildMenuItems")

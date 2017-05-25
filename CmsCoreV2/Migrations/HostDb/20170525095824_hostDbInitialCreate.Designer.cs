@@ -8,8 +8,8 @@ using CmsCoreV2.Data;
 namespace CmsCoreV2.Migrations.HostDb
 {
     [DbContext(typeof(HostDbContext))]
-    [Migration("20170525073356_AddAgainThemes")]
-    partial class AddAgainThemes
+    [Migration("20170525095824_hostDbInitialCreate")]
+    partial class hostDbInitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -5,21 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CmsCoreV2.Migrations.HostDb
 {
-    public partial class AddAgainThemes : Migration
+    public partial class hostDbInitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Theme",
-                table: "AppTenants",
-                newName: "ThemeName");
-
-            migrationBuilder.AddColumn<long>(
-                name: "ThemeId",
-                table: "AppTenants",
-                nullable: false,
-                defaultValue: 0L);
-
             migrationBuilder.CreateTable(
                 name: "Themes",
                 columns: table => new
@@ -47,41 +36,42 @@ namespace CmsCoreV2.Migrations.HostDb
                     table.PrimaryKey("PK_Themes", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AppTenants",
+                columns: table => new
+                {
+                    AppTenantId = table.Column<string>(nullable: false),
+                    ConnectionString = table.Column<string>(nullable: true),
+                    Hostname = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    ThemeId = table.Column<long>(nullable: false),
+                    ThemeName = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppTenants", x => x.AppTenantId);
+                    table.ForeignKey(
+                        name: "FK_AppTenants_Themes_ThemeId",
+                        column: x => x.ThemeId,
+                        principalTable: "Themes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AppTenants_ThemeId",
                 table: "AppTenants",
                 column: "ThemeId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AppTenants_Themes_ThemeId",
-                table: "AppTenants",
-                column: "ThemeId",
-                principalTable: "Themes",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_AppTenants_Themes_ThemeId",
-                table: "AppTenants");
+            migrationBuilder.DropTable(
+                name: "AppTenants");
 
             migrationBuilder.DropTable(
                 name: "Themes");
-
-            migrationBuilder.DropIndex(
-                name: "IX_AppTenants_ThemeId",
-                table: "AppTenants");
-
-            migrationBuilder.DropColumn(
-                name: "ThemeId",
-                table: "AppTenants");
-
-            migrationBuilder.RenameColumn(
-                name: "ThemeName",
-                table: "AppTenants",
-                newName: "Theme");
         }
     }
 }
