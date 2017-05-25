@@ -59,7 +59,7 @@ namespace CmsCoreV2.Data
         public DbSet<GalleryItem> GalleryItems { get; set; }
         public DbSet<GalleryItemCategory> GalleryItemCategories { get; set; }
         public DbSet<GalleryItemGalleryItemCategory> GalleryItemGalleryItemCategories { get; set; }
-
+        public DbSet<Customization> Customizations { get; set; }
         public DbSet<Setting> Settings { get; set; }
         // diğer dbsetler buraya eklenir
 

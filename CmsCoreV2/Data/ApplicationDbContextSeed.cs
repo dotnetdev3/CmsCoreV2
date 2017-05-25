@@ -22,6 +22,7 @@ namespace CmsCoreV2.Data
             // Perform seed operations
             var languageId = AddLanguages(context, tenant);
             AddPages(context, tenant, languageId);
+            AddCustomization(context, tenant);
 
 
 
@@ -47,6 +48,28 @@ namespace CmsCoreV2.Data
             p.AppTenantId = tenant.AppTenantId;
             context.Pages.Add(p);
             context.SaveChanges();
+        }
+        public static void AddCustomization(ApplicationDbContext context, AppTenant tenant)
+        {
+            var customization = new Customization();
+            customization.AppTenantId = tenant.AppTenantId;
+            customization.ThemeId = tenant.ThemeId;
+            customization.ThemeName = tenant.ThemeName;
+            customization.MetaKeywords = tenant.Theme.MetaKeywords;
+            customization.MetaDescription = tenant.Theme.MetaDescription;
+            customization.MetaTitle = tenant.Theme.MetaTitle;
+            customization.Logo = tenant.Theme.Logo;
+            customization.ImageUrl = tenant.Theme.ImageUrl;
+            customization.CustomCSS = tenant.Theme.CustomCSS;
+            customization.CreateDate = DateTime.Now;
+            customization.CreatedBy = "UserName";
+            customization.UpdateDate = DateTime.Now;
+            customization.UpdatedBy = "UserName";
+            customization.PageTemplates = tenant.Theme.PageTemplates;
+            customization.ComponentTemplates = tenant.Theme.ComponentTemplates;
+            context.Customizations.Add(customization);
+            context.SaveChanges();
+
         }
     }
 }
