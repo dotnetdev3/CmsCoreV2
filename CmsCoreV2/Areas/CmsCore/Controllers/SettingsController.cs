@@ -8,81 +8,54 @@ using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
-    [Area("Cmscore")]
-    public class SettingsController : Controller
+    [Area("CmsCore")]
+    public class SettingsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;      
 
-        public SettingsController(ApplicationDbContext context)
+        protected readonly AppTenant tenant;
+        public SettingsController( ITenant<AppTenant> tenant, ApplicationDbContext context)
         {
-            _context = context;    
+            _context = context;
+    
+            this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/Settings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Settings.ToListAsync());
+            var setting = await _context.Settings.FirstOrDefaultAsync();
+
+            return View(setting);
+        }
+        [HttpPost]
+        public IActionResult Index(Setting setting)
+        {
+            setting.UpdateDate = DateTime.Now;
+            setting.UpdatedBy = User.Identity.Name;
+            setting.AppTenantId = tenant.AppTenantId;
+            _context.Update(setting);
+            ViewBag.Message = "Ayarlar baþarýyla kaydedildi";
+            return View(setting);
         }
         public async Task<IActionResult> Mail()
         {
-            return View(await _context.Settings.ToListAsync());
-        }
-        // GET: CmsCore/Settings/Details/5
-        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var setting = await _context.Settings
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (setting == null)
-            {
-                return NotFound();
-            }
-
+            var setting = await _context.Settings.FirstOrDefaultAsync();
             return View(setting);
         }
-
-        // GET: CmsCore/Settings/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: CmsCore/Settings/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HeaderString,GoogleAnalytics,FooterScript,MapLat,MapLon,SmtpUserName,SmtpPassword,SmtpHost,SmtpPort,SmtpUseSSL,Name,Value,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Setting setting)
+        public IActionResult Mail(Setting setting)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(setting);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(setting);
-        }
-
-        // GET: CmsCore/Settings/Edit/5
-        public async Task<IActionResult> Edit(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var setting = await _context.Settings.SingleOrDefaultAsync(m => m.Id == id);
-            if (setting == null)
-            {
-                return NotFound();
-            }
+            setting.UpdateDate = DateTime.Now;
+            setting.UpdatedBy = User.Identity.Name;
+            setting.AppTenantId = tenant.AppTenantId;
+            _context.Update(setting);
+            ViewBag.Message = "Ayarlar baþarýyla kaydedildi";
             return View(setting);
         }
 
@@ -102,7 +75,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
-                    _context.Update(setting);
+                    setting.UpdatedBy = User.Identity.Name ?? "username";
+                    setting.UpdateDate = DateTime.Now;
+                    setting.AppTenantId = tenant.AppTenantId;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
