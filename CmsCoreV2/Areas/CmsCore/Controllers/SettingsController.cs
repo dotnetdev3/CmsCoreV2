@@ -8,17 +8,22 @@ using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("Cmscore")]
-    public class SettingsController : Controller
+    public class SettingsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-
-        public SettingsController(ApplicationDbContext context)
+        private readonly ApplicationDbContext _context;      
+        private IHostingEnvironment env;
+        protected readonly AppTenant tenant;
+        public SettingsController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context)
         {
-            _context = context;    
+            _context = context;
+            this.env = _env;
+            this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/Settings
@@ -51,7 +56,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Settings/Create
         public IActionResult Create()
         {
-            return View();
+            var setting = new Setting();
+            return View(setting);
         }
 
         // POST: CmsCore/Settings/Create
@@ -63,6 +69,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                setting.CreatedBy = User.Identity.Name ?? "username";
+                setting.CreateDate = DateTime.Now;
+                setting.UpdatedBy = User.Identity.Name ?? "username";
+                setting.UpdateDate = DateTime.Now;
+                setting.AppTenantId = tenant.AppTenantId;
                 _context.Add(setting);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -71,14 +82,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         }
 
         // GET: CmsCore/Settings/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public async Task<IActionResult> Edit()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var setting = await _context.Settings.SingleOrDefaultAsync(m => m.Id == id);
+         
+
+            var setting = await _context.Settings.SingleOrDefaultAsync(m => m.AppTenantId == tenant.AppTenantId);
             if (setting == null)
             {
                 return NotFound();
@@ -102,7 +111,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
-                    _context.Update(setting);
+                    setting.UpdatedBy = User.Identity.Name ?? "username";
+                    setting.UpdateDate = DateTime.Now;
+                    setting.AppTenantId = tenant.AppTenantId;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
