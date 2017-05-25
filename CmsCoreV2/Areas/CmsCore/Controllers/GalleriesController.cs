@@ -52,7 +52,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Galleries/Create
         public IActionResult Create()
         {
-            return View();
+            var galery = new Gallery();
+            return View(galery);
         }
 
         // POST: CmsCore/Galleries/Create
@@ -109,6 +110,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
+                    gallery.UpdatedBy = User.Identity.Name ?? "username";
+                    gallery.UpdateDate = DateTime.Now;
+                    gallery.AppTenantId = tenant.AppTenantId;
                     _context.Update(gallery);
                     await _context.SaveChangesAsync();
                 }

@@ -1,10 +1,10 @@
 ﻿@model CmsCoreV2.Models.Menu
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Menü Oluştur";
 }
 
-<h2>Menu Oluştur</h2>
+<h2>Yeni Menü Oluştur</h2>
 
 <form asp-action="Create">
     <div class="form-horizontal">
@@ -28,7 +28,9 @@
         <div class="form-group">
             <label asp-for="LanguageId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="LanguageId" class ="form-control" asp-items="ViewBag.LanguageId"></select>
+                <select asp-for="LanguageId" class ="form-control" asp-items="ViewBag.LanguageId">
+                    <option value="">Lütfen Dil Seçiniz!</option>
+                </select>
             </div>
         </div>
        
@@ -41,7 +43,7 @@
 </form>
 
 <div>
-    <a asp-action="Index">Listeye Geri Dön</a>
+    <a class="btn btn-default" asp-action="Index">Listeye Geri Dön</a>
 </div>
 
 @section Scripts {

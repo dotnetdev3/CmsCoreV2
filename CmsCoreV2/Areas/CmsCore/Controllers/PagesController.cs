@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -14,10 +15,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     public class PagesController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public PagesController(ApplicationDbContext context)
+        protected readonly AppTenant tenant;
+        public PagesController(ApplicationDbContext context, ITenant<AppTenant> tenant)
         {
-            _context = context;    
+            _context = context;
+            this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/Pages
@@ -48,11 +50,18 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         }
 
         // GET: CmsCore/Pages/Create
+        
         public IActionResult Create()
         {
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id");
-            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Id");
-            return View();
+            var page = new Page();
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name");
+            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Title");
+            page.CreatedBy = User.Identity.Name ?? "username";
+            page.CreateDate = DateTime.Now;
+            page.UpdatedBy = User.Identity.Name ?? "username";
+            page.UpdateDate = DateTime.Now;
+            page.AppTenantId = tenant.AppTenantId;
+            return View(page);
         }
 
         // POST: CmsCore/Pages/Create
@@ -62,14 +71,22 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,Slug,Body,ViewCount,ParentPageId,SeoTitle,SeoDescription,SeoKeywords,IsPublished,Template,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Page page)
         {
+
+
             if (ModelState.IsValid)
             {
+                page.CreatedBy = User.Identity.Name ?? "username";
+                page.CreateDate = DateTime.Now;
+                page.UpdatedBy = User.Identity.Name ?? "username";
+                page.UpdateDate = DateTime.Now;
+                page.AppTenantId = tenant.AppTenantId;
+
                 _context.Add(page);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id", page.LanguageId);
-            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Id", page.ParentPageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", page.LanguageId);
+            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Title", page.ParentPageId);
             return View(page);
         }
 
@@ -86,8 +103,13 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id", page.LanguageId);
-            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Id", page.ParentPageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", page.LanguageId);
+            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Title", page.ParentPageId);
+
+            page.UpdatedBy = User.Identity.Name ?? "username";
+            page.UpdateDate = DateTime.Now;
+            page.AppTenantId = tenant.AppTenantId;
+
             return View(page);
         }
 
@@ -105,6 +127,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
 
             if (ModelState.IsValid)
             {
+                page.UpdatedBy = User.Identity.Name ?? "username";
+                page.UpdateDate = DateTime.Now;
+                page.AppTenantId = tenant.AppTenantId;
                 try
                 {
                     _context.Update(page);
@@ -123,8 +148,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id", page.LanguageId);
-            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Id", page.ParentPageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", page.LanguageId);
+            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Title", page.ParentPageId);
             return View(page);
         }
 
