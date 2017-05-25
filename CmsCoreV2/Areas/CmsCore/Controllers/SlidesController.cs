@@ -53,8 +53,15 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Slides/Create
         public IActionResult Create()
         {
+            var slide = new Slide();
+            slide.CreatedBy = User.Identity.Name ?? "username";
+            slide.CreateDate = DateTime.Now;
+            slide.UpdatedBy = User.Identity.Name ?? "username";
+            slide.UpdateDate = DateTime.Now;
+            slide.AppTenantId = tenant.AppTenantId;
+            _context.Add(slide);
             ViewData["SliderId"] = new SelectList(_context.Sliders, "Id", "Id");
-            return View();
+            return View(slide);
         }
 
         // POST: CmsCore/Slides/Create

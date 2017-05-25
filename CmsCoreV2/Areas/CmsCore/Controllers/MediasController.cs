@@ -65,9 +65,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,FileName,Description,Size,FilePath,FileType,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Media media , IFormFile uploadFile)
         {
-            if (uploadFile != null  && ".gif,.jpg,.jpeg,.png,.pdf,.doc,.docx".Contains(Path.GetExtension(uploadFile.FileName)) == false)
+            if (uploadFile != null  && ".mp4,.gif,.jpg,.jpeg,.png,.pdf,.doc,.docx".Contains(Path.GetExtension(uploadFile.FileName)) == false)
             {
-                ModelState.AddModelError("ImageUpload", "Dosyanýn uzantýsý .doc, .docx, .pdf, .rtf, .jpg, .gif ya da .png olmalýdýr.");
+                ModelState.AddModelError("ImageUpload", "Dosyanýn uzantýsý .doc, .docx, .pdf, .rtf, .jpg, .gif, .mp4 ya da .png olmalýdýr.");
             }
             else if (ModelState.IsValid)
             {
@@ -101,6 +101,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                     || Path.GetExtension(uploadFile.FileName) == ".jpg"
                     || Path.GetExtension(uploadFile.FileName) == ".gif"
                     || Path.GetExtension(uploadFile.FileName) == ".png"
+                    || Path.GetExtension(uploadFile.FileName) == ".mp4"
+                    || Path.GetExtension(uploadFile.FileName) == ".mp4"
                      )
                     {
                         string category = DateTime.Now.Month + "-" + DateTime.Now.Year;
@@ -187,6 +189,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                     || Path.GetExtension(uploadFile.FileName) == ".gif"
                     || Path.GetExtension(uploadFile.FileName) == ".png"
                     || Path.GetExtension(uploadFile.FileName) == ".jpeg"
+                    || Path.GetExtension(uploadFile.FileName) == ".mp4"
                      )
                     {
                         string category = DateTime.Now.Month + "-" + DateTime.Now.Year;

@@ -7,17 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using Microsoft.AspNetCore.Hosting;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
-    public class ResourcesController : Controller
+    public class ResourcesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private IHostingEnvironment env;
+        protected readonly AppTenant tenant;
 
-        public ResourcesController(ApplicationDbContext context)
+
+        public ResourcesController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context)
         {
-            _context = context;    
+            _context = context;
+            this.env = _env;
+            this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/Resources
@@ -47,9 +54,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         }
 
         // GET: CmsCore/Resources/Create
-        public IActionResult Create()
+        public IActionResult Create( )
         {
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name");
+            Resource resource = new Resource();
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", resource.LanguageId);
             return View();
         }
 
@@ -62,6 +70,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name");
+                resource.CreateDate = DateTime.Now;
+                resource.CreatedBy = User.Identity.Name ?? "username";
+                resource.UpdateDate = DateTime.Now;
+                resource.UpdatedBy = User.Identity.Name ?? "username";
+                resource.AppTenantId = tenant.AppTenantId;
                 _context.Add(resource);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -103,6 +117,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
+                    resource.UpdateDate = DateTime.Now;
+                    resource.UpdatedBy = User.Identity.Name ?? "username";
+                    resource.AppTenantId = tenant.AppTenantId;
                     _context.Update(resource);
                     await _context.SaveChangesAsync();
                 }
