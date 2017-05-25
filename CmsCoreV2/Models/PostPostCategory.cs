@@ -16,5 +16,6 @@ namespace CmsCoreV2.Models
         public long PostCategoryId { get; set; }
         [Display(Name = "Yazı Kategorisi")]
         public PostCategory PostCategory { get; set; }
+        public string AppTenantId { get; set; }
     }
 }

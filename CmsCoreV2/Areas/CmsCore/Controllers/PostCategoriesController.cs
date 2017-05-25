@@ -23,7 +23,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/PostCategories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PostCategories.ToListAsync());
+            var applicationDbContext = _context.PostCategories.Include(p => p.Language);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: CmsCore/PostCategories/Details/5
@@ -35,6 +36,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             }
 
             var postCategory = await _context.PostCategories
+                .Include(p => p.Language)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (postCategory == null)
             {
@@ -47,6 +49,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/PostCategories/Create
         public IActionResult Create()
         {
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture");
             return View();
         }
 
@@ -63,6 +66,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
             return View(postCategory);
         }
 
@@ -79,6 +83,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
             return View(postCategory);
         }
 
@@ -114,6 +119,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
             return View(postCategory);
         }
 
@@ -126,6 +132,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             }
 
             var postCategory = await _context.PostCategories
+                .Include(p => p.Language)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (postCategory == null)
             {
