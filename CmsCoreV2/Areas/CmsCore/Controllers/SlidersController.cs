@@ -7,17 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using Microsoft.AspNetCore.Hosting;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
-    public class SlidersController : Controller
+    public class SlidersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-
-        public SlidersController(ApplicationDbContext context)
+        
+        protected readonly AppTenant tenant;
+        public SlidersController(ITenant<AppTenant> tenant, ApplicationDbContext context)
         {
-            _context = context;    
+            this.tenant = tenant.Value;
+            _context = context;
         }
 
         // GET: CmsCore/Sliders
@@ -47,7 +51,14 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Sliders/Create
         public IActionResult Create()
         {
-            return View();
+            var slider = new Slider();
+            slider.CreatedBy = User.Identity.Name ?? "username";
+            slider.CreateDate = DateTime.Now;
+            slider.UpdatedBy = User.Identity.Name ?? "username";
+            slider.UpdateDate = DateTime.Now;
+            slider.AppTenantId = tenant.AppTenantId;
+            return View(slider);
+       
         }
 
         // POST: CmsCore/Sliders/Create
@@ -59,6 +70,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                slider.CreatedBy = User.Identity.Name ?? "username";
+                slider.CreateDate = DateTime.Now;
+                slider.UpdatedBy = User.Identity.Name ?? "username";
+                slider.UpdateDate = DateTime.Now;
+                slider.AppTenantId = tenant.AppTenantId;
                 _context.Add(slider);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");

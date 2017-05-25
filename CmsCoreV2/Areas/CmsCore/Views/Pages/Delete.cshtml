@@ -25,7 +25,7 @@
                 @Html.DisplayFor(model => model.Slug)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Body)
+                @Html.Raw(Model.Body)
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Body)
@@ -66,7 +66,7 @@
             <dd>
                 @Html.DisplayFor(model => model.Template)
             </dd>
-            <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Id" />
             <dt>
                 @Html.DisplayNameFor(model => model.CreateDate)
             </dt>
