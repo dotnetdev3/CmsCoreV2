@@ -12,17 +12,19 @@ namespace CmsCoreV2.Models
         public string HeaderString { get; set; }
         public string GoogleAnalytics { get; set; }
         public string FooterScript { get; set; }
+        [StringLength(200)]
         public string MapLat { get; set; }
+        [StringLength(200)]
         public string MapLon { get; set; }
         //MAIL
+        [StringLength(200)]
         public string SmtpUserName { get; set; }
+        [StringLength(200)]
         public string SmtpPassword { get; set; }
+        [StringLength(200)]
         public string SmtpHost { get; set; }
+        [StringLength(200)]
         public string SmtpPort { get; set; }
-        public string SmtpUseSSL { get; set; }
-
-        // kaldırılacak
-        public string Name { get; set; }
-        public string Value { get; set; }
+        public bool SmtpUseSSL { get; set; }
     }
 }

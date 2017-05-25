@@ -1,0 +1,125 @@
+﻿@model CmsCoreV2.Models.Customization
+
+@{
+    ViewData["Title"] = "Düzenle";
+}
+
+<h2>Düzenle</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Customization</h4>
+        <hr />
+        <p>@ViewData["var"]</p>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="ThemeName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ThemeName" class="form-control" readonly />  
+                <span asp-validation-for="ThemeName" class="text-danger"></span>
+           </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PageTemplates" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PageTemplates" class="form-control" />
+                <span asp-validation-for="PageTemplates" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ComponentTemplates" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ComponentTemplates" class="form-control" />
+                <span asp-validation-for="ComponentTemplates" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Logo" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Logo" class="form-control" />
+                <span asp-validation-for="Logo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="MetaTitle" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="MetaTitle" class="form-control" />
+                <span asp-validation-for="MetaTitle" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="MetaDescription" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="MetaDescription" class="form-control" />
+                <span asp-validation-for="MetaDescription" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="MetaKeywords" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="MetaKeywords" class="form-control" />
+                <span asp-validation-for="MetaKeywords" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageUrl" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ImageUrl" class="form-control"/>
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CustomCSS" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="CustomCSS" class="form-control"></textarea>
+                <span asp-validation-for="CustomCSS" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ManyLocation" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ManyLocation" class="form-control" />
+                <span asp-validation-for="ManyLocation" class="text-danger"></span>
+            </div>
+        </div>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="CreateDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CreateDate" class="form-control" readonly />
+                <span asp-validation-for="CreateDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreatedBy" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CreatedBy" class="form-control" readonly />
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UpdateDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UpdateDate" class="form-control" readonly />
+                <span asp-validation-for="UpdateDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UpdatedBy" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UpdatedBy" class="form-control" readonly />
+                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Kaydet" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

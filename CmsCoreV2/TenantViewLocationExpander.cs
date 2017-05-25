@@ -15,7 +15,7 @@ namespace CmsCoreV2
         public void PopulateValues(ViewLocationExpanderContext context)
         {
             context.Values[THEME_KEY]
-                = context.ActionContext.HttpContext.GetTenant<AppTenant>()?.Theme; // context'teki tenant'tan theme adı alınır
+                = context.ActionContext.HttpContext.GetTenant<AppTenant>()?.ThemeName; // context'teki tenant'tan theme adı alınır
 
             context.Values[TENANT_KEY]
                 = context.ActionContext.HttpContext.GetTenant<AppTenant>()?.Name.Replace(" ", "-"); // context'teki tenant'tan tenant adı alınır

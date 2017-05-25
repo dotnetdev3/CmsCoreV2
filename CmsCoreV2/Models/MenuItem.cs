@@ -14,7 +14,7 @@ namespace CmsCoreV2.Models
             Position = 0;
             ChildMenuItems = new HashSet<MenuItem>();
         }
-        [Required]
+        [Required(ErrorMessage = "Menü ögesi adı zorunludur. Lütfen giriniz!")]
         [Display(Name = "Menü Öğesi Adı")]
         [StringLength (200)]
         public string Name { get; set; }
@@ -34,9 +34,11 @@ namespace CmsCoreV2.Models
         public MenuItem ParentMenuItem { get; set; }
         [Display(Name = "Alt Menü Öğeleri")]
         public ICollection<MenuItem> ChildMenuItems { get; set; }
+        [Required (ErrorMessage ="Menü Alanı zorunludur Lütfen giriniz!")]
         [Display(Name = "Menü")]
         public long? MenuId { get; set; }
         [ForeignKey("MenuId")]
+        
         [Display(Name = "Menü")]
         public Menu Menu { get; set; }
     }
