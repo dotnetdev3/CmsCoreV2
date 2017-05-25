@@ -30,6 +30,8 @@ namespace CmsCoreV2.Data
                 QueryFilterManager.Filter<Post>(q => q.Where(x => x.AppTenantId == tenantId));
                 QueryFilterManager.Filter<PostCategory>(q => q.Where(x => x.AppTenantId == tenantId));
                 QueryFilterManager.Filter<PostPostCategory>(q => q.Where(x => x.AppTenantId == tenantId));
+                QueryFilterManager.Filter<ApplicationUser>(q => q.Where(x => x.AppTenantId == tenantId));
+                QueryFilterManager.Filter<Role>(q => q.Where(x => x.AppTenantId == tenantId));
 
 
 
