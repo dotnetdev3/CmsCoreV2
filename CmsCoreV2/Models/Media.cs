@@ -13,7 +13,6 @@ namespace CmsCoreV2.Models
         [Display(Name = "Ortam Adı")]
         public string Title { get; set; }
 
-        [Required]
         [StringLength(200)]
         [Display(Name = "Dosya Adı")]
         public string FileName { get; set; }
@@ -24,7 +23,7 @@ namespace CmsCoreV2.Models
         [Display(Name = "Boyut")]
         public decimal Size { get; set; }
 
-        [Required]
+       
         [Display(Name = "Dosya Adresi")]
         public string FileUrl { get; set; }
         [Display(Name = "Dosya Tipi")]
