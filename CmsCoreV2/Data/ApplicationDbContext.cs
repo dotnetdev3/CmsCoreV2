@@ -34,6 +34,8 @@ namespace CmsCoreV2.Data
                 QueryFilterManager.Filter<Role>(q => q.Where(x => x.AppTenantId == tenantId));
 
 
+                QueryFilterManager.Filter<Setting>(q => q.Where(x => x.AppTenantId == tenantId));
+
 
                 QueryFilterManager.InitilizeGlobalFilter(this);
             }
@@ -65,7 +67,7 @@ namespace CmsCoreV2.Data
         public DbSet<GalleryItem> GalleryItems { get; set; }
         public DbSet<GalleryItemCategory> GalleryItemCategories { get; set; }
         public DbSet<GalleryItemGalleryItemCategory> GalleryItemGalleryItemCategories { get; set; }
-
+        public DbSet<Customization> Customizations { get; set; }
         public DbSet<Setting> Settings { get; set; }
         // diğer dbsetler buraya eklenir
 

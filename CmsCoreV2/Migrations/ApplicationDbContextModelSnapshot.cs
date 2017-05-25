@@ -69,6 +69,60 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("CmsCoreV2.Models.Customization", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<string>("ComponentTemplates")
+                        .HasMaxLength(200);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("CustomCSS");
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Logo")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("ManyLocation")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("MetaDescription")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("MetaKeywords")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("MetaTitle")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("PageTemplates")
+                        .HasMaxLength(200);
+
+                    b.Property<long>("ThemeId");
+
+                    b.Property<string>("ThemeName")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customizations");
+                });
+
             modelBuilder.Entity("CmsCoreV2.Models.Feedback", b =>
                 {
                     b.Property<long>("Id")
@@ -342,6 +396,8 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<long>("GalleryItemCategoryId");
 
+                    b.Property<string>("AppTenantId");
+
                     b.HasKey("GalleryItemId", "GalleryItemCategoryId");
 
                     b.HasIndex("GalleryItemCategoryId");
@@ -470,7 +526,8 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<bool>("IsPublished");
 
-                    b.Property<long?>("MenuId");
+                    b.Property<long?>("MenuId")
+                        .IsRequired();
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -652,6 +709,8 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<long>("PostCategoryId");
 
+                    b.Property<string>("AppTenantId");
+
                     b.HasKey("PostId", "PostCategoryId");
 
                     b.HasIndex("PostCategoryId");
@@ -768,28 +827,30 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("HeaderString");
 
-                    b.Property<string>("MapLat");
+                    b.Property<string>("MapLat")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("MapLon");
+                    b.Property<string>("MapLon")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("SmtpHost")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("SmtpHost");
+                    b.Property<string>("SmtpPassword")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("SmtpPassword");
+                    b.Property<string>("SmtpPort")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("SmtpPort");
+                    b.Property<bool>("SmtpUseSSL");
 
-                    b.Property<string>("SmtpUseSSL");
-
-                    b.Property<string>("SmtpUserName");
+                    b.Property<string>("SmtpUserName")
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("UpdateDate");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(200);
-
-                    b.Property<string>("Value");
 
                     b.HasKey("Id");
 
@@ -1015,7 +1076,8 @@ namespace CmsCoreV2.Migrations
                 {
                     b.HasOne("CmsCoreV2.Models.Menu", "Menu")
                         .WithMany("MenuItems")
-                        .HasForeignKey("MenuId");
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CmsCoreV2.Models.MenuItem", "ParentMenuItem")
                         .WithMany("ChildMenuItems")

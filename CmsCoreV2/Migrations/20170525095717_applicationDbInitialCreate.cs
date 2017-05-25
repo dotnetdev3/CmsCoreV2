@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CmsCoreV2.Migrations
 {
-    public partial class ApplicationDbInitialCreate : Migration
+    public partial class applicationDbInitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,6 +33,34 @@ namespace CmsCoreV2.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customizations",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppTenantId = table.Column<string>(nullable: true),
+                    ComponentTemplates = table.Column<string>(maxLength: 200, nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
+                    CustomCSS = table.Column<string>(nullable: true),
+                    ImageUrl = table.Column<string>(maxLength: 200, nullable: true),
+                    Logo = table.Column<string>(maxLength: 200, nullable: true),
+                    ManyLocation = table.Column<string>(maxLength: 200, nullable: true),
+                    MetaDescription = table.Column<string>(maxLength: 200, nullable: true),
+                    MetaKeywords = table.Column<string>(maxLength: 200, nullable: true),
+                    MetaTitle = table.Column<string>(maxLength: 200, nullable: true),
+                    PageTemplates = table.Column<string>(maxLength: 200, nullable: true),
+                    ThemeId = table.Column<long>(nullable: false),
+                    ThemeName = table.Column<string>(maxLength: 200, nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customizations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -134,9 +162,9 @@ namespace CmsCoreV2.Migrations
                     CreateDate = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    FileName = table.Column<string>(maxLength: 200, nullable: false),
+                    FileName = table.Column<string>(maxLength: 200, nullable: true),
                     FileType = table.Column<string>(maxLength: 200, nullable: true),
-                    FileUrl = table.Column<string>(nullable: false),
+                    FileUrl = table.Column<string>(nullable: true),
                     Size = table.Column<decimal>(nullable: false),
                     Title = table.Column<string>(maxLength: 200, nullable: false),
                     UpdateDate = table.Column<DateTime>(nullable: false),
@@ -195,17 +223,15 @@ namespace CmsCoreV2.Migrations
                     FooterScript = table.Column<string>(nullable: true),
                     GoogleAnalytics = table.Column<string>(nullable: true),
                     HeaderString = table.Column<string>(nullable: true),
-                    MapLat = table.Column<string>(nullable: true),
-                    MapLon = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    SmtpHost = table.Column<string>(nullable: true),
-                    SmtpPassword = table.Column<string>(nullable: true),
-                    SmtpPort = table.Column<string>(nullable: true),
-                    SmtpUseSSL = table.Column<string>(nullable: true),
-                    SmtpUserName = table.Column<string>(nullable: true),
+                    MapLat = table.Column<string>(maxLength: 200, nullable: true),
+                    MapLon = table.Column<string>(maxLength: 200, nullable: true),
+                    SmtpHost = table.Column<string>(maxLength: 200, nullable: true),
+                    SmtpPassword = table.Column<string>(maxLength: 200, nullable: true),
+                    SmtpPort = table.Column<string>(maxLength: 200, nullable: true),
+                    SmtpUseSSL = table.Column<bool>(nullable: false),
+                    SmtpUserName = table.Column<string>(maxLength: 200, nullable: true),
                     UpdateDate = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true),
-                    Value = table.Column<string>(nullable: true)
+                    UpdatedBy = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -619,7 +645,8 @@ namespace CmsCoreV2.Migrations
                 columns: table => new
                 {
                     GalleryItemId = table.Column<long>(nullable: false),
-                    GalleryItemCategoryId = table.Column<long>(nullable: false)
+                    GalleryItemCategoryId = table.Column<long>(nullable: false),
+                    AppTenantId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -677,7 +704,7 @@ namespace CmsCoreV2.Migrations
                     CreateDate = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<string>(maxLength: 200, nullable: true),
                     IsPublished = table.Column<bool>(nullable: false),
-                    MenuId = table.Column<long>(nullable: true),
+                    MenuId = table.Column<long>(nullable: false),
                     Name = table.Column<string>(maxLength: 200, nullable: false),
                     ParentMenuItemId = table.Column<long>(nullable: true),
                     Position = table.Column<int>(nullable: false),
@@ -694,7 +721,7 @@ namespace CmsCoreV2.Migrations
                         column: x => x.MenuId,
                         principalTable: "Menus",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_MenuItems_MenuItems_ParentMenuItemId",
                         column: x => x.ParentMenuItemId,
@@ -708,7 +735,8 @@ namespace CmsCoreV2.Migrations
                 columns: table => new
                 {
                     PostId = table.Column<long>(nullable: false),
-                    PostCategoryId = table.Column<long>(nullable: false)
+                    PostCategoryId = table.Column<long>(nullable: false),
+                    AppTenantId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -847,6 +875,9 @@ namespace CmsCoreV2.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Customizations");
+
             migrationBuilder.DropTable(
                 name: "FeedbackValues");
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -17,9 +18,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         protected readonly AppTenant tenant;
 
 
-        public PostsController(ApplicationDbContext context)
+        public PostsController(ApplicationDbContext context, ITenant<AppTenant> tenant)
         {
-            _context = context;    
+            _context = context;
+            this.tenant = tenant?.Value;
+
         }
 
         // GET: CmsCore/Posts
@@ -51,8 +54,14 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Posts/Create
         public IActionResult Create()
         {
+            var post = new Post();
+            post.CreatedBy = User.Identity.Name ?? "username";
+            post.CreateDate = DateTime.Now;
+            post.UpdatedBy = User.Identity.Name ?? "username";
+            post.UpdateDate = DateTime.Now;
+            post.AppTenantId = tenant.AppTenantId;
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture");
-            return View();
+            return View(post);
         }
 
         // POST: CmsCore/Posts/Create
@@ -92,6 +101,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", post.LanguageId);
+
+            post.UpdatedBy = User.Identity.Name ?? "username";
+            post.UpdateDate = DateTime.Now;
+            post.AppTenantId = tenant.AppTenantId;
+
             return View(post);
         }
 
@@ -111,6 +125,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
+                    post.UpdatedBy = User.Identity.Name ?? "username";
+                    post.UpdateDate = DateTime.Now;
+                    post.AppTenantId = tenant.AppTenantId;
                     _context.Update(post);
                     await _context.SaveChangesAsync();
                 }
@@ -128,6 +145,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", post.LanguageId);
+            
+
             return View(post);
         }
 
