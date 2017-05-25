@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using Microsoft.AspNetCore.Hosting;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
-    public class SlidesController : Controller
+    public class SlidesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-
-        public SlidesController(ApplicationDbContext context)
+        
+        protected readonly AppTenant tenant;
+        public SlidesController( ITenant<AppTenant> tenant, ApplicationDbContext context)
         {
+            this.tenant = tenant.Value;
             _context = context;    
         }
 
@@ -62,6 +66,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                slide.CreatedBy = User.Identity.Name ?? "username";
+                slide.CreateDate = DateTime.Now;
+                slide.UpdatedBy = User.Identity.Name ?? "username";
+                slide.UpdateDate = DateTime.Now;
+                slide.AppTenantId = tenant.AppTenantId;
                 _context.Add(slide);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
