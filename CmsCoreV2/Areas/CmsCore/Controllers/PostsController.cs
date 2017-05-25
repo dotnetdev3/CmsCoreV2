@@ -55,6 +55,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         public IActionResult Create()
         {
             var post = new Post();
+            post.CreatedBy = User.Identity.Name ?? "username";
+            post.CreateDate = DateTime.Now;
+            post.UpdatedBy = User.Identity.Name ?? "username";
+            post.UpdateDate = DateTime.Now;
+            post.AppTenantId = tenant.AppTenantId;
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture");
             return View(post);
         }
@@ -120,6 +125,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
+                    post.UpdatedBy = User.Identity.Name ?? "username";
+                    post.UpdateDate = DateTime.Now;
+                    post.AppTenantId = tenant.AppTenantId;
                     _context.Update(post);
                     await _context.SaveChangesAsync();
                 }
@@ -137,9 +145,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", post.LanguageId);
-            post.UpdatedBy = User.Identity.Name ?? "username";
-            post.UpdateDate = DateTime.Now;
-            post.AppTenantId = tenant.AppTenantId;
+            
 
             return View(post);
         }
