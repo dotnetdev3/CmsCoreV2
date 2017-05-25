@@ -9,9 +9,10 @@ using CmsCoreV2.Models;
 namespace CmsCoreV2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170525073443_AddAgainCustomizations")]
+    partial class AddAgainCustomizations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -85,9 +86,6 @@ namespace CmsCoreV2.Migrations
                         .HasMaxLength(200);
 
                     b.Property<string>("CustomCSS");
-
-                    b.Property<string>("ImageUrl")
-                        .HasMaxLength(200);
 
                     b.Property<string>("Logo")
                         .HasMaxLength(200);
@@ -396,8 +394,6 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<long>("GalleryItemCategoryId");
 
-                    b.Property<string>("AppTenantId");
-
                     b.HasKey("GalleryItemId", "GalleryItemCategoryId");
 
                     b.HasIndex("GalleryItemCategoryId");
@@ -456,12 +452,14 @@ namespace CmsCoreV2.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("FileName")
+                        .IsRequired()
                         .HasMaxLength(200);
 
                     b.Property<string>("FileType")
                         .HasMaxLength(200);
 
-                    b.Property<string>("FileUrl");
+                    b.Property<string>("FileUrl")
+                        .IsRequired();
 
                     b.Property<decimal>("Size");
 
@@ -708,8 +706,6 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<long>("PostCategoryId");
 
-                    b.Property<string>("AppTenantId");
-
                     b.HasKey("PostId", "PostCategoryId");
 
                     b.HasIndex("PostCategoryId");
@@ -826,30 +822,28 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("HeaderString");
 
-                    b.Property<string>("MapLat")
-                        .HasMaxLength(200);
+                    b.Property<string>("MapLat");
 
-                    b.Property<string>("MapLon")
-                        .HasMaxLength(200);
+                    b.Property<string>("MapLon");
 
-                    b.Property<string>("SmtpHost")
-                        .HasMaxLength(200);
+                    b.Property<string>("Name");
 
-                    b.Property<string>("SmtpPassword")
-                        .HasMaxLength(200);
+                    b.Property<string>("SmtpHost");
 
-                    b.Property<string>("SmtpPort")
-                        .HasMaxLength(200);
+                    b.Property<string>("SmtpPassword");
 
-                    b.Property<bool>("SmtpUseSSL");
+                    b.Property<string>("SmtpPort");
 
-                    b.Property<string>("SmtpUserName")
-                        .HasMaxLength(200);
+                    b.Property<string>("SmtpUseSSL");
+
+                    b.Property<string>("SmtpUserName");
 
                     b.Property<DateTime>("UpdateDate");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(200);
+
+                    b.Property<string>("Value");
 
                     b.HasKey("Id");
 

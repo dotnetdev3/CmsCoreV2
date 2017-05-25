@@ -24,6 +24,10 @@ namespace CmsCoreV2.Data
             AddPages(context, tenant, languageId);
             AddSettings(context, tenant);
            
+            AddCustomization(context, tenant);
+
+
+
         }
         public static long AddLanguages(ApplicationDbContext context, AppTenant tenant)
         {
@@ -69,6 +73,28 @@ namespace CmsCoreV2.Data
             context.SaveChanges();
             
            
+        }
+        public static void AddCustomization(ApplicationDbContext context, AppTenant tenant)
+        {
+            var customization = new Customization();
+            customization.AppTenantId = tenant.AppTenantId;
+            customization.ThemeId = tenant.ThemeId;
+            customization.ThemeName = tenant.ThemeName;
+            customization.MetaKeywords = tenant.Theme.MetaKeywords;
+            customization.MetaDescription = tenant.Theme.MetaDescription;
+            customization.MetaTitle = tenant.Theme.MetaTitle;
+            customization.Logo = tenant.Theme.Logo;
+            customization.ImageUrl = tenant.Theme.ImageUrl;
+            customization.CustomCSS = tenant.Theme.CustomCSS;
+            customization.CreateDate = DateTime.Now;
+            customization.CreatedBy = "UserName";
+            customization.UpdateDate = DateTime.Now;
+            customization.UpdatedBy = "UserName";
+            customization.PageTemplates = tenant.Theme.PageTemplates;
+            customization.ComponentTemplates = tenant.Theme.ComponentTemplates;
+            context.Customizations.Add(customization);
+            context.SaveChanges();
+
         }
     }
 }

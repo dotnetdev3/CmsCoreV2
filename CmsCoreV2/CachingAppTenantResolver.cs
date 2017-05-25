@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using SaasKit.Multitenancy;
 using Microsoft.AspNetCore.Http;
 using CmsCoreV2.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CmsCoreV2
 {
-    public class CachingAppTenantResolver: MemoryCacheTenantResolver<AppTenant>
+    public class CachingAppTenantResolver : MemoryCacheTenantResolver<AppTenant>
     {
         private readonly HostDbContext _dbContext;
 
@@ -36,8 +37,9 @@ namespace CmsCoreV2
             TenantContext<AppTenant> tenantContext = null;
             var hostName = context.Request.Host.Value.ToLower();
 
-            var tenant = _dbContext.AppTenants.FirstOrDefault(
-                t => t.Hostname.Equals(hostName));
+            var tenant = _dbContext.AppTenants.Include(t => t.Theme).FirstOrDefault(
+               t => t.Hostname.Equals(hostName));
+
 
             if (tenant != null)
             {
