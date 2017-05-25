@@ -9,9 +9,10 @@ using CmsCoreV2.Models;
 namespace CmsCoreV2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170525085445_removeNameValueFromSetting")]
+    partial class removeNameValueFromSetting
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -772,25 +773,19 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("HeaderString");
 
-                    b.Property<string>("MapLat")
-                        .HasMaxLength(200);
+                    b.Property<string>("MapLat");
 
-                    b.Property<string>("MapLon")
-                        .HasMaxLength(200);
+                    b.Property<string>("MapLon");
 
-                    b.Property<string>("SmtpHost")
-                        .HasMaxLength(200);
+                    b.Property<string>("SmtpHost");
 
-                    b.Property<string>("SmtpPassword")
-                        .HasMaxLength(200);
+                    b.Property<string>("SmtpPassword");
 
-                    b.Property<string>("SmtpPort")
-                        .HasMaxLength(200);
+                    b.Property<string>("SmtpPort");
 
-                    b.Property<bool>("SmtpUseSSL");
+                    b.Property<string>("SmtpUseSSL");
 
-                    b.Property<string>("SmtpUserName")
-                        .HasMaxLength(200);
+                    b.Property<string>("SmtpUserName");
 
                     b.Property<DateTime>("UpdateDate");
 
