@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -17,9 +18,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         protected readonly AppTenant tenant;
 
 
-        public PostsController(ApplicationDbContext context)
+        public PostsController(ApplicationDbContext context, ITenant<AppTenant> tenant)
         {
-            _context = context;    
+            _context = context;
+            this.tenant = tenant?.Value;
+
         }
 
         // GET: CmsCore/Posts
@@ -51,8 +54,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Posts/Create
         public IActionResult Create()
         {
+            var post = new Post();
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture");
-            return View();
+            return View(post);
         }
 
         // POST: CmsCore/Posts/Create

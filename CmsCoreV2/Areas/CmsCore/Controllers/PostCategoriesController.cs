@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -14,10 +15,14 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     public class PostCategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        protected readonly AppTenant tenant;
 
-        public PostCategoriesController(ApplicationDbContext context)
+
+        public PostCategoriesController(ApplicationDbContext context, ITenant<AppTenant> tenant)
         {
-            _context = context;    
+            _context = context;
+            this.tenant = tenant?.Value;
+
         }
 
         // GET: CmsCore/PostCategories
@@ -49,8 +54,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/PostCategories/Create
         public IActionResult Create()
         {
+            var postcategory = new PostCategory();
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture");
-            return View();
+            return View(postcategory);
         }
 
         // POST: CmsCore/PostCategories/Create
@@ -62,6 +68,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                postCategory.CreatedBy = User.Identity.Name ?? "username";
+                postCategory.CreateDate = DateTime.Now;
+                postCategory.UpdatedBy = User.Identity.Name ?? "username";
+                postCategory.UpdateDate = DateTime.Now;
+                postCategory.AppTenantId = tenant.AppTenantId;
+
                 _context.Add(postCategory);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
