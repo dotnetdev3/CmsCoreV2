@@ -22,9 +22,8 @@ namespace CmsCoreV2.Data
             // Perform seed operations
             var languageId = AddLanguages(context, tenant);
             AddPages(context, tenant, languageId);
-
-
-
+            AddSettings(context, tenant);
+           
         }
         public static long AddLanguages(ApplicationDbContext context, AppTenant tenant)
         {
@@ -47,6 +46,25 @@ namespace CmsCoreV2.Data
             p.AppTenantId = tenant.AppTenantId;
             context.Pages.Add(p);
             context.SaveChanges();
+        }
+        private static void AddSettings(ApplicationDbContext context,AppTenant tenant)
+        {
+            var s = new Setting();
+            s.AppTenantId = tenant.AppTenantId;
+            s.HeaderString = "";
+            s.GoogleAnalytics = "";
+            s.FooterScript = "";
+            s.MapLat = "40.9891303";
+            s.MapLon = "29.0288929";
+            s.SmtpUserName = "username";
+            s.SmtpPassword = "value";
+            s.SmtpHost = "";
+            s.SmtpPort = "";
+            s.SmtpUseSSL = "";
+            context.Settings.Add(s);
+            context.SaveChanges();
+            
+           
         }
     }
 }
