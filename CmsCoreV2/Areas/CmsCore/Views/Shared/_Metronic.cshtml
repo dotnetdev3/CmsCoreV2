@@ -89,28 +89,10 @@ License: You must have a valid license purchased only from themeforest(the above
                         <li>
                             @await Html.PartialAsync("_SelectLanguagePartial")
                         </li>
-                        <li class="dropdown dropdown-user">
-                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <img alt="" class="img-circle" src="/metronic/layouts/layout/img/avatar.png" />
-                                <span class="username username-hide-on-mobile"> @User.Identity.Name </span>
-                                <i class="fa fa-angle-down"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-default">
-                                <li>
-                                    <a asp-controller="Manage" asp-action="Index">
-                                        <i class="icon-user"></i> Profilim
-                                    </a>
-                                </li>
-
-                                <li>
-
-                                    <a href="javascript:void(0);" onclick="document.getElementById('logoutForm').submit();">
-                                        <i class="icon-key"></i> Çıkış
-                                    </a>
-
-                                </li>
-                            </ul>
+                        <li>
+                            @await Html.PartialAsync("_LoginPartial")
                         </li>
+                        
                         <!-- END USER LOGIN DROPDOWN -->
                         <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->

@@ -14,6 +14,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     public class PostsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        protected readonly AppTenant tenant;
+
 
         public PostsController(ApplicationDbContext context)
         {
@@ -23,7 +25,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Posts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Posts.ToListAsync());
+            var applicationDbContext = _context.Posts.Include(p => p.Language);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: CmsCore/Posts/Details/5
@@ -35,6 +38,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             }
 
             var post = await _context.Posts
+                .Include(p => p.Language)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (post == null)
             {
@@ -47,6 +51,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Posts/Create
         public IActionResult Create()
         {
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture");
             return View();
         }
 
@@ -59,10 +64,17 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.CreatedBy = User.Identity.Name ?? "username";
+                post.CreateDate = DateTime.Now;
+                post.UpdatedBy = User.Identity.Name ?? "username";
+                post.UpdateDate = DateTime.Now;
+                post.AppTenantId = tenant.AppTenantId;
+
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", post.LanguageId);
             return View(post);
         }
 
@@ -79,6 +91,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", post.LanguageId);
             return View(post);
         }
 
@@ -114,6 +127,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", post.LanguageId);
             return View(post);
         }
 
@@ -126,6 +140,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             }
 
             var post = await _context.Posts
+                .Include(p => p.Language)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (post == null)
             {

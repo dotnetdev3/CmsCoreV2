@@ -83,12 +83,6 @@
             @Html.DisplayFor(model => model.IsPublished)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.LanguageId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.LanguageId)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.CreateDate)
         </dt>
         <dd>
@@ -117,6 +111,12 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.AppTenantId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Language)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Language.Culture)
         </dd>
     </dl>
 </div>
