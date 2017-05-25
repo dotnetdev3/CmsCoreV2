@@ -16,11 +16,12 @@
     <thead>
         <tr>
             <th class="all">
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
                 @Html.DisplayName("Ortam")
             </th>
+            <th class="all">
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+          
             <th>
                 @Html.DisplayNameFor(model => model.FileName)
             </th>
@@ -57,25 +58,26 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-               @if (item.FileType == "Image")
-               {
-                   <img src="@ViewBag.AssetsUrl@item.FileUrl@item.FileName" class="img-thumbnail" />
-               }
-               else if (item.FileType == "Document")
-               {
-                <i  style="margin-top:10px;" class="inline-block big fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-               }
-               else
-               {
-                <video width="70">
-                    <source src="@ViewBag.AssetsUrl@item.FileUrl@item.FileName" type="video/mp4">                    
-                </video>
-               }
+                @if (item.FileType == "Image")
+                {
+                    <img src="@ViewBag.AssetsUrl@item.FileUrl@item.FileName" class="img-thumbnail" />
+                }
+                else if (item.FileType == "Document")
+                {
+                    <i style="margin-top:10px;" class="inline-block big fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+                }
+                else
+                {
+                    <video width="70">
+                        <source src="@ViewBag.AssetsUrl@item.FileUrl@item.FileName" type="video/mp4">
+                    </video>
+                }
 
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.FileName)
             </td>
