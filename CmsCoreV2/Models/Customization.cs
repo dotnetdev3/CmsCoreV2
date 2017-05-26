@@ -13,28 +13,28 @@ namespace CmsCoreV2.Models
         [StringLength(200)]
         [Display(Name = "Tema Adı")]
         public string ThemeName { get; set; }
-        [StringLength(200)]
-        [Display(Name = "Sayfa Şablonu")]
+       
+        [Display(Name = "Sayfa Şablonları")]
         public string PageTemplates { get; set; }
-        [StringLength(200)]
-        [Display(Name = "Component Şablonu")]
+        
+        [Display(Name = "Bileşen Şablonları")]
         public string ComponentTemplates { get; set; }
         [StringLength(200)]
         public string Logo { get; set; }
         [StringLength(200)]
         [Display(Name = "Meta Başlık")]
         public string MetaTitle { get; set; }
-        [StringLength(200)]
+        
         [Display(Name = "Meta Açıklama")]
         public string MetaDescription { get; set; }
-        [StringLength(200)]
+        
         [Display(Name = "Anahtar Kelimeler")]
         public string MetaKeywords { get; set; }
-        [StringLength(200)]
+        
         [Display(Name = "Resim Yolu")]
         public string ImageUrl { get; set; }
         public string CustomCSS { get; set; }
-        [StringLength(200)]
+        
         [Display(Name = "Çok Lokasyonluluk")]
         public string ManyLocation { get; set; }
     }

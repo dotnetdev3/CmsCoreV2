@@ -76,8 +76,7 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("AppTenantId");
 
-                    b.Property<string>("ComponentTemplates")
-                        .HasMaxLength(200);
+                    b.Property<string>("ComponentTemplates");
 
                     b.Property<DateTime>("CreateDate");
 
@@ -86,26 +85,21 @@ namespace CmsCoreV2.Migrations
 
                     b.Property<string>("CustomCSS");
 
-                    b.Property<string>("ImageUrl")
-                        .HasMaxLength(200);
+                    b.Property<string>("ImageUrl");
 
                     b.Property<string>("Logo")
                         .HasMaxLength(200);
 
-                    b.Property<string>("ManyLocation")
-                        .HasMaxLength(200);
+                    b.Property<string>("ManyLocation");
 
-                    b.Property<string>("MetaDescription")
-                        .HasMaxLength(200);
+                    b.Property<string>("MetaDescription");
 
-                    b.Property<string>("MetaKeywords")
-                        .HasMaxLength(200);
+                    b.Property<string>("MetaKeywords");
 
                     b.Property<string>("MetaTitle")
                         .HasMaxLength(200);
 
-                    b.Property<string>("PageTemplates")
-                        .HasMaxLength(200);
+                    b.Property<string>("PageTemplates");
 
                     b.Property<long>("ThemeId");
 

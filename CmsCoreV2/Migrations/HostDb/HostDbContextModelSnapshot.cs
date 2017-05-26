@@ -45,8 +45,7 @@ namespace CmsCoreV2.Migrations.HostDb
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ComponentTemplates")
-                        .HasMaxLength(200);
+                    b.Property<string>("ComponentTemplates");
 
                     b.Property<DateTime>("CreateDate");
 
@@ -56,22 +55,17 @@ namespace CmsCoreV2.Migrations.HostDb
 
                     b.Property<string>("CustomCSS");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(200);
+                    b.Property<string>("Description");
 
-                    b.Property<string>("ImageUrl")
-                        .HasMaxLength(200);
+                    b.Property<string>("ImageUrl");
 
-                    b.Property<string>("Logo")
-                        .HasMaxLength(200);
+                    b.Property<string>("Logo");
 
                     b.Property<string>("ManyLocation");
 
-                    b.Property<string>("MetaDescription")
-                        .HasMaxLength(200);
+                    b.Property<string>("MetaDescription");
 
-                    b.Property<string>("MetaKeywords")
-                        .HasMaxLength(200);
+                    b.Property<string>("MetaKeywords");
 
                     b.Property<string>("MetaTitle")
                         .HasMaxLength(200);
@@ -80,8 +74,7 @@ namespace CmsCoreV2.Migrations.HostDb
                         .IsRequired()
                         .HasMaxLength(200);
 
-                    b.Property<string>("PageTemplates")
-                        .HasMaxLength(200);
+                    b.Property<string>("PageTemplates");
 
                     b.Property<DateTime>("UpdateDate");
 
