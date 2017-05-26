@@ -119,7 +119,6 @@ namespace CmsCoreV2.Controllers
                 user.AppTenantId = tenant.AppTenantId;
                 var result = await _userManager.CreateAsync(user, model.Password);
             
-                user.AppTenantId = tenant.AppTenantId;
                 
                 if (result.Succeeded)
                 {

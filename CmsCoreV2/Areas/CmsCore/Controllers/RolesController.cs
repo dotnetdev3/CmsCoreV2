@@ -8,12 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using SaasKit.Multitenancy;
+using Microsoft.AspNetCore.Identity;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
     public class RolesController : ControllerBase
     {
+        private readonly RoleManager<Role> _roleManager;
         private readonly ApplicationDbContext _context;
         protected readonly AppTenant tenant;
 
@@ -63,6 +65,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                var roles = new Role { Name = role.Name };
+                roles.AppTenantId = tenant.AppTenantId;
+                var result = await _roleManager.CreateAsync(roles);
                 role.AppTenantId = tenant.AppTenantId;
                 role.Id = Guid.NewGuid();
                 _context.Add(role);
