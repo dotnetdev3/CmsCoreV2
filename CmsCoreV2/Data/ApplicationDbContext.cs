@@ -93,6 +93,12 @@ namespace CmsCoreV2.Data
                 .WithMany(c => c.GalleryItemGalleryItemCategories)
                 .HasForeignKey(bc => bc.GalleryItemCategoryId).OnDelete(Microsoft.EntityFrameworkCore.Metadata.DeleteBehavior.Restrict);
         }
+        // diğer dbsetler buraya eklenir
+
+        public DbSet<CmsCoreV2.Models.Role> Role { get; set; }
+        // diğer dbsetler buraya eklenir
+
+        public DbSet<CmsCoreV2.Models.ApplicationUser> ApplicationUser { get; set; }
 
         // diğer dbsetler buraya eklenir
 

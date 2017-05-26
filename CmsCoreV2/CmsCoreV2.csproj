@@ -54,8 +54,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewComponents\" />
     <Folder Include="Themes\Edugate\Shared\Components\" />
+    <Folder Include="ViewComponents\" />
   </ItemGroup>
 
 </Project>

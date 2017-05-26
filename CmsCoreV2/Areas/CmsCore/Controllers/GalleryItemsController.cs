@@ -55,6 +55,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/GalleryItems/Create
         public IActionResult Create()
         {
+
             ViewData["GalleryId"] = new SelectList(_context.Galleries, "Id", "Id");
             var galeryItem = new GalleryItem();
             return View(galeryItem);
