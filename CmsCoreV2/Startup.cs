@@ -17,6 +17,7 @@ using System.Globalization;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Routing.Constraints;
+using Sakura.AspNetCore.Mvc;
 
 namespace CmsCoreV2
 {
@@ -58,7 +59,12 @@ namespace CmsCoreV2
 
             services.AddOptions();
             services.AddLocalization();
-
+            services.AddBootstrapPagerGenerator(options =>
+            {
+                // Use default pager options.
+                options.ConfigureDefault();
+            });
+            services.Configure<PagerOptions>(Configuration.GetSection("Pager"));
             services.AddMvc()
                 .AddViewLocalization(
                     Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.SubFolder,

@@ -1,13 +1,12 @@
-@model CmsCoreV2.Models.Slider
+﻿@model CmsCoreV2.Models.Slider
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Slider Detayları";
 }
 
-<h2>Details</h2>
+<h2>Slider Detayları</h2>
 
 <div>
-    <h4>Slider</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -61,6 +60,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a>
+    <a asp-action="Index">Listeyi Geri Dön</a>
 </div>
