@@ -8,9 +8,10 @@ using CmsCoreV2.Data;
 namespace CmsCoreV2.Migrations.HostDb
 {
     [DbContext(typeof(HostDbContext))]
-    partial class HostDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170526081220_updateTheme")]
+    partial class updateTheme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")

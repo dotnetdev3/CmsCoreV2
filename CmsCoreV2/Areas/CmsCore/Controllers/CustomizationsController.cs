@@ -78,7 +78,60 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             }
             return View(customization);
         }
+        public async Task<IActionResult> CustomCss()
+        {
+            var _tenantCustomizationThemeId = tenant.ThemeId;
 
+
+
+            var customization = await _context.Customizations.SingleOrDefaultAsync(c => c.ThemeId == _tenantCustomizationThemeId);
+            if (customization == null)
+            {
+                return NotFound();
+            }
+            return View(customization);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CustomCss(Customization customization)
+        {
+
+            if (customization == null)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    customization.AppTenantId = tenant.AppTenantId;
+                    customization.ThemeId = tenant.ThemeId;
+                    customization.UpdateDate = DateTime.Now;
+                    _context.Update(customization);
+                    await _context.SaveChangesAsync();
+
+                    ViewBag.mesaj = "Ýsleminiz Basarýlý !";
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CustomizationExists(customization.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+
+                }
+                ViewData["var"] = "islem basarýlý";
+                return View(customization);
+            }
+            return View(customization);
+        }
 
 
 
