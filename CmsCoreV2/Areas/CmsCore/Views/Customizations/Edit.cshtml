@@ -22,14 +22,14 @@
         <div class="form-group">
             <label asp-for="PageTemplates" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="PageTemplates" class="form-control" />
+                <textarea asp-for="PageTemplates" class="form-control" ></textarea>
                 <span asp-validation-for="PageTemplates" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="ComponentTemplates" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="ComponentTemplates" class="form-control" />
+                <textarea asp-for="ComponentTemplates" class="form-control" ></textarea>
                 <span asp-validation-for="ComponentTemplates" class="text-danger"></span>
             </div>
         </div>
@@ -66,13 +66,6 @@
             <div class="col-md-10">
                 <input asp-for="ImageUrl" class="form-control"/>
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="CustomCSS" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <textarea asp-for="CustomCSS" class="form-control"></textarea>
-                <span asp-validation-for="CustomCSS" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
