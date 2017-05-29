@@ -1,0 +1,49 @@
+﻿@model CmsCoreV2.Models.Slider
+@if (Model != null && Model.Id > 0)
+{
+    <div id="homeSlider" style="clear:both;">
+        <!-- ~/videos/3383465.mov -->
+        <div class="section slider-banner set-height-top">
+            @{ int index = 0;}
+            @foreach (var slide in Model.Slides.Where(w => w.IsPublished == true).ToList())
+            {
+                index++;
+                <div class="slider-item">
+
+                    <div class="slider-@index">
+                        @if (!String.IsNullOrEmpty(slide.Video))
+                        {
+                            <video @(String.IsNullOrEmpty(slide.Photo) ? "" : "poster=\"" + (ViewBag.AssetsUrl) + "uploads/media/slide/" + slide.Photo + "\"") width="100%" id="bgvid" playsinline autoplay muted loop>
+                                <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
+
+                                <source src="@slide.Video" type="video/mp4">
+                            </video>
+                        }
+                        else
+                        {
+
+                            <div class="slider-caption" @(slide.DisplayTexts ? "style=background: url('@slide.Photo') no-repeat whitesmoke; background-size:cover;" : "style=height:100%")>
+                                @if (slide.DisplayTexts)
+                                {
+                                    <div class="container">
+                                        <h5 class="text-info-2">@slide.Title</h5>
+
+                                        <h1 class="text-info-1">@slide.SubTitle</h1>
+
+                                        <p class="text-info-3">@Html.Raw(slide.Description)</p>
+                                        <a class="btn btn-green" href="@slide.CallToActionUrl"><span>@slide.CallToActionText</span></a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <a href="@slide.CallToActionUrl" style="background:url('@slide.Photo');background-size:cover;background-position:center;background-repeat:no-repeat;width:100%;height:100%; display:block;"><span><img /></span></a>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+                }
