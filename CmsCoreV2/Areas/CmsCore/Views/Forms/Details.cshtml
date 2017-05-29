@@ -1,10 +1,10 @@
-@model CmsCoreV2.Models.Form
+ï»¿@model CmsCoreV2.Models.Form
 
 @{
     ViewData["Title"] = "Detaylar";
 }
 
-<h2>Form Detaylarý</h2>
+<h2>Form DetaylarÄ±</h2>
 
 <div>
     <hr />
@@ -97,11 +97,11 @@
             @Html.DisplayNameFor(model => model.Language)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Language.Id)
+            @Html.DisplayFor(model => model.Language.Name)
         </dd>
     </dl>
 </div>
 <div>
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a> 
-    <a asp-action="Index">Listeyi Geri Dön</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">DÃ¼zenle</a> 
+    <a asp-action="Index">Listeyi Geri DÃ¶n</a>
 </div>

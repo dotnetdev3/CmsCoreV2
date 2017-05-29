@@ -30,6 +30,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        public async Task<IActionResult> Preview(long? id)
+        {
+            var form = await _context.Forms.Include("FormFields").SingleOrDefaultAsync(m => m.Id == id);
+            return View(form);
+        }
+
         // GET: CmsCore/Forms/Details/5
         public async Task<IActionResult> Details(long? id)
         {
