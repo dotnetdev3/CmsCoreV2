@@ -114,9 +114,10 @@ namespace CmsCoreV2
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            
+            app.UseStaticFiles();
             var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(options.Value);
-            app.UseStaticFiles();
             // ana veritabanın kayıtları girilir
             app.ApplicationServices.GetRequiredService<HostDbContext>().Seed();
             // multi-tenancy kullanılmaya başlanılır

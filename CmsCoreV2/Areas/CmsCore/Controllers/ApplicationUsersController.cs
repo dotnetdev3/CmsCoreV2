@@ -88,7 +88,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
             applicationUser.AppTenantId = tenant.AppTenantId;
-            ViewData["Roles"] = new SelectList(_context.Roles, "Id", "Name");
+            ViewData["Roles"] = new SelectList(_context.Roles.ToList(), "Id", "Name");
             return View(applicationUser);
         }
 
@@ -109,7 +109,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 try
                 {
                     applicationUser.AppTenantId = tenant.AppTenantId;
-                    ViewData["Roles"] = new SelectList(_context.Roles, "Id", "Name");
+                    ViewData["Roles"] = new SelectList(_context.Roles.ToList(), "Id", "Name");
                     _context.Update(applicationUser);
                     await _context.SaveChangesAsync();
                 }
