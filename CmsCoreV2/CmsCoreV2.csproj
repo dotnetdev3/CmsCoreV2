@@ -55,9 +55,5 @@
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Themes\Edugate\Shared\Components\" />
-    <Folder Include="ViewComponents\" />
-  </ItemGroup>
 
 </Project>
