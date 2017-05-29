@@ -30,6 +30,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        public async Task<IActionResult> Preview(long? id)
+        {
+            var form = await _context.Forms.Include("FormFields").SingleOrDefaultAsync(m => m.Id == id);
+            return View(form);
+        }
+
         // GET: CmsCore/Forms/Details/5
         public async Task<IActionResult> Details(long? id)
         {
@@ -52,7 +58,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Forms/Create
         public IActionResult Create()
         {
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id");
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name");
             return View();
         }
 
@@ -91,7 +97,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Id", form.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", form.LanguageId);
             return View(form);
         }
 
