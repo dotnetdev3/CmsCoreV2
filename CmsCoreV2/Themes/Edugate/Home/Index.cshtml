@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Localization
-@using Microsoft.Extensions.Localization
-@inject IViewLocalizer Localizer
-
-
-@{
-    ViewData["Title"] = Localizer["Dashboard"];
+﻿@{
+    ViewData["Title"] = "";
 }
 <div id="wrapper-content" style="overflow:hidden!important">
     <!-- PAGE WRAPPER-->
@@ -380,5 +375,3 @@
     </div>
 </div>
 
-@await Component.InvokeAsync("LatestPosts", new { categoryNames = "Haberler", count = 4 })
-@await Component.InvokeAsync("Gallery", new { name="arzu" ,count= 10,  template="Default" })
