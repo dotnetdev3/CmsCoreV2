@@ -42,32 +42,34 @@
         <div class="form-group">
             <label asp-for="FieldType" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="FieldType" class="form-control"></select>
+                <select asp-for="FieldType" class="form-control">
+                    <option value="1">Ad Soyad</option>
+                    <option value="2">Telefon</option>
+                    <option value="3">E-Posta</option>
+                    <option value="4">Metin Kutusu</option>
+                    <option value="5">Metin Alanı</option>
+                    <option value="6">Açılır Menü</option>
+                    <option value="7">Onay Kutusu</option>
+                    <option value="8">Dosya Yükleme</option>
+                    <option value="9">Radyo Düğmeleri</option>
+                    <option value="10">Takvim</option>
+                    <option value="11">Web Sitesi</option>
+                    <option value="12">Sayı Değer</option>
+                    <option value="13">Zaman Değer</option>
+                </select>
                 <span asp-validation-for="FieldType" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="FormId" class="control-label col-md-2"></label>
             <div class="col-md-10">
-                <select asp-for="FormId" class="form-control" asp-items="ViewBag.FormId"></select>
+                <select asp-for="FormId" class="form-control" asp-items="ViewBag.FormId">
+                    <option>Seçiniz...</option>
+                </select>
                 <span asp-validation-for="FormId" class="text-danger"></span>
             </div>
         </div>
     <input type="hidden" asp-for="Id" />
-        <div class="form-group">
-            <label asp-for="CreateDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="CreateDate" class="form-control" />
-                <span asp-validation-for="CreateDate" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="CreatedBy" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Kaydet" class="btn btn-primary" />

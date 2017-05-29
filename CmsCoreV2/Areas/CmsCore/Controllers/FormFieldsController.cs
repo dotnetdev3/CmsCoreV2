@@ -52,7 +52,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/FormFields/Create
         public IActionResult Create()
         {
-            ViewData["FormId"] = new SelectList(_context.Forms, "Id", "Id");
+            ViewData["FormId"] = new SelectList(_context.Forms.ToList(), "Id", "Id");
             return View();
         }
 
@@ -74,7 +74,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["FormId"] = new SelectList(_context.Forms, "Id", "Id", formField.FormId);
+            ViewData["FormId"] = new SelectList(_context.Forms.ToList(), "Id", "Id", formField.FormId);
             return View(formField);
         }
 
@@ -91,7 +91,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["FormId"] = new SelectList(_context.Forms, "Id", "Id", formField.FormId);
+            ViewData["FormId"] = new SelectList(_context.Forms.ToList(), "Id", "Id", formField.FormId);
             return View(formField);
         }
 
@@ -129,7 +129,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["FormId"] = new SelectList(_context.Forms, "Id", "Id", formField.FormId);
+            ViewData["FormId"] = new SelectList(_context.Forms.ToList(), "Id", "Id", formField.FormId);
             return View(formField);
         }
 

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<GalleryItem>
+<div class="section section-padding picture-gallery">
+    <div class="group-title-index">
+        <h4 class="top-title">GÖRÜN VE HİSSEDİN</h4>
+
+        <h2 class="center-title">GALERİ</h2>
+
+        <div class="bottom-title"><i class="bottom-icon icon-a-1-01"></i></div>
+    </div>
+    <div class="picture-gallery-wrapper">
+        <!-- Nav tabs-->
+        @{
+            var giCategories = new List<GalleryItemCategory>();
+            foreach (var cats in Model.Select(s => s.GalleryItemGalleryItemCategories).ToList())
+            {
+                giCategories.AddRange(cats.Select(s => s.GalleryItemCategory).ToList());
+
+            }
+            giCategories = giCategories.Distinct().ToList();
+        }
+        <ul role="tablist" class="nav nav-tabs edugate-tabs">
+            @{ bool isFirst = true; }
+            @foreach (var cat in giCategories)
+            {
+                <li role="presentation" @(isFirst ? "class=active" : string.Empty)><a href="#@cat.Name.ToLower()" data-toggle="tab" class="text">@cat.Name</a></li>
+                isFirst = false;
+            }
+
+            @*<li role="presentation"><a href="#education" data-toggle="tab" class="text">Eğitim</a></li>
+                <li role="presentation"><a href="#building" data-toggle="tab" class="text">Bina</a></li>
+                <li role="presentation"><a href="#teachers" data-toggle="tab" class="text">Öğretmenler</a></li>
+                <li role="presentation"><a href="#students" data-toggle="tab" class="text">Öğrenciler</a></li>*@
+        </ul>
+        <!-- Tab panes-->
+        <div class="tab-content gallery-content">
+            @{ isFirst = true; }
+            @foreach (var cat in giCategories)
+            {
+                <div id="@cat.Name.ToLower()" role="tabpanel" class="tab-pane fade in @(isFirst?"active":string.Empty)">
+                    <div class="grid">
+
+                        @foreach (var item in Model.Where(m => m.GalleryItemGalleryItemCategories.Any(a => a.GalleryItemCategoryId == cat.Id)).ToList())
+                        {
+                            <div class="grid-item @item.Meta1"><a href="@item.Photo" class="content fancybox-button"><img src="@item.Photo" alt="@item.Title" class="img-responsive" /></a></div>
+                        }
+
+
+                    </div>
+                </div>
+                isFirst = false;
+            }
+
+
+        </div>
+    </div>
+</div>

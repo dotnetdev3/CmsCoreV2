@@ -61,7 +61,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             postCategory.UpdateDate = DateTime.Now;
             postCategory.AppTenantId = tenant.AppTenantId;
 
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture");
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Culture");
             return View(postCategory);
         }
 
@@ -84,7 +84,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Culture", postCategory.LanguageId);
             return View(postCategory);
         }
 
@@ -101,7 +101,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Culture", postCategory.LanguageId);
 
             postCategory.UpdatedBy = User.Identity.Name ?? "username";
             postCategory.UpdateDate = DateTime.Now;
@@ -147,7 +147,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Culture", postCategory.LanguageId);
             
 
             return View(postCategory);

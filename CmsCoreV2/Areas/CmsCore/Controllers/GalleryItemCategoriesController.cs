@@ -55,7 +55,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/GalleryItemCategories/Create
         public IActionResult Create()
         {
-            ViewData["ParentCategoryId"] = new SelectList(_context.GalleryItemCategories, "Id", "Id");
+            ViewData["ParentCategoryId"] = new SelectList(_context.GalleryItemCategories.ToList(), "Id", "Id");
             var galeryItemCategory = new GalleryItemCategory();
             return View(galeryItemCategory);
         }
@@ -78,7 +78,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.GalleryItemCategories, "Id", "Id", galleryItemCategory.ParentCategoryId);
+            ViewData["ParentCategoryId"] = new SelectList(_context.GalleryItemCategories.ToList(), "Id", "Id", galleryItemCategory.ParentCategoryId);
             return View(galleryItemCategory);
         }
 
@@ -95,7 +95,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.GalleryItemCategories, "Id", "Id", galleryItemCategory.ParentCategoryId);
+            ViewData["ParentCategoryId"] = new SelectList(_context.GalleryItemCategories.ToList(), "Id", "Id", galleryItemCategory.ParentCategoryId);
             return View(galleryItemCategory);
         }
 
@@ -134,7 +134,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.GalleryItemCategories, "Id", "Id", galleryItemCategory.ParentCategoryId);
+            ViewData["ParentCategoryId"] = new SelectList(_context.GalleryItemCategories.ToList(), "Id", "Id", galleryItemCategory.ParentCategoryId);
             return View(galleryItemCategory);
         }
 

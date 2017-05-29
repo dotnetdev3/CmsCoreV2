@@ -54,8 +54,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         public IActionResult Create()
         {
             var page = new Page();
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name");
-            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Title");
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name");
+            ViewData["ParentPageId"] = new SelectList(_context.Pages.ToList(), "Id", "Title");
             page.CreatedBy = User.Identity.Name ?? "username";
             page.CreateDate = DateTime.Now;
             page.UpdatedBy = User.Identity.Name ?? "username";
@@ -85,8 +85,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", page.LanguageId);
-            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Title", page.ParentPageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name", page.LanguageId);
+            ViewData["ParentPageId"] = new SelectList(_context.Pages.ToList(), "Id", "Title", page.ParentPageId);
             return View(page);
         }
 
@@ -103,8 +103,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", page.LanguageId);
-            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Title", page.ParentPageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name", page.LanguageId);
+            ViewData["ParentPageId"] = new SelectList(_context.Pages.ToList(), "Id", "Title", page.ParentPageId);
 
             page.UpdatedBy = User.Identity.Name ?? "username";
             page.UpdateDate = DateTime.Now;
@@ -148,8 +148,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", page.LanguageId);
-            ViewData["ParentPageId"] = new SelectList(_context.Pages, "Id", "Title", page.ParentPageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name", page.LanguageId);
+            ViewData["ParentPageId"] = new SelectList(_context.Pages.ToList(), "Id", "Title", page.ParentPageId);
             return View(page);
         }
 
