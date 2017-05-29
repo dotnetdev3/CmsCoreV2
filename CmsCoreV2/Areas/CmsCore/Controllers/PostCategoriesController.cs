@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -14,16 +15,21 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     public class PostCategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        protected readonly AppTenant tenant;
 
-        public PostCategoriesController(ApplicationDbContext context)
+
+        public PostCategoriesController(ApplicationDbContext context, ITenant<AppTenant> tenant)
         {
-            _context = context;    
+            _context = context;
+            this.tenant = tenant?.Value;
+
         }
 
         // GET: CmsCore/PostCategories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PostCategories.ToListAsync());
+            var applicationDbContext = _context.PostCategories.Include(p => p.Language);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: CmsCore/PostCategories/Details/5
@@ -35,6 +41,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             }
 
             var postCategory = await _context.PostCategories
+                .Include(p => p.Language)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (postCategory == null)
             {
@@ -47,7 +54,15 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/PostCategories/Create
         public IActionResult Create()
         {
-            return View();
+            var postCategory = new PostCategory();
+            postCategory.CreatedBy = User.Identity.Name ?? "username";
+            postCategory.CreateDate = DateTime.Now;
+            postCategory.UpdatedBy = User.Identity.Name ?? "username";
+            postCategory.UpdateDate = DateTime.Now;
+            postCategory.AppTenantId = tenant.AppTenantId;
+
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture");
+            return View(postCategory);
         }
 
         // POST: CmsCore/PostCategories/Create
@@ -59,10 +74,17 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                postCategory.CreatedBy = User.Identity.Name ?? "username";
+                postCategory.CreateDate = DateTime.Now;
+                postCategory.UpdatedBy = User.Identity.Name ?? "username";
+                postCategory.UpdateDate = DateTime.Now;
+                postCategory.AppTenantId = tenant.AppTenantId;
+
                 _context.Add(postCategory);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
             return View(postCategory);
         }
 
@@ -79,6 +101,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
+
+            postCategory.UpdatedBy = User.Identity.Name ?? "username";
+            postCategory.UpdateDate = DateTime.Now;
+            postCategory.AppTenantId = tenant.AppTenantId;
+
             return View(postCategory);
         }
 
@@ -98,6 +126,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
+
+                    postCategory.UpdatedBy = User.Identity.Name ?? "username";
+                    postCategory.UpdateDate = DateTime.Now;
+                    postCategory.AppTenantId = tenant.AppTenantId;
+
                     _context.Update(postCategory);
                     await _context.SaveChangesAsync();
                 }
@@ -114,6 +147,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
+            
+
             return View(postCategory);
         }
 
@@ -126,6 +162,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             }
 
             var postCategory = await _context.PostCategories
+                .Include(p => p.Language)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (postCategory == null)
             {

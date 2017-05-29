@@ -16,5 +16,6 @@ namespace CmsCoreV2.Models
         public long GalleryItemCategoryId { get; set; }
         [Display(Name = "Galeri Öğesi Kategorisi")]
         public GalleryItemCategory GalleryItemCategory { get; set; }
+        public string AppTenantId { get; set; }
     }
 }

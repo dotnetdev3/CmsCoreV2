@@ -1,13 +1,13 @@
-@model CmsCoreV2.Models.Language
+﻿@model CmsCoreV2.Models.Language
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Dil Detayları";
 }
 
-<h2>Details</h2>
+<h2>Dil Detayları</h2>
 
 <div>
-    <h4>Language</h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -67,6 +67,8 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div>
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a>
+        <a asp-action="Index">Listeyi Geri Dön</a>
+    </div>
 </div>

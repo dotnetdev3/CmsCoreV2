@@ -27,13 +27,72 @@ namespace CmsCoreV2.Migrations.HostDb
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Theme");
+                    b.Property<long>("ThemeId");
+
+                    b.Property<string>("ThemeName");
 
                     b.Property<string>("Title");
 
                     b.HasKey("AppTenantId");
 
+                    b.HasIndex("ThemeId");
+
                     b.ToTable("AppTenants");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.Theme", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ComponentTemplates");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                    b.Property<string>("CustomCSS");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Logo");
+
+                    b.Property<string>("ManyLocation");
+
+                    b.Property<string>("MetaDescription");
+
+                    b.Property<string>("MetaKeywords");
+
+                    b.Property<string>("MetaTitle")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                    b.Property<string>("PageTemplates");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Themes");
+                });
+
+            modelBuilder.Entity("CmsCoreV2.Models.AppTenant", b =>
+                {
+                    b.HasOne("CmsCoreV2.Models.Theme", "Theme")
+                        .WithMany()
+                        .HasForeignKey("ThemeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }

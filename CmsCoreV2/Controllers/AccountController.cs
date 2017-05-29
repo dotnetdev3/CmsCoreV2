@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using CmsCoreV2.Models;
 using CmsCoreV2.Models.AccountViewModels;
 using CmsCoreV2.Services;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Controllers
 {
@@ -23,6 +24,7 @@ namespace CmsCoreV2.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        protected readonly AppTenant tenant;
         private readonly string _externalCookieScheme;
 
         public AccountController(
@@ -31,7 +33,7 @@ namespace CmsCoreV2.Controllers
             IOptions<IdentityCookieOptions> identityCookieOptions,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory, ITenant<AppTenant> tenant)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -39,6 +41,7 @@ namespace CmsCoreV2.Controllers
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            this.tenant = tenant?.Value;
         }
 
         //
@@ -113,7 +116,10 @@ namespace CmsCoreV2.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                user.AppTenantId = tenant.AppTenantId;
                 var result = await _userManager.CreateAsync(user, model.Password);
+            
+                
                 if (result.Succeeded)
                 {
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713

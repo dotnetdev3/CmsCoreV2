@@ -18,6 +18,7 @@ namespace CmsCoreV2.Data
         }
 
         public DbSet<AppTenant> AppTenants { get; set; }
+        public DbSet<Theme> Themes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

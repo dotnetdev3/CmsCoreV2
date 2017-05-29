@@ -77,12 +77,6 @@
             @Html.DisplayFor(model => model.UpdatedBy)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.AppTenantId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AppTenantId)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Gallery)
         </dt>
         <dd>
@@ -91,6 +85,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

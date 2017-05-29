@@ -53,7 +53,6 @@
         <dd>
             @Html.DisplayFor(model => model.IsPublished)
         </dd>
-        <input type="hidden" asp-for="Id" />
         <dt>
             @Html.DisplayNameFor(model => model.CreateDate)
         </dt>
@@ -79,12 +78,6 @@
             @Html.DisplayFor(model => model.UpdatedBy)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.AppTenantId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AppTenantId)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Gallery)
         </dt>
         <dd>
@@ -94,7 +87,7 @@
     
     <form asp-action="Delete">
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
             <a asp-action="Index">Back to List</a>
         </div>
     </form>

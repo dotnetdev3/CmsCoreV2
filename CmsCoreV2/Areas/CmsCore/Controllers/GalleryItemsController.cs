@@ -55,8 +55,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/GalleryItems/Create
         public IActionResult Create()
         {
+
             ViewData["GalleryId"] = new SelectList(_context.Galleries, "Id", "Id");
-            return View();
+            var galeryItem = new GalleryItem();
+            return View(galeryItem);
         }
 
         // POST: CmsCore/GalleryItems/Create
@@ -114,6 +116,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
+                    galleryItem.UpdatedBy = User.Identity.Name ?? "username";
+                    galleryItem.UpdateDate = DateTime.Now;
+                    galleryItem.AppTenantId = tenant.AppTenantId;
                     _context.Update(galleryItem);
                     await _context.SaveChangesAsync();
                 }

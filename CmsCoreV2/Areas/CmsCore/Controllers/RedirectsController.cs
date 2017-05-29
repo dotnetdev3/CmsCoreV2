@@ -7,17 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
-    public class RedirectsController : Controller
+    public class RedirectsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-
-        public RedirectsController(ApplicationDbContext context)
+        private readonly AppTenant tenant;
+        public RedirectsController(ApplicationDbContext context, ITenant<AppTenant> tenant)
         {
-            _context = context;    
+            _context = context;  
+            this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/Redirects
@@ -33,9 +35,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-
+        
             var redirect = await _context.Redirects
                 .SingleOrDefaultAsync(m => m.Id == id);
+            redirect.CreateDate = DateTime.Now;
             if (redirect == null)
             {
                 return NotFound();
@@ -47,6 +50,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Redirects/Create
         public IActionResult Create()
         {
+           
             return View();
         }
 
@@ -57,6 +61,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,OldUrl,NewUrl,IsActive,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Redirect redirect)
         {
+            redirect.CreateDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 _context.Add(redirect);
@@ -73,8 +78,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-
+           
             var redirect = await _context.Redirects.SingleOrDefaultAsync(m => m.Id == id);
+            redirect.CreateDate = DateTime.Now;
             if (redirect == null)
             {
                 return NotFound();
@@ -93,7 +99,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-
+            redirect.UpdateDate = DateTime.Now; 
             if (ModelState.IsValid)
             {
                 try

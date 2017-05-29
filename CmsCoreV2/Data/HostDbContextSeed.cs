@@ -20,27 +20,54 @@ namespace CmsCoreV2.Data
                 return;   // DB has been seeded
             }
             // Perform seed operations
-            AddAppTenants(context);
+            var theme = AddTheme(context);
+            AddAppTenants(context, theme);
+
         }
 
-        public static void AddAppTenants(HostDbContext context)
+        public static void AddAppTenants(HostDbContext context, Theme theme)
         {
             var appTenant = new AppTenant();
             appTenant.Name = "CmsCore1";
             appTenant.Title = "CmsCore1";
             appTenant.Hostname = "localhost:60002";
-            appTenant.Theme = "edugate";
+            appTenant.ThemeName = theme.Name;
             appTenant.ConnectionString = $"Server=.;Database={appTenant.Name};Trusted_Connection=True;MultipleActiveResultSets=true";
+            appTenant.Theme = theme;
+            appTenant.ThemeId = theme.Id;
             context.AppTenants.Add(appTenant);
 
             var appTenant2 = new AppTenant();
             appTenant2.Name = "CmsCore2";
             appTenant2.Title = "CmsCore2";
             appTenant2.Hostname = "localhost:60001";
-            appTenant2.Theme = "edugate";
+            appTenant2.ThemeName = theme.Name;
             appTenant2.ConnectionString = $"Server=.;Database={appTenant2.Name};Trusted_Connection=True;MultipleActiveResultSets=true";
+            appTenant2.Theme = theme;
+            appTenant2.ThemeId = theme.Id;
             context.AppTenants.Add(appTenant2);
             context.SaveChanges();
+        }
+        public static Theme AddTheme(HostDbContext context)
+        {
+            var defaultTheme = new Theme();
+            defaultTheme.Name = "edugate";
+            defaultTheme.Logo = "";
+            defaultTheme.ImageUrl = "";
+            defaultTheme.MetaDescription = "";
+            defaultTheme.MetaTitle = "";
+            defaultTheme.MetaKeywords = "";
+            defaultTheme.PageTemplates = "";
+            defaultTheme.ComponentTemplates = "";
+            defaultTheme.CreateDate = DateTime.Now;
+            defaultTheme.UpdateDate = DateTime.Now;
+            defaultTheme.CreatedBy = "UserName";
+            defaultTheme.UpdatedBy = "UserName";
+            defaultTheme.CustomCSS = "";
+
+            context.Themes.Add(defaultTheme);
+            context.SaveChanges();
+            return defaultTheme;
         }
 
     }
