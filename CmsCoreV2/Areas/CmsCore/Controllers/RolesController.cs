@@ -68,10 +68,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 var roles = new Role { Name = role.Name };
                 roles.AppTenantId = tenant.AppTenantId;
                 var result = await _roleManager.CreateAsync(roles);
-                role.AppTenantId = tenant.AppTenantId;
-                role.Id = Guid.NewGuid();
-                _context.Add(role);
-                await _context.SaveChangesAsync();
+                
+      
+               
                 return RedirectToAction("Index");
             }
             return View(role);
@@ -109,9 +108,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
+                    
                     role.AppTenantId = tenant.AppTenantId;
-                    _context.Update(role);
-                    await _context.SaveChangesAsync();
+                    await _roleManager.UpdateAsync(role);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
