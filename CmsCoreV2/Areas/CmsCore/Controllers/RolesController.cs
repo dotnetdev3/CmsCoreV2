@@ -108,10 +108,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
-                    var roles = new Role { Name = role.Name };
+                    
                     role.AppTenantId = tenant.AppTenantId;
-                    _context.Update(role);
-                    await _context.SaveChangesAsync();
+                    await _roleManager.UpdateAsync(role);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
