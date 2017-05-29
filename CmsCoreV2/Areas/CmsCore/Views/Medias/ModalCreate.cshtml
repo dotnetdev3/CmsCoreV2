@@ -11,7 +11,7 @@
 <div id="myTabs">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#upload" aria-controls="upload" role="tab" data-toggle="tab">Yükle</a></li>
-        <li role="presentation"><a href="#browse" aria-controls="browse" role="tab" data-toggle="tab">Gözat</a></li>
+        <li role="presentation"><a href="#browse@(ViewBag.Element)" aria-controls="browse@(ViewBag.Element)" role="tab" data-toggle="tab">Gözat</a></li>
     </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="upload">
@@ -55,13 +55,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="button" tabindex="10" class="btn blue" id="modalSave" onclick="modalSaveFunc()">Upload</button>
+                            <button type="button" tabindex="10" class="btn blue" id="modalSave" onclick="modalSaveFunc@(ViewBag.Element)()">Upload</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-        <div role="tabpanel" class="tab-pane fade" id="browse">
+        <div role="tabpanel" class="tab-pane fade" id="browse@(ViewBag.Element)">
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
@@ -74,7 +74,7 @@
                     <select name="year" id="year" class="form-control col-md-2"></select>
                     <select name="month" id="month" class="form-control col-md-2"></select>
                     <select name="category" id="category" class="form-control col-md-2"><option selected>Image</option><option>Video</option><option>Document</option></select>
-                    <input type="button" id="search" value="Ara" class="form-control btn-info col-md-2">
+                    <input type="button" id="search@(ViewBag.Element)" value="Ara" class="form-control btn-info col-md-2">
                 </div>
                 <br />
 
@@ -90,7 +90,7 @@
 
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 <script>
-    function modalSaveFunc() {
+    function modalSaveFunc@(ViewBag.Element)() {
         var data = new FormData(document.getElementById("modalForm"));
         $.ajax({
             url: "/CmsCore/Medias/ModalCreate",
@@ -147,7 +147,7 @@
                 }
             });
 
-            $('#myTabs a').click(function (e) {
+            $('#modal@(ViewBag.Element) #myTabs a').click(function (e) {
                 e.preventDefault();
                 $(this).tab('show');
             });
@@ -156,33 +156,32 @@
 
 </script>
 <script>
-    $("#search").click(function modalgallery() {
-        var modal = $('.modal');
+    $("#search@(ViewBag.Element)").click(function modalgallery() {
+        var modal = $('#modal'+'@(ViewBag.Element)');
         var word = modal.find('#word').val();
         var year = modal.find('#year').val();
         var month = modal.find('#month').val();
         var category = modal.find('#category').val();
         modal.find('#modal-gallery').html('');
         $.ajax({
-            url: "CmsCore/Medias/ModalGallery",
+            url: "/CmsCore/Medias/ModalGallery",
             cache: false,
             type: "POST",
             data: { word, year, month, category},
             success: function (data) {
                 $.each(data.result, function (k, v) {
-                    var modal = $('.modal');
+                    var modal = $('#modal'+'@(ViewBag.Element)');
                     if (v.fileType == "Image")
                     {
-                        modal.find('#modal-gallery').append("<div class='col-sm-2' style='text-align:center'><img class='img-thumbnail' onclick='imgSelect(this);' style='width:110px; height:80px; margin-top:10px;' src='@ViewBag.AssetsUrl" + v.filePath + v.fileName + "'/><figcaption style='font-size:10px;'>" + v.title.substring(0, 10) + "</figcaption></div>");
+                        modal.find('#modal-gallery').append("<div class='col-sm-2' style='text-align:center'><img class='img-thumbnail' onclick=\"imgSelect@(ViewBag.Element)(this,'@(ViewBag.AssetsUrl)"+ v.fileUrl + v.fileName + "');\" style='width:110px; height:80px; margin-top:10px;' src='@ViewBag.AssetsUrl" + v.fileUrl + v.fileName + "'/><figcaption style='font-size:10px;'>" + v.title.substring(0, 10) + "</figcaption></div>");
 
                     }
                     else if (v.fileType == "Document")
                     {
-                        modal.find('#modal-gallery').append("<div class='col-sm-2' style='text-align:center'><img class='img-thumbnail' onclick='imgSelect(this);' style='width:100px; height:100px; margin-top:10px;' src='@ViewBag.AssetsUrl" +"/pages/img/logos/docx.png"+"'/><figcaption style='font-size:10px;'>"+v.title.substring(0,10)+"</figcaption></div>");
-                    }
+                        modal.find('#modal-gallery').append("<div class='col-sm-2' style='text-align:center'><i onclick=\"imgSelect@(ViewBag.Element)(this,'@(ViewBag.AssetsUrl)"+ v.fileUrl + v.fileName + "');\" style='line-height:90px;width:100px; height:100px; margin-top:10px;'  class='img-thumbnail inline-block big fa fa-file-pdf-o fa-4x ' aria-hidden='true'></i><figcaption style='font-size:10px;'>"+v.title.substring(0,10)+"</figcaption></div>");                    }
                     else
                     {
-                        modal.find('#modal-gallery').append("<div class='col-sm-2' style='text-align:center'><video class='img-thumbnail' onclick='imgSelect(this);' style='width:110px; height:80px; margin-top:10px;'><source src='@ViewBag.AssetsUrl" + v.filePath + v.fileName + "' type='video/mp4' /></video><figcaption style='font-size:10px;'>" + v.title.substring(0, 10) + "</figcaption></div>");
+                        modal.find('#modal-gallery').append("<div class='col-sm-2' style='text-align:center'><video class='img-thumbnail' onclick='imgSelect@(ViewBag.Element)(this,$(this).find(\"source\").attr(\"src\"));' style='width:110px; height:80px; margin-top:10px;' autoplay><source src='@ViewBag.AssetsUrl" + v.fileUrl + v.fileName + "' type='video/mp4' /></video><figcaption style='font-size:10px;'>" + v.title.substring(0, 10) + "</figcaption></div>");
                     }
                 });
             },
@@ -194,14 +193,14 @@
 </script>
 <script>
 
-    function imgSelect(par) {
-        $('#temp').val(par.src);
-        $("#browseSave").css("display", "inline");
+    function imgSelect@(ViewBag.Element)(el, par) {
+        $('#modal@(ViewBag.Element) #temp').val(par);
+        $("#modal@(ViewBag.Element) #browseSave").css("display", "inline");
         $(".mediaSelected").removeClass("mediaSelected");
-        $(par).addClass("mediaSelected");
+        $(el).addClass("mediaSelected");
     }
-    $("#browseSave").click(function () {
-        $('#Photo').val($('#temp').val());
+    $("#modal@(ViewBag.Element) #browseSave").click(function () {
+        $('#' + '@(ViewBag.Element)').val($('#modal@(ViewBag.Element) #temp').val());
     });
 
 </script>

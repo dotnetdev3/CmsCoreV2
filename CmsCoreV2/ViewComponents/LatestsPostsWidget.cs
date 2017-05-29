@@ -16,14 +16,16 @@ namespace CmsCoreV2.ViewComponents
         {
             this._context = context;
         }
-        public async Task<IViewComponentResult> InvokeAsync(string categoryNames = "", int count = 8)
+        public async Task<IViewComponentResult> InvokeAsync(string categoryNames = "", int count = 8, long id = -1)
         {
-            var items = await GetItems(categoryNames, count);
+
+            var items = await GetItems(categoryNames, count, id);
+
             return View(items);
         }
-        private Task<List<Post>> GetItems(string categoryNames, int count)
+        private Task<List<Post>> GetItems(string categoryNames, int count, long id)
         {
-            List<Post> posts = GetPostsInCategoryNames(categoryNames.Split(','), count).Where(w => w.IsPublished == true).ToList();
+            List<Post> posts = GetPostsByCategoryNames(categoryNames, count, id).Where(w => w.IsPublished == true).ToList();
             return Task.FromResult(posts);
         }
 
