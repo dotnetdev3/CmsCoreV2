@@ -53,8 +53,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/MenuItems/Create
         public IActionResult Create()
         {
-            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Name");
-            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems, "Id", "Name");
+            ViewData["MenuId"] = new SelectList(_context.Menus.ToList(), "Id", "Name");
+            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems.ToList(), "Id", "Name");
             var menuItem = new MenuItem();
             return View(menuItem);
         }
@@ -77,8 +77,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Name", menuItem.MenuId);
-            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems, "Id", "Name", menuItem.ParentMenuItemId);
+            ViewData["MenuId"] = new SelectList(_context.Menus.ToList(), "Id", "Name", menuItem.MenuId);
+            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems.ToList(), "Id", "Name", menuItem.ParentMenuItemId);
             return View(menuItem);
         }
 
@@ -95,8 +95,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Name", menuItem.MenuId);
-            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems, "Id", "Name", menuItem.ParentMenuItemId);
+            ViewData["MenuId"] = new SelectList(_context.Menus.ToList(), "Id", "Name", menuItem.MenuId);
+            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems.ToList(), "Id", "Name", menuItem.ParentMenuItemId);
             return View(menuItem);
         }
 
@@ -135,8 +135,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Name", menuItem.MenuId);
-            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems, "Id", "Name", menuItem.ParentMenuItemId);
+            ViewData["MenuId"] = new SelectList(_context.Menus.ToList(), "Id", "Name", menuItem.MenuId);
+            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems.ToList(), "Id", "Name", menuItem.ParentMenuItemId);
             return View(menuItem);
         }
 

@@ -37,7 +37,7 @@ namespace CmsCoreV2.Data
                 QueryFilterManager.Filter<Setting>(q => q.Where(x => x.AppTenantId == tenantId));
 
 
-                QueryFilterManager.InitilizeGlobalFilter(this);
+               QueryFilterManager.InitilizeGlobalFilter(this);
             }
         }
 

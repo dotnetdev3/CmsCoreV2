@@ -56,7 +56,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         public IActionResult Create()
         {
 
-            ViewData["GalleryId"] = new SelectList(_context.Galleries, "Id", "Id");
+            ViewData["GalleryId"] = new SelectList(_context.Galleries.ToList(), "Id", "Id");
             var galeryItem = new GalleryItem();
             return View(galeryItem);
         }
@@ -79,7 +79,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["GalleryId"] = new SelectList(_context.Galleries, "Id", "Id", galleryItem.GalleryId);
+            ViewData["GalleryId"] = new SelectList(_context.Galleries.ToList(), "Id", "Id", galleryItem.GalleryId);
             return View(galleryItem);
         }
 
@@ -96,7 +96,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["GalleryId"] = new SelectList(_context.Galleries, "Id", "Id", galleryItem.GalleryId);
+            ViewData["GalleryId"] = new SelectList(_context.Galleries.ToList(), "Id", "Id", galleryItem.GalleryId);
             return View(galleryItem);
         }
 
@@ -135,7 +135,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["GalleryId"] = new SelectList(_context.Galleries, "Id", "Id", galleryItem.GalleryId);
+            ViewData["GalleryId"] = new SelectList(_context.Galleries.ToList(), "Id", "Id", galleryItem.GalleryId);
             return View(galleryItem);
         }
 

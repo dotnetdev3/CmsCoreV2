@@ -57,7 +57,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         public IActionResult Create( )
         {
             Resource resource = new Resource();
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", resource.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name", resource.LanguageId);
             return View();
         }
 
@@ -70,7 +70,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             if (ModelState.IsValid)
             {
-                ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name");
+                ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name");
                 resource.CreateDate = DateTime.Now;
                 resource.CreatedBy = User.Identity.Name ?? "username";
                 resource.UpdateDate = DateTime.Now;
@@ -80,7 +80,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", resource.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name", resource.LanguageId);
             return View(resource);
         }
 
@@ -97,7 +97,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", resource.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name", resource.LanguageId);
             return View(resource);
         }
 
@@ -136,7 +136,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", resource.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name", resource.LanguageId);
             return View(resource);
         }
 

@@ -42,14 +42,30 @@
         <div class="form-group">
             <label asp-for="FieldType" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="FieldType" class="form-control"></select>
+                <select asp-for="FieldType" class="form-control">
+                    <option value="1">Ad Soyad</option>
+                    <option value="2">Telefon</option>
+                    <option value="3">E-Posta</option>
+                    <option value="4">Metin Kutusu</option>
+                    <option value="5">Metin Alanı</option>
+                    <option value="6">Açılır Menü</option>
+                    <option value="7">Onay Kutusu</option>
+                    <option value="8">Dosya Yükleme</option>
+                    <option value="9">Radyo Düğmeleri</option>
+                    <option value="10">Takvim</option>
+                    <option value="11">Web Sitesi</option>
+                    <option value="12">Sayı Değer</option>
+                    <option value="13">Zaman Değer</option>
+                </select>
                 <span asp-validation-for="FieldType" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="FormId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="FormId" class ="form-control" asp-items="ViewBag.FormId"></select>
+                <select asp-for="FormId" class ="form-control" asp-items="ViewBag.FormId">
+                    <option>Seçiniz...</option>
+                </select>
             </div>
         </div>
         <div class="form-group">
