@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace CmsCoreV2.ViewComponents
 {
-    public class galleries:ViewComponent
+    public class Gallery:ViewComponent
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<Gallery> dbSet;
-        public galleries(ApplicationDbContext context)
+        public Gallery(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -40,12 +40,12 @@ namespace CmsCoreV2.ViewComponents
             return new List<GalleryItem>();
 
         }
-        public Gallery Get(Expression<Func<Gallery, bool>> where, params string[] navigations)
+        public Models.Gallery Get(Expression<Func<Models.Gallery, bool>> where, params string[] navigations)
         {
-            var set = dbSet.AsQueryable();
+            var set = _context.Galleries.AsQueryable();
             foreach (string nav in navigations)
                 set = set.Include(nav);
-            return set.Where(where).FirstOrDefault<Gallery>();
+            return set.Where(where).FirstOrDefault<Models.Gallery>();
         }
        
     }
