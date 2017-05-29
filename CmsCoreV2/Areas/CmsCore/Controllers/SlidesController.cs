@@ -60,7 +60,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             slide.UpdateDate = DateTime.Now;
             slide.AppTenantId = tenant.AppTenantId;
             _context.Add(slide);
-            ViewData["SliderId"] = new SelectList(_context.Sliders, "Id", "Id");
+            ViewData["SliderId"] = new SelectList(_context.Sliders.ToList(), "Id", "Id");
             return View(slide);
         }
 
@@ -82,7 +82,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["SliderId"] = new SelectList(_context.Sliders, "Id", "Id", slide.SliderId);
+            ViewData["SliderId"] = new SelectList(_context.Sliders.ToList(), "Id", "Id", slide.SliderId);
             return View(slide);
         }
 
@@ -99,7 +99,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["SliderId"] = new SelectList(_context.Sliders, "Id", "Id", slide.SliderId);
+            ViewData["SliderId"] = new SelectList(_context.Sliders.ToList(), "Id", "Id", slide.SliderId);
             return View(slide);
         }
 
@@ -135,7 +135,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["SliderId"] = new SelectList(_context.Sliders, "Id", "Id", slide.SliderId);
+            ViewData["SliderId"] = new SelectList(_context.Sliders.ToList(), "Id", "Id", slide.SliderId);
             return View(slide);
         }
 

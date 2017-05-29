@@ -52,7 +52,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Menus/Create
         public IActionResult Create()
         {
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name");
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name");
             return View();
         }
 
@@ -75,7 +75,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return RedirectToAction("Index");
                
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", menu.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name", menu.LanguageId);
             return View(menu);
         }
 
@@ -92,7 +92,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", menu.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name", menu.LanguageId);
             return View(menu);
         }
 
@@ -130,7 +130,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Name", menu.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name", menu.LanguageId);
             return View(menu);
         }
 
