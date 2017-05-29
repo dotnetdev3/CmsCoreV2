@@ -375,3 +375,6 @@
     </div>
 </div>
 
+@await Component.InvokeAsync("Posts", new { categoryNames="asd" })
+@await Component.InvokeAsync("LatestPosts", new { categoryNames = "asd",count=4 })
+
