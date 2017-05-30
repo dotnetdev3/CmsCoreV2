@@ -52,8 +52,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Galleries/Create
         public IActionResult Create()
         {
-            var galery = new Gallery();
-            return View(galery);
+            var gallery = new Gallery();
+            gallery.CreatedBy = User.Identity.Name ?? "username";
+            gallery.CreateDate = DateTime.Now;
+            gallery.UpdatedBy = User.Identity.Name ?? "username";
+            gallery.UpdateDate = DateTime.Now;
+            return View(gallery);
         }
 
         // POST: CmsCore/Galleries/Create

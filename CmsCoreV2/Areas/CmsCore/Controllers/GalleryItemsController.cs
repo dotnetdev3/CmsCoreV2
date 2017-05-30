@@ -56,9 +56,13 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         public IActionResult Create()
         {
 
-            ViewData["GalleryId"] = new SelectList(_context.Galleries.ToList(), "Id", "Id");
-            var galeryItem = new GalleryItem();
-            return View(galeryItem);
+            ViewData["GalleryId"] = new SelectList(_context.Galleries.ToList(), "Id", "Name");
+            var galleryItem = new GalleryItem();
+            galleryItem.CreatedBy = User.Identity.Name ?? "username";
+            galleryItem.CreateDate = DateTime.Now;
+            galleryItem.UpdatedBy = User.Identity.Name ?? "username";
+            galleryItem.UpdateDate = DateTime.Now;
+            return View(galleryItem);
         }
 
         // POST: CmsCore/GalleryItems/Create
@@ -79,7 +83,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["GalleryId"] = new SelectList(_context.Galleries.ToList(), "Id", "Id", galleryItem.GalleryId);
+            ViewData["GalleryId"] = new SelectList(_context.Galleries.ToList(), "Id", "Name", galleryItem.GalleryId);
             return View(galleryItem);
         }
 
