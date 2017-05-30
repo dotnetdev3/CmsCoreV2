@@ -55,9 +55,13 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/GalleryItemCategories/Create
         public IActionResult Create()
         {
-            ViewData["ParentCategoryId"] = new SelectList(_context.GalleryItemCategories.ToList(), "Id", "Id");
-            var galeryItemCategory = new GalleryItemCategory();
-            return View(galeryItemCategory);
+            ViewData["ParentCategoryId"] = new SelectList(_context.GalleryItemCategories.ToList(), "Id", "Name");
+            var galleryItemCategory = new GalleryItemCategory();
+            galleryItemCategory.CreatedBy = User.Identity.Name ?? "username";
+            galleryItemCategory.CreateDate = DateTime.Now;
+            galleryItemCategory.UpdatedBy = User.Identity.Name ?? "username";
+            galleryItemCategory.UpdateDate = DateTime.Now;
+            return View(galleryItemCategory);
         }
 
         // POST: CmsCore/GalleryItemCategories/Create
