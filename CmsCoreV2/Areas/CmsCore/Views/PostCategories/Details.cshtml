@@ -1,12 +1,11 @@
-@model CmsCoreV2.Models.PostCategory
+ï»¿@model CmsCoreV2.Models.PostCategory
 
 @{
     ViewData["Title"] = "Detaylar";
 }
 
 <h2>Detaylar</h2>
-
-<div>
+<div>   
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -63,9 +62,15 @@
         <dd>
             @Html.DisplayFor(model => model.Language.Culture)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentCategory)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParentCategory.Name)
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a> |
-    <a asp-action="Index">Listeye Geri Dön</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">DÃ¼zenle</a> |
+    <a asp-action="Index">Listeye Geri DÃ¶n</a>
 </div>

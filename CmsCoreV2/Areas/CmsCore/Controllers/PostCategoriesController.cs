@@ -16,19 +16,16 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     {
         private readonly ApplicationDbContext _context;
         protected readonly AppTenant tenant;
-
-
         public PostCategoriesController(ApplicationDbContext context, ITenant<AppTenant> tenant)
         {
             _context = context;
             this.tenant = tenant?.Value;
-
         }
 
         // GET: CmsCore/PostCategories
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.PostCategories.Include(p => p.Language);
+            var applicationDbContext = _context.PostCategories.Include(p => p.Language).Include(p => p.ParentCategory);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -42,6 +39,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
 
             var postCategory = await _context.PostCategories
                 .Include(p => p.Language)
+                .Include(p => p.ParentCategory)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (postCategory == null)
             {
@@ -61,7 +59,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             postCategory.UpdateDate = DateTime.Now;
             postCategory.AppTenantId = tenant.AppTenantId;
 
-            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Culture");
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture");
+            ViewData["ParentCategoryId"] = new SelectList(_context.PostCategories, "Id", "Name");
             return View(postCategory);
         }
 
@@ -70,7 +69,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Slug,Description,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] PostCategory postCategory)
+        public async Task<IActionResult> Create([Bind("Name,Slug,ParentCategoryId,Description,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] PostCategory postCategory)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +83,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Culture", postCategory.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
+            ViewData["ParentCategoryId"] = new SelectList(_context.PostCategories, "Id", "Name", postCategory.ParentCategoryId);
             return View(postCategory);
         }
 
@@ -101,12 +101,13 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Culture", postCategory.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
+
+            ViewData["ParentCategoryId"] = new SelectList(_context.PostCategories, "Id", "Name", postCategory.ParentCategoryId);
 
             postCategory.UpdatedBy = User.Identity.Name ?? "username";
             postCategory.UpdateDate = DateTime.Now;
             postCategory.AppTenantId = tenant.AppTenantId;
-
             return View(postCategory);
         }
 
@@ -115,7 +116,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Slug,Description,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] PostCategory postCategory)
+        public async Task<IActionResult> Edit(long id, [Bind("Name,Slug,ParentCategoryId,Description,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] PostCategory postCategory)
         {
             if (id != postCategory.Id)
             {
@@ -126,7 +127,6 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
-
                     postCategory.UpdatedBy = User.Identity.Name ?? "username";
                     postCategory.UpdateDate = DateTime.Now;
                     postCategory.AppTenantId = tenant.AppTenantId;
@@ -147,9 +147,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Culture", postCategory.LanguageId);
-            
-
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
+            ViewData["ParentCategoryId"] = new SelectList(_context.PostCategories, "Id", "Name", postCategory.ParentCategoryId);
             return View(postCategory);
         }
 
@@ -163,6 +162,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
 
             var postCategory = await _context.PostCategories
                 .Include(p => p.Language)
+                .Include(p => p.ParentCategory)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (postCategory == null)
             {
