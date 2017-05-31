@@ -22,11 +22,22 @@ namespace CmsCoreV2.Data
             // Perform seed operations
             var languageId = AddLanguages(context, tenant);
             AddPages(context, tenant, languageId);
+            context.SaveChanges();
             AddSettings(context, tenant);           
             AddCustomization(context, tenant);
             AddMenus(context,tenant);            
             AddMenuItems(context,tenant);
-            
+
+            AddHomePageSlider(context, tenant);
+            AddHomePageSlide(context, tenant);
+            AddSecondarySlider(context, tenant);
+            AddSecondarySlide(context, tenant);
+            AddLogoSlider(context, tenant);
+            AddLogoSlide(context, tenant);
+            AddForms(context);
+            context.SaveChangesAsync();
+            context.Dispose();
+
 
         }
         public static long AddLanguages(ApplicationDbContext context, AppTenant tenant)
@@ -43,13 +54,20 @@ namespace CmsCoreV2.Data
         }
         public static void AddPages(ApplicationDbContext context, AppTenant tenant, long languageId)
         {
-            var p = new Page();
-            p.Title = "Home";
-            p.Slug = "home";
-            p.LanguageId = languageId;
-            p.AppTenantId = tenant.AppTenantId;
-            context.Pages.Add(p);
-            context.SaveChanges();
+           
+            context.AddRange(
+                new Page { Title = "Anasayfa", Slug = "anasayfa", Template = "Index", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId},
+                new Page { Title = "Haberler", Slug = "haberler", Template = "Posts", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new Page { Title = "Blog", Slug = "blog", Template = "Blog", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new Page { Title = "Ön Kayıt Formu", Slug = "on-kayit-formu", Template = "PreRegistration", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId },
+                new Page { Title = "İş Başvuru Formu", Slug = "is-basvuru-formu", Template = "JobRecourseForm", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId },
+                new Page { Title = "Arama", Slug = "arama", Template = "Search", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId },
+                new Page { Title = "Anket", Slug = "anket", Template = "Survey", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId },
+                new Page { Title = "Galeri", Slug = "galeri", Template = "Gallery", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId },
+                new Page { Title = "Site Haritası", Slug = "site-haritasi", Template = "SiteMap", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId }
+
+                );     
+
         }
         private static void AddSettings(ApplicationDbContext context,AppTenant tenant)
         {
@@ -166,6 +184,221 @@ namespace CmsCoreV2.Data
                 new MenuItem { Name = "Anket", Url = "/anket", MenuId = 1, Position = 31, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId });
             context.SaveChanges();
         }
+
+        private static void AddHomePageSlider(ApplicationDbContext context, AppTenant tenant)
+        {
+            var slider = new Slider();
+            slider.AppTenantId = tenant.AppTenantId;
+
+            slider.IsPublished = true;
+            slider.Name = "Anasayfa Slider";
+            slider.Template = "Default";
+            slider.CreateDate = DateTime.Now;
+            slider.CreatedBy = "username";
+            slider.UpdateDate = DateTime.Now;
+            slider.UpdatedBy = "username";
+            slider.Slides = new HashSet<Slide>();
+
+            context.Sliders.Add(slider);
+            context.SaveChanges();
+
+
+        }
+
+        private static void AddHomePageSlide(ApplicationDbContext context, AppTenant tenant)
+        {
+            var s1 = new Slide();
+            s1.AppTenantId = tenant.AppTenantId;
+
+            s1.Title = "Başlık1";
+            s1.SubTitle = "Alt Başlık1";
+            s1.Description = "Açıklama1";
+            s1.Position = 1;
+            s1.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
+            s1.CallToActionText = "Buton1";
+            s1.CallToActionUrl = "#";
+            s1.DisplayTexts = false;
+            s1.IsPublished = true;
+            s1.SliderId = 1;
+            s1.CreateDate = DateTime.Now;
+            s1.CreatedBy = "username";
+            s1.UpdateDate = DateTime.Now;
+            s1.UpdatedBy = "username";
+            context.Slides.Add(s1);
+
+            var s2 = new Slide();
+            s2.AppTenantId = tenant.AppTenantId;
+
+            s2.Title = "Başlık2";
+            s2.SubTitle = "Alt Başlık2";
+            s2.Description = "Açıklama2";
+            s2.Position = 1;
+            s2.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
+            s2.CallToActionText = "Buton2";
+            s2.CallToActionUrl = "#";
+            s2.DisplayTexts = false;
+            s2.IsPublished = true;
+            s2.SliderId = 1;
+            s2.CreateDate = DateTime.Now;
+            s2.CreatedBy = "username";
+            s2.UpdateDate = DateTime.Now;
+            s2.UpdatedBy = "username";
+            context.Slides.Add(s2);
+
+            var s3 = new Slide();
+            s3.AppTenantId = tenant.AppTenantId;
+
+            s3.Title = "Başlık3";
+            s3.SubTitle = "Alt Başlık3";
+            s3.Description = "Açıklama3";
+            s3.Position = 1;
+            s3.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
+            s3.CallToActionText = "Buton3";
+            s3.CallToActionUrl = "#";
+            s3.DisplayTexts = false;
+            s3.IsPublished = true;
+            s3.SliderId = 1;
+            s3.CreateDate = DateTime.Now;
+            s3.CreatedBy = "username";
+            s3.UpdateDate = DateTime.Now;
+            s3.UpdatedBy = "username";
+            context.Slides.Add(s3);
+            context.SaveChanges();
+
+
+        }
+
+        private static void AddSecondarySlider(ApplicationDbContext context, AppTenant tenant)
+        {
+            var slider = new Slider();
+            slider.AppTenantId = tenant.AppTenantId;
+
+            slider.IsPublished = true;
+            slider.Name = "Anasayfa İkinci Slider";
+            slider.Template = "Default";
+            slider.CreateDate = DateTime.Now;
+            slider.CreatedBy = "username";
+            slider.UpdateDate = DateTime.Now;
+            slider.UpdatedBy = "username";
+            slider.Slides = new HashSet<Slide>();
+
+            context.Sliders.Add(slider);
+            context.SaveChanges();
+
+
+        }
+
+        private static void AddSecondarySlide(ApplicationDbContext context, AppTenant tenant)
+        {
+            var s1 = new Slide();
+            s1.AppTenantId = tenant.AppTenantId;
+
+            s1.Title = "Başlık2";
+            s1.SubTitle = "Alt Başlık2";
+            s1.Description = "Açıklama2";
+            s1.Position = 2;
+            s1.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
+            s1.CallToActionText = "Buton2";
+            s1.CallToActionUrl = "#";
+            s1.DisplayTexts = false;
+            s1.IsPublished = true;
+            s1.SliderId = 2;
+            s1.CreateDate = DateTime.Now;
+            s1.CreatedBy = "username";
+            s1.UpdateDate = DateTime.Now;
+            s1.UpdatedBy = "username";
+            context.Slides.Add(s1);
+
+            var s2 = new Slide();
+            s2.AppTenantId = tenant.AppTenantId;
+
+            s2.Title = "Başlık2";
+            s2.SubTitle = "Alt Başlık2";
+            s2.Description = "Açıklama2";
+            s2.Position = 2;
+            s2.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
+            s2.CallToActionText = "Buton2";
+            s2.CallToActionUrl = "#";
+            s2.DisplayTexts = false;
+            s2.IsPublished = true;
+            s2.SliderId = 2;
+            s2.CreateDate = DateTime.Now;
+            s2.CreatedBy = "username";
+            s2.UpdateDate = DateTime.Now;
+            s2.UpdatedBy = "username";
+            context.Slides.Add(s2);
+            context.SaveChanges();
+
+
+        }
+
+        private static void AddLogoSlider(ApplicationDbContext context, AppTenant tenant)
+        {
+            var slider = new Slider();
+            slider.AppTenantId = tenant.AppTenantId;
+
+            slider.IsPublished = true;
+            slider.Name = "Logo Slider";
+            slider.Template = "Default";
+            slider.CreateDate = DateTime.Now;
+            slider.CreatedBy = "username";
+            slider.UpdateDate = DateTime.Now;
+            slider.UpdatedBy = "username";
+            slider.Slides = new HashSet<Slide>();
+
+            context.Sliders.Add(slider);
+            context.SaveChanges();
+
+
+        }
+
+        private static void AddLogoSlide(ApplicationDbContext context, AppTenant tenant)
+        {
+
+            var s1 = new Slide();
+            s1.AppTenantId = tenant.AppTenantId;
+
+            s1.Title = "Başlık2";
+            s1.SubTitle = "Alt Başlık2";
+            s1.Description = "Açıklama2";
+            s1.Position = 3;
+            s1.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
+            s1.CallToActionText = "Buton2";
+            s1.CallToActionUrl = "#";
+            s1.DisplayTexts = false;
+            s1.IsPublished = true;
+            s1.SliderId = 3;
+            s1.CreateDate = DateTime.Now;
+            s1.CreatedBy = "username";
+            s1.UpdateDate = DateTime.Now;
+            s1.UpdatedBy = "username";
+            context.Slides.Add(s1);
+
+            var s2 = new Slide();
+            s2.AppTenantId = tenant.AppTenantId;
+
+            s2.Title = "Başlık2";
+            s2.SubTitle = "Alt Başlık2";
+            s2.Description = "Açıklama2";
+            s2.Position = 3;
+            s2.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
+            s2.CallToActionText = "Buton2";
+            s2.CallToActionUrl = "#";
+            s2.DisplayTexts = false;
+            s2.IsPublished = true;
+            s2.SliderId = 3;
+            s2.CreateDate = DateTime.Now;
+            s2.CreatedBy = "username";
+            s2.UpdateDate = DateTime.Now;
+            s2.UpdatedBy = "username";
+            context.Slides.Add(s2);
+            context.SaveChanges();
+
+
+        }
+
+
+
     }
 }
 
