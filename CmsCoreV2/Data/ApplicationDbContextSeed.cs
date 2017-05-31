@@ -27,7 +27,8 @@ namespace CmsCoreV2.Data
             AddCustomization(context, tenant);
             AddMenus(context,tenant);            
             AddMenuItems(context,tenant);
-
+            AddPostCategories(context, tenant, languageId);
+            context.SaveChanges();
             AddHomePageSlider(context, tenant);
             AddHomePageSlide(context, tenant);
             AddSecondarySlider(context, tenant);
@@ -35,6 +36,7 @@ namespace CmsCoreV2.Data
             AddLogoSlider(context, tenant);
             AddLogoSlide(context, tenant);
             AddForms(context,tenant);
+
             context.SaveChangesAsync();
             context.Dispose();
 
@@ -69,6 +71,15 @@ namespace CmsCoreV2.Data
                 );     
 
         }
+        private static void AddPostCategories(ApplicationDbContext context,AppTenant tenant, long languageId)
+        {
+            context.AddRange(
+                new PostCategory { Name = "Haberler", Slug = "haberler", LanguageId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new PostCategory { Name = "Kadromuz", Slug = "kadromuz", LanguageId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId }
+                );
+        }
+
+
         private static void AddSettings(ApplicationDbContext context,AppTenant tenant)
         {
             var s = new Setting();
