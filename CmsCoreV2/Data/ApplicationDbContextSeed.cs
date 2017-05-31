@@ -60,10 +60,10 @@ namespace CmsCoreV2.Data
             s.FooterScript = "";
             s.MapLat = "";
             s.MapLon = "";
-            s.SmtpUserName = "";
-            s.SmtpPassword = "";
-            s.SmtpHost = "";
-            s.SmtpPort = "487";
+            s.SmtpUserName = "denemecvhavuzu@gmail.com";
+            s.SmtpPassword = "123:Asdfg";
+            s.SmtpHost = "smtp.gmail.com";
+            s.SmtpPort = "587";
             s.SmtpUseSSL = true;
             s.CreateDate = DateTime.Now;
             s.CreatedBy = "username";
