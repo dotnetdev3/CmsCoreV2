@@ -40,7 +40,6 @@ namespace CmsCoreV2.Data
             context.SaveChangesAsync();
             context.Dispose();
 
-
         }
         public static long AddLanguages(ApplicationDbContext context, AppTenant tenant)
         {
@@ -410,6 +409,20 @@ namespace CmsCoreV2.Data
 
 
 
+        private static void AddGalleries(ApplicationDbContext context,AppTenant tenant)
+        {
+            var gallery = new Gallery { Name = "Ana Galeri",IsPublished=true,  CreatedBy = "username", CreateDate=DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now ,};
+            context.AddRange(gallery);
+            context.SaveChanges();
+
+
+        }
+        private static void AddGalleryItems(ApplicationDbContext context,AppTenant tenant)
+        {
+            var galleryItem = new GalleryItem { Title = "Ana Galeri Item1", Description = "Ana Galeri Item1", Position = 1, Photo = "/uploads/9a2ef92e2e0ca0fb061171e27596dfeb.png", GalleryId=1,IsPublished=true,CreatedBy= "username", CreateDate= DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now };
+            context.AddRange(galleryItem);
+            context.SaveChanges();
+        }
     }
 }
 
