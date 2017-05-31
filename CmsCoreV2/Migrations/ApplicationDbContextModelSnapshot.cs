@@ -14,7 +14,7 @@ namespace CmsCoreV2.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.1")
+                .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("CmsCoreV2.Models.ApplicationUser", b =>
@@ -681,6 +681,8 @@ namespace CmsCoreV2.Migrations
                         .IsRequired()
                         .HasMaxLength(200);
 
+                    b.Property<long?>("ParentCategoryId");
+
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasMaxLength(200);
@@ -693,6 +695,8 @@ namespace CmsCoreV2.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("LanguageId");
+
+                    b.HasIndex("ParentCategoryId");
 
                     b.ToTable("PostCategories");
                 });
@@ -1101,6 +1105,10 @@ namespace CmsCoreV2.Migrations
                     b.HasOne("CmsCoreV2.Models.Language", "Language")
                         .WithMany("PostCategories")
                         .HasForeignKey("LanguageId");
+
+                    b.HasOne("CmsCoreV2.Models.PostCategory", "ParentCategory")
+                        .WithMany("ChildCategories")
+                        .HasForeignKey("ParentCategoryId");
                 });
 
             modelBuilder.Entity("CmsCoreV2.Models.PostPostCategory", b =>

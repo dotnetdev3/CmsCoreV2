@@ -60,7 +60,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             post.UpdatedBy = User.Identity.Name ?? "username";
             post.UpdateDate = DateTime.Now;
             post.AppTenantId = tenant.AppTenantId;
+
             ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Culture");
+
+            ViewBag.CategoryList = GetPostCategories();
+
             return View(post);
         }
 
@@ -184,5 +188,13 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             return _context.Posts.Any(e => e.Id == id);
         }
+        public IEnumerable<PostCategory> GetPostCategories()
+        {
+            var postCategories = _context.PostCategories.AsQueryable().Include("ChildCategories").ToList();
+            return postCategories;
+
+        }
+
+   
     }
 }
