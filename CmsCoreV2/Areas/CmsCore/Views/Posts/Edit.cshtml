@@ -40,11 +40,16 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Photo" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Photo" class="form-control" />
-                <span asp-validation-for="Photo" class="text-danger"></span>
+            <label asp-for="Photo" class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Photo)</label>
+            <div class="col-md-9">
+                <div class="input-group">
+                    <input asp-for="Photo" class="form-control" />
+                    <span class="input-group-btn">
+                        <a class="btn btn-info" id="uploadModal" type="button" onclick="browseMedia('Photo')">...</a>
+                    </span>
+                </div>
             </div>
+            @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             <label asp-for="Meta1" class="col-md-2 control-label"></label>
@@ -144,6 +149,7 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+@Html.Partial("_BrowseMedia", new ViewDataDictionary(this.ViewData) { { "element", "Photo" } })
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
