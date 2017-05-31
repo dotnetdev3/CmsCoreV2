@@ -25,7 +25,10 @@ namespace CmsCoreV2.Data
             AddSettings(context, tenant);           
             AddCustomization(context, tenant);
             AddMenus(context,tenant);            
-            AddMenuItems(context,tenant);  
+            AddMenuItems(context,tenant);
+            AddGalleries(context, tenant);
+            AddGalleryItems(context,tenant);
+
 
 
         }
@@ -144,6 +147,20 @@ namespace CmsCoreV2.Data
                 new MenuItem { Name = "Online Veli Görüşmesi", Url = "/online-veli-gorusmesi", MenuId = 1, Position = 29, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
                 new MenuItem { Name = "Veli-Öğrenci El Kitabı", Url = "/veli-ogrenci-el-kitabi", MenuId = 1, Position = 30, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
                 new MenuItem { Name = "Anket", Url = "/anket", MenuId = 1, Position = 31, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId });
+            context.SaveChanges();
+        }
+        private static void AddGalleries(ApplicationDbContext context,AppTenant tenant)
+        {
+            var gallery = new Gallery { Name = "Ana Galeri",IsPublished=true,  CreatedBy = "username", CreateDate=DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now ,};
+            context.AddRange(gallery);
+            context.SaveChanges();
+
+
+        }
+        private static void AddGalleryItems(ApplicationDbContext context,AppTenant tenant)
+        {
+            var galleryItem = new GalleryItem { Title = "Ana Galeri Item1", Description = "Ana Galeri Item1", Position = 1, Photo = "/uploads/9a2ef92e2e0ca0fb061171e27596dfeb.png", GalleryId=1,IsPublished=true,CreatedBy= "username", CreateDate= DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now };
+            context.AddRange(galleryItem);
             context.SaveChanges();
         }
     }
