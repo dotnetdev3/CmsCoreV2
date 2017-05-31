@@ -25,8 +25,9 @@ namespace CmsCoreV2.Data
             AddSettings(context, tenant);           
             AddCustomization(context, tenant);
             AddMenus(context,tenant);            
-            AddMenuItems(context,tenant);  
-
+            AddMenuItems(context,tenant);
+            AddForms(context);
+            
 
         }
         public static long AddLanguages(ApplicationDbContext context, AppTenant tenant)
@@ -96,7 +97,15 @@ namespace CmsCoreV2.Data
             context.SaveChanges();
 
         }
-     
+        private static void AddForms(ApplicationDbContext context)
+        {
+            context.AddRange(
+                new Form { FormName = "Sizi Arayalım", EmailTo = "ertyeni@gmail.com", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now }
+                );
+            context.SaveChanges();
+        }
+
+
         private static void AddMenus(ApplicationDbContext context, AppTenant tenant)
         {
             var menu = new Menu { Name = "Ana Menü", MenuLocation = "Primary", LanguageId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId=tenant.AppTenantId };
