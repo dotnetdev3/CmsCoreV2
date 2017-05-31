@@ -1,5 +1,4 @@
 ﻿@model CmsCoreV2.Models.Feedback
-
 @{
     ViewData["Title"] = "Geri Bildirim Detayları";
 }
@@ -68,6 +67,18 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.AppTenantId)
+        </dd>
+        <dt>
+            @foreach (var feedbackValue in (IEnumerable<FeedbackValue>)ViewBag.FeedbackValues)
+            {
+                @feedbackValue.FormFieldName <br />
+            }
+        </dt>
+        <dd>
+            @foreach (var feedbackValue in (IEnumerable<FeedbackValue>)ViewBag.FeedbackValues)
+            {
+                @feedbackValue.Value <br />
+            }
         </dd>
     </dl>
 </div>
