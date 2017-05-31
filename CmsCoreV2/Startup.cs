@@ -96,6 +96,7 @@ namespace CmsCoreV2
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<IFeedbackService, FeedbackService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -136,7 +137,7 @@ namespace CmsCoreV2
                 routes.MapRoute(
                     name: "cultureRoute",
                     template: "{culture}/{slug}",
-                    defaults: new { controller = "Home", action = "Index", slug = "home" },
+                    defaults: new { controller = "Home", action = "Index", slug = "anasayfa" },
                     constraints: new
                     {
                         culture = new RegexRouteConstraint("^[a-z]{2}(?:-[A-Z]{2})?$")

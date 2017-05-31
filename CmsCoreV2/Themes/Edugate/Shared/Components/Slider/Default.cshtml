@@ -22,7 +22,7 @@
                         else
                         {
 
-                            <div class="slider-caption" @(slide.DisplayTexts ? "style=background: url('@slide.Photo') no-repeat whitesmoke; background-size:cover;" : "style=height:100%")>
+                            <div class="slider-caption" @(slide.DisplayTexts ? $"style=background: url({slide.Photo}) no-repeat whitesmoke; background-size:cover;" : "style=height:100%")>
                                 @if (slide.DisplayTexts)
                                 {
                                     <div class="container">
