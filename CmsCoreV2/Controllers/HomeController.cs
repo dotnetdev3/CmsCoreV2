@@ -6,12 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Localization;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using CmsCoreV2.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace CmsCoreV2.Controllers
 {
     public class HomeController : Controller
     {
+        protected readonly AppTenant tenant;
         private readonly ApplicationDbContext _context;
+        private readonly IFeedbackService feedbackService;
         public HomeController(ApplicationDbContext context)
         {
             _context = context;
