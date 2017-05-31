@@ -34,7 +34,7 @@ namespace CmsCoreV2.Data
             AddSecondarySlide(context, tenant);
             AddLogoSlider(context, tenant);
             AddLogoSlide(context, tenant);
-            AddForms(context);
+            AddForms(context,tenant);
             context.SaveChangesAsync();
             context.Dispose();
 
