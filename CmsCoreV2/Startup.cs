@@ -137,7 +137,7 @@ namespace CmsCoreV2
                 routes.MapRoute(
                     name: "cultureRoute",
                     template: "{culture}/{slug}",
-                    defaults: new { controller = "Home", action = "Index", slug = "home" },
+                    defaults: new { controller = "Home", action = "Index", slug = "anasayfa" },
                     constraints: new
                     {
                         culture = new RegexRouteConstraint("^[a-z]{2}(?:-[A-Z]{2})?$")
