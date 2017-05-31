@@ -16,6 +16,7 @@
     <Content Include="wwwroot\edugate\css\Custom.css" />
     <Content Include="wwwroot\edugate\images\video_foto.png" />
     <Content Include="wwwroot\uploads\13036596003383465.mov" />
+    <Content Include="wwwroot\uploads\5-2017\9a2ef92e2e0ca0fb061171e27596dfeb.png" />
     <Content Include="wwwroot\uploads\946468297image-slider-2.jpg" />
     <Content Include="wwwroot\uploads\9a2ef92e2e0ca0fb061171e27596dfeb.png" />
   </ItemGroup>

@@ -33,11 +33,11 @@ namespace CmsCoreV2.Data
                 QueryFilterManager.Filter<ApplicationUser>(q => q.Where(x => x.AppTenantId == tenantId));
                 QueryFilterManager.Filter<Role>(q => q.Where(x => x.AppTenantId == tenantId));
 
-
+                QueryFilterManager.Filter<Customization>(c => c.Where(x => x.AppTenantId == tenantId));
                 QueryFilterManager.Filter<Setting>(q => q.Where(x => x.AppTenantId == tenantId));
 
 
-               QueryFilterManager.InitilizeGlobalFilter(this);
+                QueryFilterManager.InitilizeGlobalFilter(this);
             }
         }
 
