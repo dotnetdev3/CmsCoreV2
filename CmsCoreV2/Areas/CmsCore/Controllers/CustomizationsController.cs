@@ -59,7 +59,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                     _context.Update(customization);
                     await _context.SaveChangesAsync();
 
-                    ViewBag.mesaj = "Ýsleminiz Basarýlý !";
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -73,8 +73,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                     }
 
                 }
-                ViewData["var"] = "islem basarýlý";
-                return View(customization);
+                ViewData["var"] = "islem basarýlý !";
+                return RedirectToAction("Edit");
             }
             return View(customization);
         }
@@ -113,7 +113,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                     _context.Update(customization);
                     await _context.SaveChangesAsync();
 
-                    ViewBag.mesaj = "Ýsleminiz Basarýlý !";
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -128,7 +128,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
 
                 }
                 ViewData["var"] = "islem basarýlý";
-                return View(customization);
+                return RedirectToAction("CustomCss");
             }
             return View(customization);
         }

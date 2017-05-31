@@ -4,15 +4,15 @@
     ViewData["Title"] = "Oluştur";
 }
 
-<link href="@(ViewBag.AssetsUrl)global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css">
+<link href="@(ViewBag.AssetsUrl)/metronic/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css">
 <script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
 <script src="~/js/generate-slug.js"> </script>
 
 <h2>Post Oluştur</h2>
+<hr />
 
-<form asp-action="Create">
+<form asp-controller="Post" asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="form-horizontal">
-        <hr />
         <div class="row">
             <div class="col-md-12">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -26,151 +26,159 @@
                     </div>
                 </div>
             </div>
-          
 
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Title" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="Title" class="form-control" />
-                        <span asp-validation-for="Title" class="text-danger"></span>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Slug" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Slug" class="form-control" />
+                    <span asp-validation-for="Slug" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Body" class="col-md-2 control-label"></label>
+
+                <div class="col-md-10">
+                    <textarea asp-for="Body" tabindex="3" class="form-control"></textarea>
+                    <span class="text-danger" asp-validation-for="Body"></span>
+                    <script type="text/javascript">
+                        CKEDITOR.replace('Body');
+                    </script>
+
+                    <div id="content2" style="display: none" data-sample="2">
+                        <p>The number of <code>change</code> events:<strong><span id="changes"></span></strong>.</p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Slug" class="col-md-2 control-label"></label>
+                    <label asp-for="Description" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="Slug" class="form-control" />
-                        <span asp-validation-for="Slug" class="text-danger"></span>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Photo" class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Photo)</label>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <input asp-for="Photo" class="form-control" />
+                            <span class="input-group-btn">
+                                <a class="btn btn-info" id="uploadModal" type="button" onclick="browseMedia('Photo')">...</a>
+                            </span>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+                </div>
+
+
+                <div class="form-group">
+                    <label asp-for="Meta1" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Meta1" class="form-control" />
+                        <span asp-validation-for="Meta1" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Body" class="col-md-2 control-label"></label>
-
+                    <label asp-for="Meta2" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <textarea asp-for="Body" tabindex="3" class="form-control"></textarea>
-                        <span class="text-danger" asp-validation-for="Body"></span>
-                        <script type="text/javascript">
-                            CKEDITOR.replace('Body');
-                        </script>
+                        <input asp-for="Meta2" class="form-control" />
+                        <span asp-validation-for="Meta2" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ViewCount" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="ViewCount" class="form-control" />
+                        <span asp-validation-for="ViewCount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SeoTitle" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="SeoTitle" class="form-control" />
+                        <span asp-validation-for="SeoTitle" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SeoDescription" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="SeoDescription" class="form-control" />
+                        <span asp-validation-for="SeoDescription" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SeoKeywords" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="SeoKeywords" class="form-control" />
+                        <span asp-validation-for="SeoKeywords" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            <input asp-for="IsPublished" />
+                            <label asp-for="IsPublished"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LanguageId" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.LanguageId"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CreateDate" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input readonly asp-for="CreateDate" class="form-control" />
+                        <span asp-validation-for="CreateDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CreatedBy" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input readonly asp-for="CreatedBy" class="form-control" />
+                        <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UpdateDate" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input readonly asp-for="UpdateDate" class="form-control" />
+                        <span asp-validation-for="UpdateDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UpdatedBy" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input readonly asp-for="UpdatedBy" class="form-control" />
+                        <span asp-validation-for="UpdatedBy" class="text-danger"></span>
+                    </div>
+                </div>
 
-                        <div id="content2" style="display: none" data-sample="2">
-                            <p>The number of <code>change</code> events:<strong><span id="changes"></span></strong>.</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Description" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input asp-for="Description" class="form-control" />
-                            <span asp-validation-for="Description" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Photo" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input asp-for="Meta1" class="form-control" />
-                            <span asp-validation-for="Photo" class="text-danger"></span>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label asp-for="Meta1" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input asp-for="Meta1" class="form-control" />
-                            <span asp-validation-for="Meta1" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Meta2" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input asp-for="Meta2" class="form-control" />
-                            <span asp-validation-for="Meta2" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ViewCount" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input asp-for="ViewCount" class="form-control" />
-                            <span asp-validation-for="ViewCount" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="SeoTitle" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input asp-for="SeoTitle" class="form-control" />
-                            <span asp-validation-for="SeoTitle" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="SeoDescription" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input asp-for="SeoDescription" class="form-control" />
-                            <span asp-validation-for="SeoDescription" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="SeoKeywords" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input asp-for="SeoKeywords" class="form-control" />
-                            <span asp-validation-for="SeoKeywords" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <div class="checkbox">
-                                <input asp-for="IsPublished" />
-                                <label asp-for="IsPublished"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="LanguageId" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.LanguageId"></select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="CreateDate" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input readonly asp-for="CreateDate" class="form-control" />
-                            <span asp-validation-for="CreateDate" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="CreatedBy" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input readonly asp-for="CreatedBy" class="form-control" />
-                            <span asp-validation-for="CreatedBy" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="UpdateDate" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input readonly asp-for="UpdateDate" class="form-control" />
-                            <span asp-validation-for="UpdateDate" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="UpdatedBy" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input readonly asp-for="UpdatedBy" class="form-control" />
-                            <span asp-validation-for="UpdatedBy" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Kaydet" class="btn btn-primary" />
-                        </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Kaydet" class="btn btn-primary" />
                     </div>
                 </div>
             </div>
+        </div>
 </form>
+
+
 
 <div>
     <a asp-action="Index">Listeye Geri Dön</a>
 </div>
+@Html.Partial("_BrowseMedia", new ViewDataDictionary(this.ViewData) { { "element", "Photo" } })
 
 
 @section scripts {
