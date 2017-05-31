@@ -119,6 +119,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
+                    slide.AppTenantId = tenant.AppTenantId;
                     _context.Update(slide);
                     await _context.SaveChangesAsync();
                 }
