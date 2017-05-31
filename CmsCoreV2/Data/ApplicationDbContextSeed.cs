@@ -26,7 +26,6 @@ namespace CmsCoreV2.Data
             AddCustomization(context, tenant);
             AddMenus(context,tenant);            
             AddMenuItems(context,tenant);
-            AddForms(context);
             
 
         }
@@ -97,7 +96,7 @@ namespace CmsCoreV2.Data
             context.SaveChanges();
 
         }
-        private static void AddForms(ApplicationDbContext context)
+        private static void AddForms(ApplicationDbContext context, AppTenant tenant)
         {
             context.AddRange(
                 new Form { FormName = "Sizi Arayalım", EmailTo = "ertyeni@gmail.com", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now }
@@ -105,6 +104,18 @@ namespace CmsCoreV2.Data
             context.SaveChanges();
         }
 
+        private static void AddFormFields(ApplicationDbContext context, AppTenant tenant)
+        {
+            context.AddRange(
+                new FormField { Name = "Ad Soyad", FormId = 1, FieldType = FieldType.fullName, Position = 1, Required = true, Value = "", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new FormField { Name = "E-posta", FormId = 1, FieldType = FieldType.email, Position = 2, Required = true, Value = "", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new FormField { Name = "Telefon", FormId = 1, FieldType = FieldType.telephone, Position = 3, Required = true, Value = "", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new FormField { Name = "Çocuğunuzu kaydettirmeyi düşündüğünüz okul aşağıdakilerden hangisidir?", FormId = 1, FieldType = FieldType.radioButtons, Position = 4, Required = true, Value = "Anaokulu,İlkokul,Ortaokul,Lise", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new FormField { Name = "Çocuğunuzu kaydettirmeyi düşündüğünüz sınıf hangisidir?", FormId = 1, FieldType = FieldType.dropdownMenu, Position = 5, Required = true, Value = "Seçiniz,1,2,3,4", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new FormField { Name = "Abonelik", FormId = 1, FieldType = FieldType.checkbox, Position = 6, Required = true, Value = "Bilgi Koleji Okullarından gönderilen her türlü haber&#44; bilgi ve tanıtım içeriklerinden e-posta adresim ve telefonum aracılığıyla haberdar olmak istiyorum.", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId }
+                );
+            context.SaveChanges();
+        }
 
         private static void AddMenus(ApplicationDbContext context, AppTenant tenant)
         {
