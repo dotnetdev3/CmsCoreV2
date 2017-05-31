@@ -22,10 +22,15 @@ namespace CmsCoreV2.Data
             // Perform seed operations
             var languageId = AddLanguages(context, tenant);
             AddPages(context, tenant, languageId);
+            context.SaveChanges();
             AddSettings(context, tenant);           
             AddCustomization(context, tenant);
             AddMenus(context,tenant);            
-            AddMenuItems(context,tenant);  
+            AddMenuItems(context,tenant);
+
+
+            context.SaveChangesAsync();
+            context.Dispose();
 
 
         }
@@ -43,13 +48,20 @@ namespace CmsCoreV2.Data
         }
         public static void AddPages(ApplicationDbContext context, AppTenant tenant, long languageId)
         {
-            var p = new Page();
-            p.Title = "Home";
-            p.Slug = "home";
-            p.LanguageId = languageId;
-            p.AppTenantId = tenant.AppTenantId;
-            context.Pages.Add(p);
-            context.SaveChanges();
+           
+            context.AddRange(
+                new Page { Title = "Anasayfa", Slug = "anasayfa", Template = "Index", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId},
+                new Page { Title = "Haberler", Slug = "haberler", Template = "Posts", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new Page { Title = "Blog", Slug = "blog", Template = "Blog", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new Page { Title = "Ön Kayıt Formu", Slug = "on-kayit-formu", Template = "PreRegistration", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId },
+                new Page { Title = "İş Başvuru Formu", Slug = "is-basvuru-formu", Template = "JobRecourseForm", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId },
+                new Page { Title = "Arama", Slug = "arama", Template = "Search", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId },
+                new Page { Title = "Anket", Slug = "anket", Template = "Survey", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId },
+                new Page { Title = "Galeri", Slug = "galeri", Template = "Gallery", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId },
+                new Page { Title = "Site Haritası", Slug = "site-haritasi", Template = "SiteMap", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now , AppTenantId = tenant.AppTenantId }
+
+                );     
+
         }
         private static void AddSettings(ApplicationDbContext context,AppTenant tenant)
         {
