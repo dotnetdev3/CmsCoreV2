@@ -27,7 +27,8 @@ namespace CmsCoreV2.Data
             AddCustomization(context, tenant);
             AddMenus(context,tenant);            
             AddMenuItems(context,tenant);
-
+            AddForms(context);
+            
 
             context.SaveChangesAsync();
             context.Dispose();
@@ -72,10 +73,10 @@ namespace CmsCoreV2.Data
             s.FooterScript = "";
             s.MapLat = "";
             s.MapLon = "";
-            s.SmtpUserName = "";
-            s.SmtpPassword = "";
-            s.SmtpHost = "";
-            s.SmtpPort = "487";
+            s.SmtpUserName = "denemecvhavuzu@gmail.com";
+            s.SmtpPassword = "123:Asdfg";
+            s.SmtpHost = "smtp.gmail.com";
+            s.SmtpPort = "587";
             s.SmtpUseSSL = true;
             s.CreateDate = DateTime.Now;
             s.CreatedBy = "username";
@@ -108,7 +109,15 @@ namespace CmsCoreV2.Data
             context.SaveChanges();
 
         }
-     
+        private static void AddForms(ApplicationDbContext context)
+        {
+            context.AddRange(
+                new Form { FormName = "Sizi Arayalım", EmailTo = "ertyeni@gmail.com", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now }
+                );
+            context.SaveChanges();
+        }
+
+
         private static void AddMenus(ApplicationDbContext context, AppTenant tenant)
         {
             var menu = new Menu { Name = "Ana Menü", MenuLocation = "Primary", LanguageId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId=tenant.AppTenantId };
