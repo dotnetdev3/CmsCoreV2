@@ -34,11 +34,16 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Logo" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Logo" class="form-control" type="file" />
-                <span asp-validation-for="Logo" class="text-danger"></span>
+            <label asp-for="Logo" class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Logo)</label>
+            <div class="col-md-9">
+                <div class="input-group">
+                    <input asp-for="Logo" class="form-control" />
+                    <span class="input-group-btn">
+                        <a class="btn btn-info" id="uploadModal" type="button" onclick="browseMedia('Logo')">...</a>
+                    </span>
+                </div>
             </div>
+            @Html.ValidationMessageFor(model => model.Logo, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             <label asp-for="MetaTitle" class="col-md-2 control-label"></label>
@@ -62,11 +67,16 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="ImageUrl" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input  asp-for="ImageUrl" class="form-control" type="file" />
-                <span asp-validation-for="ImageUrl" class="text-danger" ></span>
+            <label asp-for="ImageUrl" class="col-md-2 control-label">@Html.DisplayNameFor(model => model.ImageUrl)</label>
+            <div class="col-md-9">
+                <div class="input-group">
+                    <input asp-for="ImageUrl" class="form-control" />
+                    <span class="input-group-btn">
+                        <a class="btn btn-info" id="uploadModal" type="button" onclick="browseMedia('ImageUrl')">...</a>
+                    </span>
+                </div>
             </div>
+            @Html.ValidationMessageFor(model => model.Logo, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             <label asp-for="ManyLocation" class="col-md-2 control-label"></label>
@@ -113,7 +123,8 @@
     </div>
 </form>
 
-
+@Html.Partial("_BrowseMedia", new ViewDataDictionary(this.ViewData) { { "element", "Logo" } })
+@Html.Partial("_BrowseMedia", new ViewDataDictionary(this.ViewData) { { "element", "ImageUrl" } })
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
