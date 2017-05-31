@@ -1,376 +1,82 @@
 ﻿@{
     ViewData["Title"] = "";
 }
-<div id="wrapper-content" style="overflow:hidden!important">
-    <!-- PAGE WRAPPER-->
-    <div id="page-wrapper" style="overflow:hidden!important">
-        <!-- MAIN CONTENT-->
-        <div class="main-content" style="overflow:hidden!important">
-            <!-- CONTENT-->
-            <div class="content" style="overflow:hidden!important">
 
-                <div id="homeSlider" style="clear:both;">
-                    <!-- ~/videos/3383465.mov -->
-                    <div class="section slider-banner set-height-top">
-                        <div class="slider-item">
+@await Component.InvokeAsync("Slider", new { Name = "Anasayfa Slider" })
 
-                            <div class="slider-1">
-                                <video width="100%" id="bgvid" playsinline autoplay muted loop style="over">
-                                    <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
+<!-- CHOOSE COURSES-->
+<div class="section section-padding choose-course">
+    <div class="container">
 
-                                    <source src="/uploads/3383465.mov" type="video/mp4">
-                                </video>
-                            </div>
-                        </div>
-                        <div class="slider-item">
+        <img src="~/edugate/images/bilgiye-sevgi-katiyoruz.png" id="floatingImage" />
+        <div class="choose-course-wrapper row">
 
-                            <div class="slider-2">
-                                <div class="slider-caption" style=height:100%>
-                                    <a href="#" style="background:url('/uploads/9a2ef92e2e0ca0fb061171e27596dfeb.png');background-size:cover;background-position:center;background-repeat:no-repeat;width:100%;height:100%; display:block;"><span><img /></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slider-item">
-
-                            <div class="slider-3">
-                                <div class="slider-caption" style=height:100%>
-                                    <a href="flat" style="background:url('/uploads/946468297image-slider-2.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;width:100%;height:100%; display:block;"><span><img /></span></a>
-                                </div>
+            <div class="col-md-2">
+                <div class="item-course item-1">
+                    <div class="icon-circle">
+                        <div class="icon-background"></div>
+                        <div class="info">
+                            <div class="info-back">
+                                <a href="/anaokulu">
+                                    <img src="~/edugate/images/anaokulu-kiz.png" border="0" style="width: 93%;margin-left: 4.5px;margin-bottom: 2px;" />
+                                </a>
                             </div>
                         </div>
                     </div>
+                    <div class="name-course"><a href="/anaokulu">Anaokulu</a></div>
                 </div>
-
-
-                <!-- CHOOSE COURSES-->
-                <div class="section section-padding choose-course">
-                    <div class="container">
-
-                        <img src="/edugate/images/bilgiye-sevgi-katiyoruz.png" id="floatingImage" />
-                        <div class="choose-course-wrapper row">
-
-                            <div class="col-md-2">
-                                <div class="item-course item-1">
-                                    <div class="icon-circle">
-                                        <div class="icon-background"></div>
-                                        <div class="info">
-                                            <div class="info-back">
-                                                <a href="/anaokulu">
-                                                    <img src="/edugate/images/anaokulu-kiz.png" border="0" style="width:100%" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="name-course"><a href="/anaokulu">Anaokulu</a></div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="item-course item-2">
-                                    <div class="icon-circle">
-                                        <div class="icon-background"></div>
-                                        <div class="info">
-                                            <div class="info-back"><a href="/ilkokul"><img src="/edugate/images/ilkokul-kiz.png" border="0" style="width:100%" /></a></div>
-                                        </div>
-
-                                    </div>
-                                    <div class="name-course"><a href="/ilkokul">İlkokul</a></div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="item-course item-3">
-                                    <div class="icon-circle">
-                                        <div class="icon-background"></div>
-                                        <div class="info">
-                                            <div class="info-back"><a href="/ortaokul"><img src="/edugate/images/ortaokul-kiz.png" border="0" style="width:100%" /></a></div>
-                                        </div>
-
-                                    </div>
-                                    <div class="name-course"><a href="/ortaokul">Ortaokul</a></div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="item-course item-4">
-                                    <div class="icon-circle">
-                                        <div class="icon-background"></div>
-                                        <div class="info">
-                                            <div class="info-back"><a href="/lise"><img src="/edugate/images/lise-kiz.png" border="0" style="width:100%" /></a></div>
-                                        </div>
-                                    </div>
-                                    <div class="name-course"><a href="/lise">Lise</a></div>
-                                </div>
-                            </div>
+            </div>
+            <div class="col-md-3">
+                <div class="item-course item-2">
+                    <div class="icon-circle">
+                        <div class="icon-background"></div>
+                        <div class="info">
+                            <div class="info-back"><a href="/ilkokul"><img src="~/edugate/images/ilkokul-kiz.png" border="0" style="width:100%" /></a></div>
                         </div>
-                    </div>
 
+                    </div>
+                    <div class="name-course"><a href="/ilkokul">İlkokul</a></div>
                 </div>
-
-                <!-- KADROMUZ -->
-                <div class="section section-padding positionRelative best-staff">
-                    <div class="container">
-                        <div class="group-title-index">
-                            <h4 class="top-title">EN İYİSİNDEN ÖĞRENİN</h4>
-
-                            <h2 class="center-title">KADROMUZ</h2>
-
-                            <div class="bottom-title"><i class="bottom-icon icon-icon-05"></i></div>
+            </div>
+            <div class="col-md-3">
+                <div class="item-course item-3">
+                    <div class="icon-circle">
+                        <div class="icon-background"></div>
+                        <div class="info">
+                            <div class="info-back"><a href="/ortaokul"><img src="~/edugate/images/ortaokul-kiz.png" border="0" style="width:100%" /></a></div>
                         </div>
-                        <div class="best-staff-wrapper">
-                            <div class="best-staff-content">
-                            </div>
-                        </div>
+
                     </div>
-                    <div class="group-btn-slider">
-                        <div class="btn-prev"><i class="fa fa-angle-left"></i></div>
-                        <div class="btn-next"><i class="fa fa-angle-right"></i></div>
-                    </div>
+                    <div class="name-course"><a href="/ortaokul">Ortaokul</a></div>
                 </div>
-                <!-- LATEST POSTS -->
-                <div class="section section-padding top-courses">
-                    <div class="container">
-                        <div class="group-title-index">
-                            <h4 class="top-title">GÜNCEL DUYURULAR</h4>
-
-                            <h2 class="center-title">BİLGİ KOLEJİ'NDEN EN SON HABERLER</h2>
-
-                            <div class="bottom-title"><i class="bottom-icon icon-icon-04"></i></div>
-                        </div>
-                        <div class="top-courses-wrapper">
-                            <div class="top-courses-slider">
-                                <div class="top-courses-item">
-                                    <div class="edugate-layout-2">
-                                        <div class="edugate-layout-2-wrapper">
-                                            <div class="edugate-content">
-                                                <a href="kameralar-geldi" class="title">Kameralar geldi</a>
-
-                                                <div class="info">
-                                                    <div class="date-time item">03 May 2017</div>
-                                                </div>
-                                                <div class="info-more">
-                                                    <div class="view item">
-                                                        <i class="fa fa-user"></i>
-
-                                                        <p> 0</p>
-                                                    </div>
-                                                    <div class="comment item">
-                                                        <i class="fa fa-comment"></i>
-
-                                                        <p> 0</p>
-                                                    </div>
-                                                </div>
-                                                <div class="description" style="text-overflow: ellipsis;">st, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures ha</div>
-                                                <button onclick="window.location.href='kameralar-geldi'" class="btn btn-green"><span>Detaylı Bilgi</span></button>
-                                            </div>
-                                            <div class="edugate-image"><img src="https://openclipart.org/image/2400px/svg_to_png/193409/1399740906.png" alt="" class="img-responsive" /></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="top-courses-item">
-                                    <div class="edugate-layout-2">
-                                        <div class="edugate-layout-2-wrapper">
-                                            <div class="edugate-content">
-                                                <a href="fil-haberleri-basliyor" class="title">Fil haberleri ba&#x15F;l&#x131;yor</a>
-
-                                                <div class="info">
-                                                    <div class="date-time item">03 May 2017</div>
-                                                </div>
-                                                <div class="info-more">
-                                                    <div class="view item">
-                                                        <i class="fa fa-user"></i>
-
-                                                        <p> 0</p>
-                                                    </div>
-                                                    <div class="comment item">
-                                                        <i class="fa fa-comment"></i>
-
-                                                        <p> 0</p>
-                                                    </div>
-                                                </div>
-                                                <div class="description" style="text-overflow: ellipsis;">nis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque po</div>
-                                                <button onclick="window.location.href='fil-haberleri-basliyor'" class="btn btn-green"><span>Detaylı Bilgi</span></button>
-                                            </div>
-                                            <div class="edugate-image"><img src="https://img.clipartfest.com/7d45786fd2a7c05b9edf4f059744db6e_big-image-png-clipart-flat-design_2400-2400.png" alt="" class="img-responsive" /></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><div class='top-courses-slider'>
-                                <div class="top-courses-item">
-                                    <div class="edugate-layout-2">
-                                        <div class="edugate-layout-2-wrapper">
-                                            <div class="edugate-content">
-                                                <a href="flat-2-resim-haber" class="title">Flat 2. resim haber </a>
-
-                                                <div class="info">
-                                                    <div class="date-time item">03 May 2017</div>
-                                                </div>
-                                                <div class="info-more">
-                                                    <div class="view item">
-                                                        <i class="fa fa-user"></i>
-
-                                                        <p> 0</p>
-                                                    </div>
-                                                    <div class="comment item">
-                                                        <i class="fa fa-comment"></i>
-
-                                                        <p> 0</p>
-                                                    </div>
-                                                </div>
-                                                <div class="description" style="text-overflow: ellipsis;">culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias co</div>
-                                                <button onclick="window.location.href='flat-2-resim-haber'" class="btn btn-green"><span>Detaylı Bilgi</span></button>
-                                            </div>
-                                            <div class="edugate-image"><img src="https://img.clipartfest.com/8c1b0745066c6b266a116c191b4cfa36_big-image-png-clipart-flat-design_2400-2400.png" alt="" class="img-responsive" /></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="top-courses-item">
-                                    <div class="edugate-layout-2">
-                                        <div class="edugate-layout-2-wrapper">
-                                            <div class="edugate-content">
-                                                <a href="flat-resimler" class="title">Flat resimler</a>
-
-                                                <div class="info">
-                                                    <div class="date-time item">03 May 2017</div>
-                                                </div>
-                                                <div class="info-more">
-                                                    <div class="view item">
-                                                        <i class="fa fa-user"></i>
-
-                                                        <p> 0</p>
-                                                    </div>
-                                                    <div class="comment item">
-                                                        <i class="fa fa-comment"></i>
-
-                                                        <p> 0</p>
-                                                    </div>
-                                                </div>
-                                                <div class="description" style="text-overflow: ellipsis;">"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encoun</div>
-                                                <button onclick="window.location.href='flat-resimler'" class="btn btn-green"><span>Detaylı Bilgi</span></button>
-                                            </div>
-                                            <div class="edugate-image"><img src="https://img.clipartfest.com/8c1b0745066c6b266a116c191b4cfa36_big-image-png-clipart-flat-design_2400-2400.png" alt="" class="img-responsive" /></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="group-btn-top-courses-slider">
-                                <div class="btn-prev">&lsaquo;</div>
-                                <div class="btn-next">&rsaquo;</div>
-                            </div>
+            </div>
+            <div class="col-md-4">
+                <div class="item-course item-4">
+                    <div class="icon-circle">
+                        <div class="icon-background"></div>
+                        <div class="info">
+                            <div class="info-back"><a href="/lise"><img src="~/edugate/images/lise-kiz.png" border="0" style="width:100%" /></a></div>
                         </div>
                     </div>
+                    <div class="name-course"><a href="/lise">Lise</a></div>
                 </div>
-                <!-- WHY CHOOSE US-->
-                <!-- PICTURE AND GALLERY-->
-                <div class="section section-padding picture-gallery">
-                    <div class="group-title-index">
-                        <h4 class="top-title">GÖRÜN VE HİSSEDİN</h4>
-
-                        <h2 class="center-title">GALERİ</h2>
-
-                        <div class="bottom-title"><i class="bottom-icon icon-a-1-01"></i></div>
-                    </div>
-                    <div class="picture-gallery-wrapper">
-                        <!-- Nav tabs-->
-                        <ul role="tablist" class="nav nav-tabs edugate-tabs">
-                            <li role="presentation" class=active><a href="#flat" data-toggle="tab" class="text">Flat</a></li>
-
-                        </ul>
-                        <!-- Tab panes-->
-                        <div class="tab-content gallery-content">
-                            <div id="flat" role="tabpanel" class="tab-pane fade in active">
-                                <div class="grid">
-
-                                    <div class="grid-item grid-item-height1"><a href="http://blog.presentationload.com/wp-content/uploads/2015/09/Flat-Design-Shadow-Text.png" class="content fancybox-button"><img src="http://blog.presentationload.com/wp-content/uploads/2015/09/Flat-Design-Shadow-Text.png" alt="Kalem" class="img-responsive" /></a></div>
-                                    <div class="grid-item grid-item-height1"><a href="http://1vixa0rmxmp1rwx091zccmie-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/Smart-city-flat-line-web1200-x600-graphics-1.png" class="content fancybox-button"><img src="http://1vixa0rmxmp1rwx091zccmie-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/Smart-city-flat-line-web1200-x600-graphics-1.png" alt="kareli falan bir hareket" class="img-responsive" /></a></div>
-                                    <div class="grid-item grid-item-height1"><a href="http://www.talonx.com/file/2014/07/talonX-Logo-Design-Menu.png" class="content fancybox-button"><img src="http://www.talonx.com/file/2014/07/talonX-Logo-Design-Menu.png" alt="dikey" class="img-responsive" /></a></div>
-                                    <div class="grid-item grid-item-height1"><a href="http://www.kordahitechnologies.com/sites/default/files/Trending%20Web%20Design11.png" class="content fancybox-button"><img src="http://www.kordahitechnologies.com/sites/default/files/Trending%20Web%20Design11.png" alt="web" class="img-responsive" /></a></div>
-
-
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-                <!-- SLIDER LOGO-->
-                <div class="section slider-logo">
-                    <div class="container">
-                        <div class="slider-logo-wrapper">
-                            <div class="slider-logo-content">
-                                <div class="carousel-logos owl-carousel">
-                                    <div class="logo-iteam item"><a href="#"><img src="http://cdn.designbeep.com/wp-content/uploads/2013/10/5.long-shadow-flat-logo.png" alt="Logo1" class="img-responsive" /></a></div>
-                                    <div class="logo-iteam item"><a href="#"><img src="http://biz.turbulenz.com/pressAssets/tz-logo-flat.png" alt="TZ" class="img-responsive" /></a></div>
-                                    <div class="logo-iteam item"><a href="#"><img src="https://images.vexels.com/media/users/3/139217/isolated/preview/6b9a4ae0da82766a7f626d2fa9ca2498-lion-flat-logo-safari-by-vexels.png" alt="leon" class="img-responsive" /></a></div>
-                                    <div class="logo-iteam item"><a href="#"><img src="http://www.tomorrowbuilding.com/wp-content/themes/startup/templates/startup-framework/build-wp/common-files/icons/rocket-big-grey-bg@2x.png" alt="rocket" class="img-responsive" /></a></div>
-                                    <div class="logo-iteam item"><a href="javascript:void(0)"><img src="https://astarpx.com/img/astarpx-logo.png" alt="start" class="img-responsive" /></a></div>
-                                    <div class="logo-iteam item"><a href="javascript:void(0)"><img src="http://skribble.me/icons/heart.png" alt="hea1" class="img-responsive" /></a></div>
-                                    <div class="logo-iteam item"><a href="#"><img src="http://gtec.berlin/wp-content/uploads/2017/01/Startup-Icon.png" alt="startup" class="img-responsive" /></a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-                <div id="floatingButton">
-                    <div class="embededForm" id="floatingForm" style="display:none">
-                        <form action="/Home/PostForm" method="post" enctype="multipart/form-data">
-                            <div style="position:relative;">
-                                <img src="/edugate/images/icon-close.png" style="border:0px;position:absolute;right:0px;cursor:pointer;" onclick="$('#floatingForm').slideToggle('slow')" alt="Kapat" />
-                                <div style="padding: 9px;">
-                                    <fieldset>
-                                        <legend><img src="/edugate/images/icon-phone.png" style="border:0px; vertical-align:text-bottom;" /> SIZI ARAYALIM</legend>
-                                        <input type="hidden" value="1" name="FormId" />
-                                        <div class="formField">
-                                            <div><input class="form-control " data-val="true" data-val-required="L&#xFC;tfen bu alan&#x131; bo&#x15F; b&#x131;rakmay&#x131;n&#x131;z." name="Ad Soyad" placeholder="Ad Soyad" required="required" type="text" value="" width="100%"></input></div>
-                                            <span class="field-validation-valid text-danger" data-valmsg-for="Ad Soyad" data-valmsg-replace="true"></span>
-
-                                        </div>
-                                        <div class="formField">
-                                            <div><input class="form-control spinner " data-val="true" data-val-email="L&#xFC;tfen ge&#xE7;erli bir e-posta adresi giriniz." data-val-required="L&#xFC;tfen bu alan&#x131; bo&#x15F; b&#x131;rakmay&#x131;n&#x131;z." multiple="true" name="E-posta" placeholder="E-posta" required="required" type="email" value="" width="100%"></input></div>
-                                            <span class="field-validation-valid text-danger" data-valmsg-for="E-posta" data-valmsg-replace="true"></span>
-
-                                        </div>
-                                        <div class="formField">
-                                            <div><input class="form-control spinner " data-val="true" data-val-phone="L&#xFC;tfen ge&#xE7;erli bir telefon numaras&#x131; giriniz." data-val-required="L&#xFC;tfen bu alan&#x131; bo&#x15F; b&#x131;rakmay&#x131;n&#x131;z." name="Telefon" placeholder="Telefon" required="required" type="tel" value="" width="100%"></input></div>
-                                            <span class="field-validation-valid text-danger" data-valmsg-for="Telefon" data-valmsg-replace="true"></span>
-
-                                        </div>
-                                        <div class="formField">
-                                            <div><input name="&#xC7;ocu&#x11F;unuzu kaydettirmeyi d&#xFC;&#x15F;&#xFC;nd&#xFC;&#x11F;&#xFC;n&#xFC;z okul a&#x15F;a&#x11F;&#x131;dakilerden hangisidir?" type="radio" value="Anaokulu">Anaokulu</input><input name="&#xC7;ocu&#x11F;unuzu kaydettirmeyi d&#xFC;&#x15F;&#xFC;nd&#xFC;&#x11F;&#xFC;n&#xFC;z okul a&#x15F;a&#x11F;&#x131;dakilerden hangisidir?" style="margin-left:5px;" type="radio" value="&#x130;lkokul">İlkokul</input><input name="&#xC7;ocu&#x11F;unuzu kaydettirmeyi d&#xFC;&#x15F;&#xFC;nd&#xFC;&#x11F;&#xFC;n&#xFC;z okul a&#x15F;a&#x11F;&#x131;dakilerden hangisidir?" style="margin-left:5px;" type="radio" value="Ortaokul">Ortaokul</input><input name="&#xC7;ocu&#x11F;unuzu kaydettirmeyi d&#xFC;&#x15F;&#xFC;nd&#xFC;&#x11F;&#xFC;n&#xFC;z okul a&#x15F;a&#x11F;&#x131;dakilerden hangisidir?" style="margin-left:5px;" type="radio" value="Lise">Lise</input></div>
-                                            <span class="field-validation-valid text-danger" data-valmsg-for="&#xC7;ocu&#x11F;unuzu kaydettirmeyi d&#xFC;&#x15F;&#xFC;nd&#xFC;&#x11F;&#xFC;n&#xFC;z okul a&#x15F;a&#x11F;&#x131;dakilerden hangisidir?" data-valmsg-replace="true"></span>
-
-                                        </div>
-                                        <div class="formField">
-                                            <div><text>&#xC7;ocu&#x11F;unuzu kaydettirmeyi d&#xFC;&#x15F;&#xFC;nd&#xFC;&#x11F;&#xFC;n&#xFC;z s&#x131;n&#x131;f hangisidir?</text><br /><select class="form-control " data-val="true" data-val-required="L&#xFC;tfen bu alan&#x131; bo&#x15F; b&#x131;rakmay&#x131;n&#x131;z." name="&#xC7;ocu&#x11F;unuzu kaydettirmeyi d&#xFC;&#x15F;&#xFC;nd&#xFC;&#x11F;&#xFC;n&#xFC;z s&#x131;n&#x131;f hangisidir?" required="required"><option value="Se&#xE7;iniz">Seçiniz</option><br /><option value="1">1</option><br /><option value="2">2</option><br /><option value="3">3</option><br /><option value="4">4</option><br /></select></div>
-                                            <span class="field-validation-valid text-danger" data-valmsg-for="&#xC7;ocu&#x11F;unuzu kaydettirmeyi d&#xFC;&#x15F;&#xFC;nd&#xFC;&#x11F;&#xFC;n&#xFC;z s&#x131;n&#x131;f hangisidir?" data-valmsg-replace="true"></span>
-
-                                        </div>
-                                        <div class="formField">
-                                            <div><input class="" data-val="true" data-val-required="L&#xFC;tfen bu alan&#x131; bo&#x15F; b&#x131;rakmay&#x131;n&#x131;z." name="Abonelik" required="required" type="checkbox" value="Bilgi Koleji Okullar&#x131;ndan g&#xF6;nderilen her t&#xFC;rl&#xFC; haber&amp;#44; bilgi ve tan&#x131;t&#x131;m i&#xE7;eriklerinden e-posta adresim ve telefonum arac&#x131;l&#x131;&#x11F;&#x131;yla haberdar olmak istiyorum.">Bilgi Koleji Okullarından gönderilen her türlü haber&#44; bilgi ve tanıtım içeriklerinden e-posta adresim ve telefonum aracılığıyla haberdar olmak istiyorum.</input><br /></div>
-                                            <span class="field-validation-valid text-danger" data-valmsg-for="Abonelik" data-valmsg-replace="true"></span>
-
-                                        </div>
-                                        <div style="text-align:right;">
-                                            <input type="submit" value="Gönder" class="btn-sm btn-success" id="embedFormSubmit" />
-                                        </div>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div><a href="javascript:void(0);" onclick="$('#floatingForm').slideToggle('slow')" class="show">
-                        <img src="/edugate/images/telephone.png" style="float:left;" /><span style="display:inline-block;padding-top:1px;font-size:large">SİZİ ARAYALIM</span>
-                    </a>
-                </div>
-                <!-- BUTTON BACK TO TOP-->
-                <div id="back-top"><a href="#top"><i class="fa fa-angle-double-up"></i></a></div>
             </div>
         </div>
     </div>
+
 </div>
 
+<!-- KADROMUZ -->
+@*@await Component.InvokeAsync("ListPosts", new { categoryNames = "Kadromuz", count = 100 })*@
+<!-- LATEST POSTS -->
+@await Component.InvokeAsync("LatestPosts", new { categoryNames = "Haberler", count = 4 })
+<!-- WHY CHOOSE US-->
+
+
+@await Component.InvokeAsync("Slider", new { Name = "Anasayfa İkinci Slider" })
+
+
+<!-- PICTURE AND GALLERY-->
+@await Component.InvokeAsync("Gallery", new { Name = "Anasayfa Galeri" })
+<!-- SLIDER LOGO-->
+@await Component.InvokeAsync("Slider", new { Name = "Logo Slider" })

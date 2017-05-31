@@ -96,15 +96,10 @@ License: You must have a valid license purchased only from themeforest(the above
                         <!-- END USER LOGIN DROPDOWN -->
                         <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                        <li class="dropdown dropdown-quick-sidebar-toggler">
-                        <li>
-                            <a href="javascript:void(0);" onclick="document.getElementById('logoutForm').submit();"><i class="icon-logout"></i></a>
-
-
-                        </li>
+                     
                         <!-- END QUICK SIDEBAR TOGGLER -->
                     </ul>
-                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right"></form>
+                   
                 </div>
                 <!-- END TOP NAVIGATION MENU -->
             </div>
@@ -311,12 +306,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Themes" asp-action="Customize" class="nav-link">
+                                    <a asp-controller="Customizations" asp-action="Edit" class="nav-link">
                                         <span class="title">Customize</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Themes" asp-action="CustomCSS" class="nav-link">
+                                    <a asp-controller="Customizations" asp-action="CustomCss" class="nav-link">
                                         <span class="title">Custom CSS</span>
                                     </a>
                                 </li>

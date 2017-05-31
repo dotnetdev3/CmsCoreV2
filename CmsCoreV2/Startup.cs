@@ -134,11 +134,10 @@ namespace CmsCoreV2
 
             app.UseMvc(routes =>
             {
-                
                 routes.MapRoute(
                     name: "cultureRoute",
-                    template: "{culture}/{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index" },
+                    template: "{culture}/{slug}",
+                    defaults: new { controller = "Home", action = "Index", slug = "home" },
                     constraints: new
                     {
                         culture = new RegexRouteConstraint("^[a-z]{2}(?:-[A-Z]{2})?$")
@@ -151,7 +150,7 @@ namespace CmsCoreV2
                 routes.MapRoute(
                     name: "default",
                     template: "{*catchall}",
-                    defaults: new { controller = "Home", action = "RedirectToDefaultLanguage", culture = "tr-TR" });
+                    defaults: new { controller = "Home", action = "RedirectToDefaultLanguage", culture = "tr" });
             });
         }
     }

@@ -6,9 +6,9 @@
 
 <h2>Sil</h2>
 
-<h3>Silmek istediğinize emin misiniz?</h3>
+<h3>Silmek istediğinize emin misiniz??</h3>
 <div>
-    <form asp-action="Delete">
+    <form asp-action="Delete" asp-route-id="@Model.Id">
 
         <hr />
         <dl class="dl-horizontal">
@@ -30,7 +30,6 @@
             <dd>
                 @Html.DisplayFor(model => model.Description)
             </dd>
-            <input type="hidden" asp-for="Id" />
             <dt>
                 @Html.DisplayNameFor(model => model.CreateDate)
             </dt>
@@ -66,6 +65,12 @@
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Language.Culture)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ParentCategory)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ParentCategory.Name)
             </dd>
         </dl>
 

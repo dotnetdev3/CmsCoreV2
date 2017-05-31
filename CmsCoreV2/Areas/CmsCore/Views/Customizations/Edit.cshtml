@@ -15,28 +15,28 @@
         <div class="form-group">
             <label asp-for="ThemeName" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="ThemeName" class="form-control" readonly />  
+                <input asp-for="ThemeName" class="form-control" readonly />
                 <span asp-validation-for="ThemeName" class="text-danger"></span>
-           </div>
+            </div>
         </div>
         <div class="form-group">
             <label asp-for="PageTemplates" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <textarea asp-for="PageTemplates" class="form-control" ></textarea>
+                <textarea asp-for="PageTemplates" class="form-control"></textarea>
                 <span asp-validation-for="PageTemplates" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="ComponentTemplates" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <textarea asp-for="ComponentTemplates" class="form-control" ></textarea>
+                <textarea asp-for="ComponentTemplates" class="form-control"></textarea>
                 <span asp-validation-for="ComponentTemplates" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Logo" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Logo" class="form-control" />
+                <input asp-for="Logo" class="form-control" type="file" />
                 <span asp-validation-for="Logo" class="text-danger"></span>
             </div>
         </div>
@@ -64,8 +64,8 @@
         <div class="form-group">
             <label asp-for="ImageUrl" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="ImageUrl" class="form-control"/>
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                <input  asp-for="ImageUrl" class="form-control" type="file" />
+                <span asp-validation-for="ImageUrl" class="text-danger" ></span>
             </div>
         </div>
         <div class="form-group">
@@ -76,6 +76,7 @@
             </div>
         </div>
         <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="CustomCSS" />
         <div class="form-group">
             <label asp-for="CreateDate" class="col-md-2 control-label"></label>
             <div class="col-md-10">

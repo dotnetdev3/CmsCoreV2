@@ -13,6 +13,8 @@ namespace CmsCoreV2.Models
         {
             PostPostCategories = new HashSet<PostPostCategory>();
             LanguageId = 1;
+            ChildCategories = new HashSet<PostCategory>();
+
 
         }
         [StringLength(200)]
@@ -23,6 +25,11 @@ namespace CmsCoreV2.Models
         [Required]
         [Display(Name = "Bağlantı")]
         public string Slug { get; set; }
+
+        [Display(Name = "Üst Sayfa")]
+        public long? ParentCategoryId { get; set; }
+        public virtual PostCategory ParentCategory { get; set; }
+        public virtual ICollection<PostCategory> ChildCategories { get; set; }
 
         [Display(Name = "Açıklama")]
         public string Description { get; set; }
