@@ -6,12 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Localization;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
+using CmsCoreV2.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace CmsCoreV2.Controllers
 {
     public class HomeController : Controller
     {
+        protected readonly AppTenant tenant;
         private readonly ApplicationDbContext _context;
+        private readonly IFeedbackService feedbackService;
         public HomeController(ApplicationDbContext context)
         {
             _context = context;
@@ -25,6 +29,10 @@ namespace CmsCoreV2.Controllers
         }
         public IActionResult Index(string slug, string culture = "tr")
         {
+            if (culture == "no")
+            {
+                return Redirect("/tr");
+            }
             slug = slug.ToLower();
             var page = _context.Pages.FirstOrDefault(p => p.Slug.ToLower() == slug);
             if (page == null || page.IsPublished == false)
@@ -123,6 +131,15 @@ namespace CmsCoreV2.Controllers
                 return _currentCulture;
             }
         }
+        [HttpPost]
+        public IActionResult PostForm(IFormCollection formCollection)
+        {
+            
+            feedbackService.FeedbackPost(formCollection, Request.HttpContext.Connection.RemoteIpAddress.ToString(), tenant.AppTenantId);
+            
+            return RedirectToAction("Successful");
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

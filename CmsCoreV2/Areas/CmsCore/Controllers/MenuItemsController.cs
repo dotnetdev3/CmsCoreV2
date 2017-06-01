@@ -96,7 +96,9 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
             ViewData["MenuId"] = new SelectList(_context.Menus.ToList(), "Id", "Name", menuItem.MenuId);
-            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems.ToList(), "Id", "Name", menuItem.ParentMenuItemId);
+            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems.Where(mi => mi.Id != id && mi.ParentMenuItem != menuItem).ToList(), "Id", "Name", menuItem.ParentMenuItemId);
+            //ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems.Where(mi => mi.Id != id && mi.ParentMenuItemId == null ).ToList(), "Id", "Name", menuItem.ParentMenuItemId);
+            
             return View(menuItem);
         }
 
