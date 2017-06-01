@@ -57,6 +57,7 @@
                         <p>The number of <code>change</code> events:<strong><span id="changes"></span></strong>.</p>
                     </div>
                 </div>
+           </div>
                 <div class="form-group">
                     <label asp-for="Description" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
@@ -183,25 +184,7 @@
 
 @section scripts {
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="@(ViewBag.AssetsUrl)/metronic/global/plugins/jstree/dist/jstree.js"></script>
-    <script>
-        $(function () {
-            $("#uploadModal").click(function () {
-                $.ajax({
-                    cache: false,
-                    type: "GET",
-                    url: "/Media/Create",
-                    success: function (view) {
-                        $('.modal-body').html(view);
-                        $('.modal').modal();
-                    },
-                    error: function (err) {
-                        alert("bilinmeyen bir hata oluştu!" + err);
-                    }
-                });
-            });
-        });
-    </script>
+    
     <script>
         var handleSample = function () {
             $('#tree').jstree({
