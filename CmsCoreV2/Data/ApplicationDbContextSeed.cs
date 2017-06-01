@@ -224,7 +224,7 @@ namespace CmsCoreV2.Data
             s1.SubTitle = "Alt Başlık1";
             s1.Description = "Açıklama1";
             s1.Position = 1;
-            s1.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
+            s1.Video = "/uploads/3383465.mov";
             s1.CallToActionText = "Buton1";
             s1.CallToActionUrl = "#";
             s1.DisplayTexts = false;
@@ -285,7 +285,7 @@ namespace CmsCoreV2.Data
 
             slider.IsPublished = true;
             slider.Name = "Anasayfa İkinci Slider";
-            slider.Template = "Default";
+            slider.Template = "Secondary";
             slider.CreateDate = DateTime.Now;
             slider.CreatedBy = "username";
             slider.UpdateDate = DateTime.Now;
@@ -303,12 +303,12 @@ namespace CmsCoreV2.Data
             var s1 = new Slide();
             s1.AppTenantId = tenant.AppTenantId;
 
-            s1.Title = "Başlık2";
-            s1.SubTitle = "Alt Başlık2";
-            s1.Description = "Açıklama2";
+            s1.Title = "Başlık4";
+            s1.SubTitle = "Alt Başlık4";
+            s1.Description = "Açıklama4";
             s1.Position = 2;
             s1.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
-            s1.CallToActionText = "Buton2";
+            s1.CallToActionText = "Buton4";
             s1.CallToActionUrl = "#";
             s1.DisplayTexts = false;
             s1.IsPublished = true;
@@ -322,12 +322,12 @@ namespace CmsCoreV2.Data
             var s2 = new Slide();
             s2.AppTenantId = tenant.AppTenantId;
 
-            s2.Title = "Başlık2";
-            s2.SubTitle = "Alt Başlık2";
-            s2.Description = "Açıklama2";
+            s2.Title = "Başlık5";
+            s2.SubTitle = "Alt Başlık5";
+            s2.Description = "Açıklama5";
             s2.Position = 2;
             s2.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
-            s2.CallToActionText = "Buton2";
+            s2.CallToActionText = "Buton5";
             s2.CallToActionUrl = "#";
             s2.DisplayTexts = false;
             s2.IsPublished = true;
@@ -349,7 +349,7 @@ namespace CmsCoreV2.Data
 
             slider.IsPublished = true;
             slider.Name = "Logo Slider";
-            slider.Template = "Default";
+            slider.Template = "LogoSlider";
             slider.CreateDate = DateTime.Now;
             slider.CreatedBy = "username";
             slider.UpdateDate = DateTime.Now;
@@ -368,12 +368,12 @@ namespace CmsCoreV2.Data
             var s1 = new Slide();
             s1.AppTenantId = tenant.AppTenantId;
 
-            s1.Title = "Başlık2";
-            s1.SubTitle = "Alt Başlık2";
-            s1.Description = "Açıklama2";
+            s1.Title = "Başlık6";
+            s1.SubTitle = "Alt Başlık6";
+            s1.Description = "Açıklama6";
             s1.Position = 3;
             s1.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
-            s1.CallToActionText = "Buton2";
+            s1.CallToActionText = "Buton6";
             s1.CallToActionUrl = "#";
             s1.DisplayTexts = false;
             s1.IsPublished = true;
@@ -387,12 +387,12 @@ namespace CmsCoreV2.Data
             var s2 = new Slide();
             s2.AppTenantId = tenant.AppTenantId;
 
-            s2.Title = "Başlık2";
-            s2.SubTitle = "Alt Başlık2";
-            s2.Description = "Açıklama2";
+            s2.Title = "Başlık7";
+            s2.SubTitle = "Alt Başlık7";
+            s2.Description = "Açıklama7";
             s2.Position = 3;
             s2.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
-            s2.CallToActionText = "Buton2";
+            s2.CallToActionText = "Buton7";
             s2.CallToActionUrl = "#";
             s2.DisplayTexts = false;
             s2.IsPublished = true;
