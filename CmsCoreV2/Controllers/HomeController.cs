@@ -16,9 +16,11 @@ namespace CmsCoreV2.Controllers
         protected readonly AppTenant tenant;
         private readonly ApplicationDbContext _context;
         private readonly IFeedbackService feedbackService;
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, IFeedbackService _feedbackService, AppTenant _tenant)
         {
             _context = context;
+            this.feedbackService = _feedbackService;
+            this.tenant = _tenant;
         }
         public string GetCategoryName(long id)
         {
@@ -127,10 +129,14 @@ namespace CmsCoreV2.Controllers
                 return _currentCulture;
             }
         }
+        public IActionResult PostForm()
+        {
+            return View();
+        }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult PostForm(IFormCollection formCollection)
         {
-            
             feedbackService.FeedbackPost(formCollection, Request.HttpContext.Connection.RemoteIpAddress.ToString(), tenant.AppTenantId);
             
             return RedirectToAction("Successful");

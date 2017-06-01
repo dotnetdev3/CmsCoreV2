@@ -37,6 +37,7 @@ namespace CmsCoreV2.Services
         {
             DbContext = context;
             this.tenant = tenant?.Value;
+            this.dbSet = DbContext.Feedbacks;
         }
 
         public void FeedbackPost(IFormCollection collection, string ip, string appTenantId)

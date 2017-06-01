@@ -145,12 +145,14 @@ namespace CmsCoreV2
 
                 routes.MapRoute(name: "areaRoute",
                     template: "{area:exists}/{controller=Dashboard}/{action=Index}");
-
                 
-                routes.MapRoute(
-                    name: "default",
-                    template: "{*catchall}",
-                    defaults: new { controller = "Home", action = "RedirectToDefaultLanguage", culture = "tr" });
+                routes.MapRoute(name: "defaulteRoute",
+                    template: "{controller=Home}/{action=Index}");
+
+                //routes.MapRoute(
+                //    name: "default",
+                //    template: "{*catchall}",
+                //    defaults: new { controller = "Home", action = "RedirectToDefaultLanguage", culture = "tr" });
             });
         }
     }
