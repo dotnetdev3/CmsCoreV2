@@ -136,8 +136,8 @@ namespace CmsCoreV2
             {
                 routes.MapRoute(
                     name: "cultureRoute",
-                    template: "{culture}/{slug}",
-                    defaults: new { controller = "Home", action = "Index", slug = "home" },
+                    template: "{culture}/{*slug}",
+                    defaults: new { controller = "Home", action = "Index", culture="no", slug = "anasayfa" },
                     constraints: new
                     {
                         culture = new RegexRouteConstraint("^[a-z]{2}(?:-[A-Z]{2})?$")
@@ -146,11 +146,9 @@ namespace CmsCoreV2
                 routes.MapRoute(name: "areaRoute",
                     template: "{area:exists}/{controller=Dashboard}/{action=Index}");
 
-                
-                routes.MapRoute(
-                    name: "default",
-                    template: "{*catchall}",
-                    defaults: new { controller = "Home", action = "RedirectToDefaultLanguage", culture = "tr" });
+
+                routes.MapRoute(name: "default",
+                   template: "{controller=Home}/{action=Page404}");
             });
         }
     }
