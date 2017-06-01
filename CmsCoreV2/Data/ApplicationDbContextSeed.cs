@@ -411,7 +411,9 @@ namespace CmsCoreV2.Data
 
         private static void AddGalleries(ApplicationDbContext context,AppTenant tenant)
         {
-            var gallery = new Gallery { Name = "Ana Galeri",IsPublished=true,  CreatedBy = "username", CreateDate=DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now ,};
+           
+            var gallery = new Gallery { Name = "Anasayfa Galeri", IsPublished=true,  CreatedBy = "username", CreateDate=DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now ,};
+            gallery.AppTenantId = tenant.AppTenantId;
             context.AddRange(gallery);
             context.SaveChanges();
 
@@ -419,7 +421,8 @@ namespace CmsCoreV2.Data
         }
         private static void AddGalleryItems(ApplicationDbContext context,AppTenant tenant)
         {
-            var galleryItem = new GalleryItem { Title = "Ana Galeri Item1", Description = "Ana Galeri Item1", Position = 1, Photo = "/uploads/9a2ef92e2e0ca0fb061171e27596dfeb.png", GalleryId=1,IsPublished=true,CreatedBy= "username", CreateDate= DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now };
+           
+            var galleryItem = new GalleryItem { Title = "Ana Galeri Item1", Description = "Ana Galeri Item1", Position = 1, Photo = "/uploads/946468297image-slider-2.jpg", GalleryId=1,IsPublished=true,CreatedBy= "username", CreateDate= DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now }; galleryItem.AppTenantId = tenant.AppTenantId;
             context.AddRange(galleryItem);
             context.SaveChanges();
         }
