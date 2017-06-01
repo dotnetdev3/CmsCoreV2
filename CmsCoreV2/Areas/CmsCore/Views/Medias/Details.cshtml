@@ -1,7 +1,7 @@
-@model CmsCoreV2.Models.Media
+﻿@model CmsCoreV2.Models.Media
 
 @{
-    ViewData["Title"] = "Create File";
+    ViewData["Title"] = "Media Detayları";
 }
 
 
@@ -17,7 +17,7 @@
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase ">Media Details</span>
+                    <span class="caption-subject bold uppercase ">Media Detayları</span>
                 </div>
             </div>
 
@@ -48,7 +48,7 @@
 
                         <div class="form-group">
                             <legend>@Html.DisplayNameFor(model => model.Size)</legend>
-                            @Html.Raw(Model.Size) Mb
+                            @Html.Raw(Model.Size) KB
                         </div>
                         <div class="form-group">
                             <legend>@Html.DisplayNameFor(model => model.FileType)</legend>
@@ -75,8 +75,8 @@
 
 
                         <div class="form-group">
-                            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.Id">Edit</a> |
-                            <a asp-action="Index" class="btn btn-default" tabindex="11" >Cancel</a>
+                            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.Id">Düzenle</a> |
+                            <a asp-action="Index" class="btn btn-default" tabindex="11" >İptal</a>
                     
                          
                         </div>
