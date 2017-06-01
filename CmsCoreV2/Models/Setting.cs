@@ -9,7 +9,6 @@ namespace CmsCoreV2.Models
     public class Setting:BaseEntity
     {
         //INDEX
-        [Display(Name = "Üst Başlık Dizesi")]
         public string HeaderString { get; set; }
         public string GoogleAnalytics { get; set; }
         public string FooterScript { get; set; }
