@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@inject AppTenant Tenant;
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    <title>@ViewData["Title"] - @Tenant.Title</title>
 
 
 
@@ -67,8 +68,8 @@
                 </div>
                 <div class="topbar-right pull-right">
                     <div class="socials"><a href="#" class="facebook"><i class="fa fa-facebook"></i></a><a href="#" class="twitter"><i class="fa fa-twitter"></i></a><a href="#" class="google"><i class="fa fa-google-plus"></i></a><a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a><a href="#" class="instagram"><i class="fa fa-instagram"></i></a><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></div>
-                    <a href="/blog"><img src="~/edugate/images/icon-blog.png" alt="Blog" style="margin:0 30px;border:0px;" /></a>
-                    <a href="/">TR</a> | <a href="/en">EN</a>
+                    <a href="/tr/blog"><img src="~/edugate/images/icon-blog.png" alt="Blog" style="margin:0 30px;border:0px;" /></a>
+                    <a href="/tr">TR</a> | <a href="/en">EN</a>
                 </div>
             </div>
         </div>
@@ -163,20 +164,20 @@
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                                     <ul class="list-unstyled">
-                                                        <li><i class="fa fa-angle-right"></i><a href="/akademik-takvim">Akademik Takvim</a></li>
-                                                        <li><i class="fa fa-angle-right"></i><a href="/etkinlikler">Etkinlikler</a></li>
-                                                        <li><i class="fa fa-angle-right"></i><a href="/basin">Basın</a></li>
-                                                        <li><i class="fa fa-angle-right"></i><a href="/insan-kaynaklari">İnsan Kaynakları</a></li>
-                                                        <li><i class="fa fa-angle-right"></i><a href="/kendini-degerlendir">Kendini Değerlendir</a></li>
+                                                        <li><i class="fa fa-angle-right"></i><a href="/tr/akademik-takvim">Akademik Takvim</a></li>
+                                                        <li><i class="fa fa-angle-right"></i><a href="/tr/etkinlikler">Etkinlikler</a></li>
+                                                        <li><i class="fa fa-angle-right"></i><a href="/tr/basin">Basın</a></li>
+                                                        <li><i class="fa fa-angle-right"></i><a href="/tr/insan-kaynaklari">İnsan Kaynakları</a></li>
+                                                        <li><i class="fa fa-angle-right"></i><a href="/tr/kendini-degerlendir">Kendini Değerlendir</a></li>
                                                         @*<li><i class="fa fa-angle-right"></i><a href="/site-haritasi">Site Haritasi</a></li>*@
                                                     </ul>
                                                 </div>
                                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                                     <ul class="list-unstyled">
                                                         <li><i class="fa fa-angle-right"></i><a href="http://bilgistore.bilgikoleji.com">Bilgi Store</a></li>
-                                                        <li><i class="fa fa-angle-right"></i><a href="/veli-iletisim">Veli İletişim</a></li>
-                                                        <li><i class="fa fa-angle-right"></i><a href="/ek-alanlar">Ek Alanlar</a></li>
-                                                        <li><i class="fa fa-angle-right"></i><a href="/site-haritasi">Site Haritası</a></li>
+                                                        <li><i class="fa fa-angle-right"></i><a href="/tr/veli-iletisim">Veli İletişim</a></li>
+                                                        <li><i class="fa fa-angle-right"></i><a href="/tr/ek-alanlar">Ek Alanlar</a></li>
+                                                        <li><i class="fa fa-angle-right"></i><a href="/tr/site-haritasi">Site Haritası</a></li>
                                                         @*<li><i class="fa fa-angle-right"></i><a href="#">Help Topic</a></li>
                                                             <li><i class="fa fa-angle-right"></i><a href="#">Policies</a></li>*@
                                                     </ul>
@@ -229,12 +230,12 @@
                 <div class="hyperlink">
                     <div class="pull-left hyper-left">
                         <ul class="list-inline">
-                            <li><a href="/hakkimizda">Hakkımızda</a></li>
-                            <li><a href="/farkimiz">Farkımız</a></li>
-                            <li><a href="/egitim-modeli">Eğitim Modeli</a></li>
-                            <li><a href="/okul-konsepti">Okul Konsepti</a></li>
-                            <li><a href="/kampus">Kampüs</a></li>
-                            <li><a href="/iletisim">İletişim</a></li>
+                            <li><a href="/tr/hakkimizda">Hakkımızda</a></li>
+                            <li><a href="/tr/farkimiz">Farkımız</a></li>
+                            <li><a href="/tr/egitim-modeli">Eğitim Modeli</a></li>
+                            <li><a href="/tr/okul-konsepti">Okul Konsepti</a></li>
+                            <li><a href="/tr/kampus">Kampüs</a></li>
+                            <li><a href="/tr/iletisim">İletişim</a></li>
                         </ul>
                     </div>
                     <div class="pull-right hyper-right"></div>

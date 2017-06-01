@@ -133,12 +133,8 @@ namespace CmsCoreV2.Controllers
                 return _currentCulture;
             }
         }
-        public IActionResult PostForm()
-        {
-            return View();
-        }
+       
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult PostForm(IFormCollection formCollection)
         {
             feedbackService.FeedbackPost(formCollection, Request.HttpContext.Connection.RemoteIpAddress.ToString(), tenant.AppTenantId);
