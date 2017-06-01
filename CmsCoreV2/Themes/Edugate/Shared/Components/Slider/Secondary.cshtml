@@ -2,7 +2,7 @@
 @if (Model != null && Model.Id > 0)
 {
     <div id="homeSlider2" style="clear:both;">
-        <div class="section slider-banner set-height-top" style="background:url('/images/background-gradient-gray.png') no-repeat whitesmoke">
+        <div class="section slider-banner set-height-top" style="background:url('/edugate/images/background-gradient-gray.png') no-repeat whitesmoke">
             @{ int index = 0;}
             @foreach (var slide in Model.Slides.Where(w => w.IsPublished == true).ToList())
             {
