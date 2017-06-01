@@ -31,6 +31,10 @@ namespace CmsCoreV2.Controllers
         }
         public IActionResult Index(string slug, string culture = "tr")
         {
+            if (culture == "no")
+            {
+                return Redirect("/tr");
+            }
             slug = slug.ToLower();
             var page = _context.Pages.FirstOrDefault(p => p.Slug.ToLower() == slug);
             if (page == null || page.IsPublished == false)

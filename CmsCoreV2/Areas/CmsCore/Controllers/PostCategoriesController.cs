@@ -84,7 +84,6 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
-            ViewData["ParentCategoryId"] = new SelectList(_context.PostCategories, "Id", "Name", postCategory.ParentCategoryId);
             return View(postCategory);
         }
 

@@ -27,7 +27,8 @@ namespace CmsCoreV2.Data
             AddCustomization(context, tenant);
             AddMenus(context,tenant);            
             AddMenuItems(context,tenant);
-
+            AddPostCategories(context, tenant, languageId);
+            context.SaveChanges();
             AddHomePageSlider(context, tenant);
             AddHomePageSlide(context, tenant);
             AddSecondarySlider(context, tenant);
@@ -38,7 +39,6 @@ namespace CmsCoreV2.Data
             AddFormFields(context, tenant);
             context.SaveChangesAsync();
             context.Dispose();
-
 
         }
         public static long AddLanguages(ApplicationDbContext context, AppTenant tenant)
@@ -70,6 +70,15 @@ namespace CmsCoreV2.Data
                 );     
 
         }
+        private static void AddPostCategories(ApplicationDbContext context,AppTenant tenant, long languageId)
+        {
+            context.AddRange(
+                new PostCategory { Name = "Haberler", Slug = "haberler", LanguageId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new PostCategory { Name = "Kadromuz", Slug = "kadromuz", LanguageId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId }
+                );
+        }
+
+
         private static void AddSettings(ApplicationDbContext context,AppTenant tenant)
         {
             var s = new Setting();
@@ -400,6 +409,23 @@ namespace CmsCoreV2.Data
 
 
 
+        private static void AddGalleries(ApplicationDbContext context,AppTenant tenant)
+        {
+           
+            var gallery = new Gallery { Name = "Anasayfa Galeri", IsPublished=true,  CreatedBy = "username", CreateDate=DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now ,};
+            gallery.AppTenantId = tenant.AppTenantId;
+            context.AddRange(gallery);
+            context.SaveChanges();
+
+
+        }
+        private static void AddGalleryItems(ApplicationDbContext context,AppTenant tenant)
+        {
+           
+            var galleryItem = new GalleryItem { Title = "Ana Galeri Item1", Description = "Ana Galeri Item1", Position = 1, Photo = "/uploads/946468297image-slider-2.jpg", GalleryId=1,IsPublished=true,CreatedBy= "username", CreateDate= DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now }; galleryItem.AppTenantId = tenant.AppTenantId;
+            context.AddRange(galleryItem);
+            context.SaveChanges();
+        }
     }
 }
 
