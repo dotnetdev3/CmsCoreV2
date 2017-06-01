@@ -36,7 +36,7 @@ namespace CmsCoreV2.Data
             AddLogoSlider(context, tenant);
             AddLogoSlide(context, tenant);
             AddForms(context,tenant);
-
+            AddFormFields(context, tenant);
             context.SaveChangesAsync();
             context.Dispose();
 
@@ -127,7 +127,7 @@ namespace CmsCoreV2.Data
         private static void AddForms(ApplicationDbContext context, AppTenant tenant)
         {
             context.AddRange(
-                new Form { FormName = "Sizi Arayalım", EmailTo = "ertyeni@gmail.com", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now }
+                new Form { FormName = "Sizi Arayalım", EmailTo = "mdemirci@outlook.com", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId }
                 );
             context.SaveChanges();
         }

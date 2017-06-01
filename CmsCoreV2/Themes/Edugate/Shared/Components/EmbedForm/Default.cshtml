@@ -4,10 +4,10 @@
 {
     <form action="/Home/PostForm" method="post" enctype="multipart/form-data">
         <div style="position:relative;">
-            <img src="~/images/icon-close.png" style="border:0px;position:absolute;right:0px;cursor:pointer;" onclick="$('#floatingForm').slideToggle('slow')" alt="Kapat" />
+            <img src="~/edugate/images/icon-close.png" style="border:0px;position:absolute;right:0px;cursor:pointer;" onclick="$('#floatingForm').slideToggle('slow')" alt="Kapat" />
             <div style="padding: 9px;">
                 <fieldset>
-                    <legend><img src="~/images/icon-phone.png" style="border:0px; vertical-align:text-bottom;" /> @Model.FormName.ToUpper()</legend>
+                    <legend><img src="~/edugate/images/icon-phone.png" style="border:0px; vertical-align:text-bottom;" /> @Model.FormName.ToUpper()</legend>
                     <input type="hidden" value="@Model.Id" name="FormId" />
                     @foreach (FormField item in Model.FormFields)
                     { <div class="formField">

@@ -37,6 +37,7 @@ namespace CmsCoreV2.Services
         {
             DbContext = context;
             this.tenant = tenant?.Value;
+            this.dbSet = DbContext.Feedbacks;
         }
 
         public void FeedbackPost(IFormCollection collection, string ip, string appTenantId)
@@ -44,9 +45,13 @@ namespace CmsCoreV2.Services
             Feedback feed_back = new Feedback();
             feed_back.IP = ip;
             feed_back.AppTenantId = appTenantId;
-            var form = GetForm(Convert.ToInt64(collection["Id"]));
+            var formId = Convert.ToInt64(collection["Id"]);
+            if (formId == 0) {
+                formId = Convert.ToInt64(collection["FormId"]);
+            }
+            var form = GetForm(formId);
             var body = "";
-            foreach (var item in GetFormFieldsByFormId(Convert.ToInt64(collection["Id"])))
+            foreach (var item in GetFormFieldsByFormId(formId))
             {
                 var feedBackValue = new FeedbackValue();
 
@@ -139,9 +144,9 @@ namespace CmsCoreV2.Services
                     }
                 }
                 var setting = DbContext.Settings.FirstOrDefault();
-                message.From.Add(new MailboxAddress("CMS Core", setting.SmtpUserName));
+                message.From.Add(new MailboxAddress(tenant.Name, setting.SmtpUserName));
                 var bodyBuilder = new BodyBuilder();
-                message.Subject = "CMS Core " + form.FormName;
+                message.Subject = tenant.Name + " " + form.FormName;
                 // foreach (var item in feed_back.FeedbackValues)
                 //{
                 //message.Body += EmailString(item).ToString() + "<br/>";
