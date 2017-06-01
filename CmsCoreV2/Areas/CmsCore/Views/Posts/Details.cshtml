@@ -25,7 +25,7 @@
             @Html.DisplayNameFor(model => model.Body)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Body)
+            @Html.Raw(Model.Body)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Description)
@@ -120,6 +120,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a> |
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a> 
     <a asp-action="Index">Listeye Geri Dön</a>
 </div>
