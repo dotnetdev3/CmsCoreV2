@@ -13,7 +13,7 @@
                 <ul class="dropdown-menu edugate-dropdown-menu-1">
                     @foreach (var childItem in item.ChildMenuItems.OrderBy(o => o.Position).ThenBy(o => o.Id).ToList())
                     {
-                        <li><a href="@childItem.Url" class="link-page" @(!String.IsNullOrEmpty(item.Target) ? "target='" + childItem.Target + "'" : "")>@childItem.Name</a></li>
+                        <li><a href="/tr/@childItem.Url" class="link-page" @(!String.IsNullOrEmpty(item.Target) ? "target='" + childItem.Target + "'" : "")>@childItem.Name</a></li>
                     }
 
                 </ul>
@@ -23,7 +23,7 @@
     }
     <li class="button-search"><p class="main-menu"><i class="fa fa-search"></i></p></li>
     <div class="nav-search hide">
-        <form action="/ara">
+        <form action="/tr/arama">
             <input type="text" name="query" placeholder="Ara" class="searchbox" />
             <button type="submit" class="searchbutton fa fa-search"></button>
         </form>

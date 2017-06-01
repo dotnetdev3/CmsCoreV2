@@ -1,6 +1,7 @@
 ﻿using CmsCoreV2.Data;
 using CmsCoreV2.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Sakura.AspNetCore;
 using System;
 using System.Collections.Generic;
@@ -56,13 +57,13 @@ namespace CmsCoreV2.ViewComponents
         {
             words = words.Trim();
             var searchWords = words.Split(' ');
-            var query = _context.Posts.AsQueryable();
+            var query = _context.Posts.AsQueryable().Include("Language");
             List<SearchDto> dto = new List<SearchDto>();
             foreach (string word in searchWords)
             {
                 if (word != null && word != "")
                 {
-                    dto = query.Where(w => w.IsPublished == true).Where(p => p.Body.Contains(word) || p.Title.Contains(word) || p.Description.Contains(word) || p.SeoDescription.Contains(word) || p.SeoKeywords.Contains(word) || p.SeoKeywords.Contains(word)).Select(s => new SearchDto { Title = s.Title, Slug = s.Slug, Description = s.Description, ViewCount = s.ViewCount }).ToList();
+                    dto = query.Where(w => w.IsPublished == true).Where(p => p.Body.Contains(word) || p.Title.Contains(word) || p.Description.Contains(word) || p.SeoDescription.Contains(word) || p.SeoKeywords.Contains(word) || p.SeoKeywords.Contains(word)).Select(s => new SearchDto { Title = s.Title, Slug = s.Slug, Description = s.Description, ViewCount = s.ViewCount, Culture = s.Language.Culture }).ToList();
                 }
             }
             return dto;
@@ -71,13 +72,13 @@ namespace CmsCoreV2.ViewComponents
         {
             words = words.Trim();
             var searchWords = words.Split(' ');
-            var query = _context.Pages.AsQueryable();
+            var query = _context.Pages.AsQueryable().Include("Language");
             List<SearchDto> dto = new List<SearchDto>();
             foreach (string word in searchWords)
             {
                 if (word != null && word != "")
                 {
-                    dto = query.Where(w => w.IsPublished == true).Where(p => p.Body.Contains(word) || p.Title.Contains(word) || p.SeoDescription.Contains(word) || p.SeoKeywords.Contains(word) || p.SeoKeywords.Contains(word)).Select(s => new SearchDto { Title = s.Title, Description=s.Body, Slug = s.Slug, ViewCount = s.ViewCount }).ToList();
+                    dto = query.Where(w => w.IsPublished == true).Where(p => p.Body.Contains(word) || p.Title.Contains(word) || p.SeoDescription.Contains(word) || p.SeoKeywords.Contains(word) || p.SeoKeywords.Contains(word)).Select(s => new SearchDto { Title = s.Title, Description=s.Body, Slug = s.Slug, ViewCount = s.ViewCount, Culture = s.Language.Culture }).ToList();
                 }
             }
             return dto;
