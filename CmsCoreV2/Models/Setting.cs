@@ -9,6 +9,7 @@ namespace CmsCoreV2.Models
     public class Setting:BaseEntity
     {
         //INDEX
+        [Display(Name = "Üst Başlık Dizesi")]
         public string HeaderString { get; set; }
         public string GoogleAnalytics { get; set; }
         public string FooterScript { get; set; }
@@ -18,8 +19,10 @@ namespace CmsCoreV2.Models
         public string MapLon { get; set; }
         //MAIL
         [StringLength(200)]
+        [Display(Name = "Smtp Kullanıcı Adı")]
         public string SmtpUserName { get; set; }
         [StringLength(200)]
+        [Display(Name = "Smtp Şifresi")]
         public string SmtpPassword { get; set; }
         [StringLength(200)]
         public string SmtpHost { get; set; }

@@ -16,9 +16,11 @@ namespace CmsCoreV2.Controllers
         protected readonly AppTenant tenant;
         private readonly ApplicationDbContext _context;
         private readonly IFeedbackService feedbackService;
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, IFeedbackService _feedbackService, AppTenant _tenant)
         {
             _context = context;
+            this.feedbackService = _feedbackService;
+            this.tenant = _tenant;
         }
         public string GetCategoryName(long id)
         {
@@ -29,6 +31,10 @@ namespace CmsCoreV2.Controllers
         }
         public IActionResult Index(string slug, string culture = "tr")
         {
+            if (culture == "no")
+            {
+                return Redirect("/tr");
+            }
             slug = slug.ToLower();
             var page = _context.Pages.FirstOrDefault(p => p.Slug.ToLower() == slug);
             if (page == null || page.IsPublished == false)
@@ -127,10 +133,10 @@ namespace CmsCoreV2.Controllers
                 return _currentCulture;
             }
         }
+       
         [HttpPost]
         public IActionResult PostForm(IFormCollection formCollection)
         {
-            
             feedbackService.FeedbackPost(formCollection, Request.HttpContext.Connection.RemoteIpAddress.ToString(), tenant.AppTenantId);
             
             return RedirectToAction("Successful");

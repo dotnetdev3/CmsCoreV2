@@ -11,5 +11,6 @@ namespace CmsCoreV2.Models.Dtos
         public string Description { get; set; }
         public string Slug { get; set; }
         public long ViewCount { get; set; }
+        public string Culture { get; set; }
     }
 }

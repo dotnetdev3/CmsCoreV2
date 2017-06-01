@@ -28,8 +28,8 @@ namespace CmsCoreV2.Data
         public static void AddAppTenants(HostDbContext context, Theme theme)
         {
             var appTenant = new AppTenant();
-            appTenant.Name = "CmsCore1";
-            appTenant.Title = "CmsCore1";
+            appTenant.Name = "BilgiKoleji";
+            appTenant.Title = "Bilgi Koleji";
             appTenant.Hostname = "localhost:60002";
             appTenant.ThemeName = theme.Name;
             appTenant.ConnectionString = $"Server=.;Database={appTenant.Name};Trusted_Connection=True;MultipleActiveResultSets=true";
@@ -38,8 +38,8 @@ namespace CmsCoreV2.Data
             context.AppTenants.Add(appTenant);
 
             var appTenant2 = new AppTenant();
-            appTenant2.Name = "CmsCore2";
-            appTenant2.Title = "CmsCore2";
+            appTenant2.Name = "BirInsan";
+            appTenant2.Title = "Bir İnsan";
             appTenant2.Hostname = "localhost:60001";
             appTenant2.ThemeName = theme.Name;
             appTenant2.ConnectionString = $"Server=.;Database={appTenant2.Name};Trusted_Connection=True;MultipleActiveResultSets=true";

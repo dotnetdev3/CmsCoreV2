@@ -36,10 +36,9 @@ namespace CmsCoreV2.Data
             AddLogoSlider(context, tenant);
             AddLogoSlide(context, tenant);
             AddForms(context,tenant);
-
+            AddFormFields(context, tenant);
             context.SaveChangesAsync();
             context.Dispose();
-
 
         }
         public static long AddLanguages(ApplicationDbContext context, AppTenant tenant)
@@ -128,7 +127,7 @@ namespace CmsCoreV2.Data
         private static void AddForms(ApplicationDbContext context, AppTenant tenant)
         {
             context.AddRange(
-                new Form { FormName = "Sizi Arayalım", EmailTo = "ertyeni@gmail.com", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now }
+                new Form { FormName = "Sizi Arayalım", EmailTo = "mdemirci@outlook.com", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId }
                 );
             context.SaveChanges();
         }
@@ -155,44 +154,44 @@ namespace CmsCoreV2.Data
         private static void AddMenuItems(ApplicationDbContext context, AppTenant tenant)
         {
             context.AddRange(
-                new MenuItem { Name = "Hakkımızda", Url = "/hakkimizda", Position = 1, IsPublished = true, MenuId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Farkımız", Url = "/farkimiz", Position = 2, MenuId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Eğitim Modeli", Url = "/egitim-modeli", Position = 3, IsPublished = true, MenuId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Kampüs", Url = "/kampus", Position = 4, MenuId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "İletişim", Url = "/iletisim", Position = 5, MenuId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId });
+                new MenuItem { Name = "Hakkımızda", Url = "hakkimizda", Position = 1, IsPublished = true, MenuId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Farkımız", Url = "farkimiz", Position = 2, MenuId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Eğitim Modeli", Url = "egitim-modeli", Position = 3, IsPublished = true, MenuId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Kampüs", Url = "kampus", Position = 4, MenuId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "İletişim", Url = "iletisim", Position = 5, MenuId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId });
             context.SaveChanges();
             context.AddRange(
-                new MenuItem { Name = "Kurumsal", Url = "/kurumsal", Position = 1, MenuId = 1, IsPublished = true, ParentMenuItemId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Vizyon Misyon", Url = "/vizyon-misyon", Position = 2, IsPublished = true, MenuId = 1, ParentMenuItemId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Kadromuz", Url = "/kadromuz", MenuId = 1, Position = 3, IsPublished = true, ParentMenuItemId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Yönetim Kurulumuz", Url = "/yonetim-kurulumuz", MenuId = 1, IsPublished = true, Position = 4, ParentMenuItemId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "İngilizce Eğitimleri", Url = "/ingilizce-egitimleri", MenuId = 1, IsPublished = true, Position = 5, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Bilişim Eğitimleri", Url = "/bilisim-egitimleri", MenuId = 1, IsPublished = true, Position = 6, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Kişisel Gelişim", Url = "/kisisel-gelisim", MenuId = 1, IsPublished = true, Position = 7, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Sanat Eğitimleri", Url = "/sanat-egitimleri", MenuId = 1, IsPublished = true, Position = 8, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Spor Eğitimi", Url = "/spor-egitimi", MenuId = 1, IsPublished = true, Position = 9, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Kurullar", Url = "/kurullar", MenuId = 1, IsPublished = true, Position = 10, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Okul Öğrenci Konseyi", Url = "/okul-ogrenci-konseyi", Position = 11, IsPublished = true, MenuId = 1, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "A+5B Eğitim Modeli", Url = "/a-5b-egitim-modeli", Position = 12, IsPublished = true, MenuId = 1, ParentMenuItemId = 3, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Anaokulu", Url = "/anaokulu", MenuId = 1, Position = 13, IsPublished = true, ParentMenuItemId = 3, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "İlkokul", Url = "/ilkokul", MenuId = 1, Position = 14, IsPublished = true, ParentMenuItemId = 3, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Ortaokul", Url = "/ortaokul", MenuId = 1, Position = 15, IsPublished = true, ParentMenuItemId = 3, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Lise", Url = "/lise", MenuId = 1, Position = 16, IsPublished = true, ParentMenuItemId = 3, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Derslikler", Url = "/derslikler", Position = 17, MenuId = 1, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "İngilizce Laboratuvarı", Url = "/ingilizce-laboratuvari", Position = 18, IsPublished = true, MenuId = 1, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Bilişim Laboratuvarı", Url = "/bilisim-laboratuvarı", MenuId = 1, Position = 19, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Fen Bilimleri Laboratuvarı", Url = "/fen-bilimleri-laboratuvari", Position = 20, IsPublished = true, MenuId = 1, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Müzik Atölyesi", Url = "/muzik-atolyesi", MenuId = 1, Position = 21, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Güzel Sanatlar Atölyesi", Url = "/guzel-sanatlar-atolyesi", MenuId = 1, IsPublished = true, Position = 22, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Spor Salonu", Url = "/spor-salonu", MenuId = 1, Position = 23, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Kütüphane", Url = "/kutuphane", MenuId = 1, Position = 24, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Yemekhane", Url = "/yemekhane", MenuId = 1, Position = 25, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Bahçe", Url = "/bahce", MenuId = 1, Position = 26, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Bize Ulaşın", Url = "/bize-ulasin", MenuId = 1, Position = 27, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Ön Kayıt", Url = "/on-kayit", MenuId = 1, Position = 28, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Online Veli Görüşmesi", Url = "/online-veli-gorusmesi", MenuId = 1, Position = 29, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Veli-Öğrenci El Kitabı", Url = "/veli-ogrenci-el-kitabi", MenuId = 1, Position = 30, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new MenuItem { Name = "Anket", Url = "/anket", MenuId = 1, Position = 31, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId });
+                new MenuItem { Name = "Kurumsal", Url = "kurumsal", Position = 1, MenuId = 1, IsPublished = true, ParentMenuItemId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Vizyon Misyon", Url = "vizyon-misyon", Position = 2, IsPublished = true, MenuId = 1, ParentMenuItemId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Kadromuz", Url = "kadromuz", MenuId = 1, Position = 3, IsPublished = true, ParentMenuItemId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Yönetim Kurulumuz", Url = "yonetim-kurulumuz", MenuId = 1, IsPublished = true, Position = 4, ParentMenuItemId = 1, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "İngilizce Eğitimleri", Url = "ingilizce-egitimleri", MenuId = 1, IsPublished = true, Position = 5, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Bilişim Eğitimleri", Url = "bilisim-egitimleri", MenuId = 1, IsPublished = true, Position = 6, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Kişisel Gelişim", Url = "kisisel-gelisim", MenuId = 1, IsPublished = true, Position = 7, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Sanat Eğitimleri", Url = "sanat-egitimleri", MenuId = 1, IsPublished = true, Position = 8, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Spor Eğitimi", Url = "spor-egitimi", MenuId = 1, IsPublished = true, Position = 9, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Kurullar", Url = "kurullar", MenuId = 1, IsPublished = true, Position = 10, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Okul Öğrenci Konseyi", Url = "okul-ogrenci-konseyi", Position = 11, IsPublished = true, MenuId = 1, ParentMenuItemId = 2, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "A+5B Eğitim Modeli", Url = "a-5b-egitim-modeli", Position = 12, IsPublished = true, MenuId = 1, ParentMenuItemId = 3, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Anaokulu", Url = "anaokulu", MenuId = 1, Position = 13, IsPublished = true, ParentMenuItemId = 3, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "İlkokul", Url = "ilkokul", MenuId = 1, Position = 14, IsPublished = true, ParentMenuItemId = 3, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Ortaokul", Url = "ortaokul", MenuId = 1, Position = 15, IsPublished = true, ParentMenuItemId = 3, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Lise", Url = "lise", MenuId = 1, Position = 16, IsPublished = true, ParentMenuItemId = 3, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Derslikler", Url = "derslikler", Position = 17, MenuId = 1, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "İngilizce Laboratuvarı", Url = "ingilizce-laboratuvari", Position = 18, IsPublished = true, MenuId = 1, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Bilişim Laboratuvarı", Url = "bilisim-laboratuvarı", MenuId = 1, Position = 19, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Fen Bilimleri Laboratuvarı", Url = "fen-bilimleri-laboratuvari", Position = 20, IsPublished = true, MenuId = 1, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Müzik Atölyesi", Url = "muzik-atolyesi", MenuId = 1, Position = 21, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Güzel Sanatlar Atölyesi", Url = "guzel-sanatlar-atolyesi", MenuId = 1, IsPublished = true, Position = 22, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Spor Salonu", Url = "spor-salonu", MenuId = 1, Position = 23, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Kütüphane", Url = "kutuphane", MenuId = 1, Position = 24, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Yemekhane", Url = "yemekhane", MenuId = 1, Position = 25, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Bahçe", Url = "bahce", MenuId = 1, Position = 26, IsPublished = true, ParentMenuItemId = 4, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Bize Ulaşın", Url = "bize-ulasin", MenuId = 1, Position = 27, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Ön Kayıt", Url = "on-kayit-formu", MenuId = 1, Position = 28, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Online Veli Görüşmesi", Url = "online-veli-gorusmesi", MenuId = 1, Position = 29, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Veli-Öğrenci El Kitabı", Url = "veli-ogrenci-el-kitabi", MenuId = 1, Position = 30, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new MenuItem { Name = "Anket", Url = "anket", MenuId = 1, Position = 31, IsPublished = true, ParentMenuItemId = 5, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId });
             context.SaveChanges();
         }
 
@@ -225,7 +224,7 @@ namespace CmsCoreV2.Data
             s1.SubTitle = "Alt Başlık1";
             s1.Description = "Açıklama1";
             s1.Position = 1;
-            s1.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
+            s1.Video = "/uploads/3383465.mov";
             s1.CallToActionText = "Buton1";
             s1.CallToActionUrl = "#";
             s1.DisplayTexts = false;
@@ -286,7 +285,7 @@ namespace CmsCoreV2.Data
 
             slider.IsPublished = true;
             slider.Name = "Anasayfa İkinci Slider";
-            slider.Template = "Default";
+            slider.Template = "Secondary";
             slider.CreateDate = DateTime.Now;
             slider.CreatedBy = "username";
             slider.UpdateDate = DateTime.Now;
@@ -304,12 +303,12 @@ namespace CmsCoreV2.Data
             var s1 = new Slide();
             s1.AppTenantId = tenant.AppTenantId;
 
-            s1.Title = "Başlık2";
-            s1.SubTitle = "Alt Başlık2";
-            s1.Description = "Açıklama2";
+            s1.Title = "Başlık4";
+            s1.SubTitle = "Alt Başlık4";
+            s1.Description = "Açıklama4";
             s1.Position = 2;
             s1.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
-            s1.CallToActionText = "Buton2";
+            s1.CallToActionText = "Buton4";
             s1.CallToActionUrl = "#";
             s1.DisplayTexts = false;
             s1.IsPublished = true;
@@ -323,12 +322,12 @@ namespace CmsCoreV2.Data
             var s2 = new Slide();
             s2.AppTenantId = tenant.AppTenantId;
 
-            s2.Title = "Başlık2";
-            s2.SubTitle = "Alt Başlık2";
-            s2.Description = "Açıklama2";
+            s2.Title = "Başlık5";
+            s2.SubTitle = "Alt Başlık5";
+            s2.Description = "Açıklama5";
             s2.Position = 2;
             s2.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
-            s2.CallToActionText = "Buton2";
+            s2.CallToActionText = "Buton5";
             s2.CallToActionUrl = "#";
             s2.DisplayTexts = false;
             s2.IsPublished = true;
@@ -350,7 +349,7 @@ namespace CmsCoreV2.Data
 
             slider.IsPublished = true;
             slider.Name = "Logo Slider";
-            slider.Template = "Default";
+            slider.Template = "LogoSlider";
             slider.CreateDate = DateTime.Now;
             slider.CreatedBy = "username";
             slider.UpdateDate = DateTime.Now;
@@ -369,12 +368,12 @@ namespace CmsCoreV2.Data
             var s1 = new Slide();
             s1.AppTenantId = tenant.AppTenantId;
 
-            s1.Title = "Başlık2";
-            s1.SubTitle = "Alt Başlık2";
-            s1.Description = "Açıklama2";
+            s1.Title = "Başlık6";
+            s1.SubTitle = "Alt Başlık6";
+            s1.Description = "Açıklama6";
             s1.Position = 3;
             s1.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
-            s1.CallToActionText = "Buton2";
+            s1.CallToActionText = "Buton6";
             s1.CallToActionUrl = "#";
             s1.DisplayTexts = false;
             s1.IsPublished = true;
@@ -388,12 +387,12 @@ namespace CmsCoreV2.Data
             var s2 = new Slide();
             s2.AppTenantId = tenant.AppTenantId;
 
-            s2.Title = "Başlık2";
-            s2.SubTitle = "Alt Başlık2";
-            s2.Description = "Açıklama2";
+            s2.Title = "Başlık7";
+            s2.SubTitle = "Alt Başlık7";
+            s2.Description = "Açıklama7";
             s2.Position = 3;
             s2.Photo = "/uploads/5-2017/9a2ef92e2e0ca0fb061171e27596dfeb.png";
-            s2.CallToActionText = "Buton2";
+            s2.CallToActionText = "Buton7";
             s2.CallToActionUrl = "#";
             s2.DisplayTexts = false;
             s2.IsPublished = true;
@@ -410,6 +409,23 @@ namespace CmsCoreV2.Data
 
 
 
+        private static void AddGalleries(ApplicationDbContext context,AppTenant tenant)
+        {
+           
+            var gallery = new Gallery { Name = "Anasayfa Galeri", IsPublished=true,  CreatedBy = "username", CreateDate=DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now ,};
+            gallery.AppTenantId = tenant.AppTenantId;
+            context.AddRange(gallery);
+            context.SaveChanges();
+
+
+        }
+        private static void AddGalleryItems(ApplicationDbContext context,AppTenant tenant)
+        {
+           
+            var galleryItem = new GalleryItem { Title = "Ana Galeri Item1", Description = "Ana Galeri Item1", Position = 1, Photo = "/uploads/946468297image-slider-2.jpg", GalleryId=1,IsPublished=true,CreatedBy= "username", CreateDate= DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now }; galleryItem.AppTenantId = tenant.AppTenantId;
+            context.AddRange(galleryItem);
+            context.SaveChanges();
+        }
     }
 }
 
