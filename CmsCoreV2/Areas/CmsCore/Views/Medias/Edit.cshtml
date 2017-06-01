@@ -1,7 +1,7 @@
 ﻿@model CmsCoreV2.Models.Media
 
 @{
-    ViewBag.Title = "Edit Fİle";
+    ViewBag.Title = "Media Düzenle";
 }
 
 <link href="/metronic/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" /><br />
@@ -13,7 +13,7 @@
             <!-- BEGIN SAMPLE FORM PORTLET-->
             <div class="portlet light bordered">
                 <div class="portlet-title" style="border-bottom-width: 1px;margin-bottom: 10px;">
-                    <div class="caption font-dark"><i class="icon-settings font-dark"></i><span class="caption-subject bold uppercase">Edit File</span></div>
+                    <div class="caption font-dark"><i class="icon-settings font-dark"></i><span class="caption-subject bold uppercase">Media Düzenle</span></div>
                 </div>
                 <div class="portlet-body form">
                     <div class="form-body">
@@ -83,8 +83,8 @@
 
                     </div>
                     <div class="form-actions">
-                        <button type="submit" tabindex="2" class="btn blue">Save</button>
-                        <button type="button" tabindex="3" class="btn default" onclick="window.location='@Url.Action("Index","Medias")';">Cancel</button>
+                        <button type="submit" tabindex="2" class="btn blue">Kaydet</button>
+                        <button type="button" tabindex="3" class="btn default" onclick="window.location='@Url.Action("Index","Medias")';">İptal</button>
                     </div>
 
                 </div>
