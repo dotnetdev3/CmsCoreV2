@@ -7,7 +7,7 @@
 <script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
 <script src="~/js/generate-slug.js"> </script><br />
 
-<h2>CREATE NEW GALERY ITEM</h2>
+<h2>Yeni Galeri Öğesi Oluştur</h2>
 
 <form asp-action="Create">
     <div class="form-horizontal">
@@ -21,6 +21,7 @@
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
             </div>
+            
             <div class="form-group">
                 <label asp-for="Description" class="col-md-2 control-label"></label>
                 <div class="col-md-9">
@@ -82,7 +83,7 @@
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-9">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <input type="submit" value="Kaydet" class="btn btn-primary" />
                 </div>
             </div>
         </div>

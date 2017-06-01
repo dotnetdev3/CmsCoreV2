@@ -5,7 +5,7 @@
     <ul>
 
         <li>
-            <a href="/@Html.Raw(item.Slug)" class="link title">@(item.Title)</a>
+            <a href="/@item.Language.Culture/@item.Slug" class="link title">@(item.Title)</a>
             @if (item.ChildPages != null)
             {
                 @await Component.InvokeAsync("SiteMap", new { parentPageId = item.Id })
