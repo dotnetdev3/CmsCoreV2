@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using SaasKit.Multitenancy;
+using CmsCoreV2.Models.ViewModels;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -28,34 +29,55 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             var _tenantCustomizationThemeId = tenant.ThemeId;
 
-            
+            CustomizationViewModel customizationViewModel = new CustomizationViewModel();
 
             var customization = await _context.Customizations.SingleOrDefaultAsync(c => c.ThemeId == _tenantCustomizationThemeId);
             if (customization == null)
             {
                 return NotFound();
             }
-            return View(customization);
+            customizationViewModel.ThemeName = customization.ThemeName;
+            customizationViewModel.ComponentTemplates = customization.ComponentTemplates;
+            customizationViewModel.PageTemplates = customization.PageTemplates;
+            customizationViewModel.MetaDescription = customization.MetaDescription;
+            customizationViewModel.MetaKeywords = customization.MetaKeywords;
+            customizationViewModel.MetaTitle = customization.MetaTitle;
+            customizationViewModel.Logo = customization.Logo;
+            
+            customizationViewModel.ManyLocations = customization.ManyLocations;
+            customizationViewModel.UpdateDate = customization.UpdateDate;
+            customizationViewModel.CreateDate = customization.CreateDate;
+            return View(customizationViewModel);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Customization customization)
+        public async Task<IActionResult> Edit(CustomizationViewModel customizationViewModel)
         {
-
-            if (customization == null)
+            var _tenantCustomizationThemeId = tenant.ThemeId;
+            if (customizationViewModel == null)
             {
                 return NotFound();
             }
-
+            var customization = await _context.Customizations.SingleOrDefaultAsync(c => c.ThemeId == _tenantCustomizationThemeId);
             if (ModelState.IsValid)
             {
                 try
                 {
-                    customization.AppTenantId = tenant.AppTenantId;
-                    customization.ThemeId = tenant.ThemeId;
+                    
                     customization.UpdateDate = DateTime.Now;
+                    customization.ThemeName = customizationViewModel.ThemeName;
+                    customization.Logo = customizationViewModel.Logo;
+                    customization.ManyLocations = customizationViewModel.ManyLocations;
+                    customization.MetaDescription = customizationViewModel.MetaDescription;
+                    customization.MetaKeywords = customizationViewModel.MetaKeywords;
+                    customization.PageTemplates = customizationViewModel.PageTemplates;
+                    customization.MetaTitle = customizationViewModel.MetaTitle;
+                    
+                    customization.ComponentTemplates = customizationViewModel.ComponentTemplates;
+                    customization.PageTemplates = customizationViewModel.PageTemplates;
+                    customization.CreateDate = customizationViewModel.CreateDate;
                     _context.Update(customization);
                     await _context.SaveChangesAsync();
 
@@ -76,28 +98,37 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 ViewData["var"] = "islem basarýlý !";
                 return RedirectToAction("Edit");
             }
-            return View(customization);
+            return View(customizationViewModel);
         }
         public async Task<IActionResult> CustomCss()
         {
             var _tenantCustomizationThemeId = tenant.ThemeId;
 
-
+            CustomCssViewModel customCssViewModel = new CustomCssViewModel();
 
             var customization = await _context.Customizations.SingleOrDefaultAsync(c => c.ThemeId == _tenantCustomizationThemeId);
+            customCssViewModel.ThemeName = customization.ThemeName;
+            customCssViewModel.CustomCSS = customization.CustomCSS;
+            customCssViewModel.UpdateDate = customization.UpdateDate;
+            customCssViewModel.CreateDate = customization.CreateDate;
+
             if (customization == null)
             {
                 return NotFound();
             }
-            return View(customization);
+            return View(customCssViewModel);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CustomCss(Customization customization)
+        public async Task<IActionResult> CustomCss(CustomCssViewModel customCssViewModel)
         {
+            var _tenantCustomizationThemeId = tenant.ThemeId;
 
+            
+
+            var customization = await _context.Customizations.SingleOrDefaultAsync(c => c.ThemeId == _tenantCustomizationThemeId);
             if (customization == null)
             {
                 return NotFound();
@@ -107,8 +138,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
-                    customization.AppTenantId = tenant.AppTenantId;
-                    customization.ThemeId = tenant.ThemeId;
+                    customization.ThemeName = customCssViewModel.ThemeName;
+                    customization.CustomCSS = customCssViewModel.CustomCSS;
                     customization.UpdateDate = DateTime.Now;
                     _context.Update(customization);
                     await _context.SaveChangesAsync();
@@ -130,7 +161,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 ViewData["var"] = "islem basarýlý";
                 return RedirectToAction("CustomCss");
             }
-            return View(customization);
+            return View(customCssViewModel);
         }
 
 
