@@ -15,6 +15,7 @@ namespace CmsCoreV2.Models
             ViewCount = 0;
             ChildPages = new HashSet<Page>();
             LanguageId = 1;
+            Template = "page";
         }
         [StringLength(200)]
         [Required]
