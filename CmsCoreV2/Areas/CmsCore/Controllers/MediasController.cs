@@ -259,7 +259,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Title,FileName,Description,Size,FilePath,FileType,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Media media, IFormFile uploadFile)
+        public async Task<IActionResult> Edit(long id, [Bind("Title,FileName,Description,Size,FilePath,FileUrl,FileType,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Media media, IFormFile uploadFile)
         {
             if (ModelState.IsValid)
             {
@@ -321,7 +321,19 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                         ModelState.AddModelError("FileName", "Dosya uzantýsý izin verilen uzantýlardan olmalýdýr.");
                     }
                 }
-                else { ModelState.AddModelError("FileExist", "Lütfen bir dosya seçiniz!"); }
+                else {
+
+                    media.UpdatedBy = User.Identity.Name ?? "username";
+                    media.UpdateDate = DateTime.Now;
+                    media.AppTenantId = tenant.AppTenantId;
+                    
+
+         
+
+                    _context.Update(media);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
             return View(media);
         }
