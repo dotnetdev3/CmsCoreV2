@@ -4,7 +4,7 @@
     ViewData["Title"] = "Düzenle";
 }
 
-<h2>Post Düzenle</h2>
+<h2>Yazı Düzenle</h2>
 
 <form asp-action="Edit">
     <div class="form-horizontal">
@@ -147,7 +147,7 @@
 </form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Listeye Geri Dön</a>
 </div>
 @Html.Partial("_BrowseMedia", new ViewDataDictionary(this.ViewData) { { "element", "Photo" } })
 

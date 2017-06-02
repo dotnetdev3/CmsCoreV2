@@ -58,7 +58,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Forms/Create
         public IActionResult Create()
         {
-            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Id");
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name");
             return View();
         }
 
@@ -80,7 +80,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Id", form.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name", form.LanguageId);
             return View(form);
         }
 
@@ -97,7 +97,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Id", form.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name", form.LanguageId);
             return View(form);
         }
 
@@ -135,7 +135,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Id", form.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Name", form.LanguageId);
             return View(form);
         }
 
