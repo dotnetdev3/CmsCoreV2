@@ -77,19 +77,19 @@
                 @Html.DisplayNameFor(model => model.Menu)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Menu.Id)
+                @Html.DisplayFor(model => model.Menu.Name)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.ParentMenuItem)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.ParentMenuItem.Id)
+                @Html.DisplayFor(model => model.ParentMenuItem.Name)
             </dd>
         </dl>
 
 
         <div class="form-actions no-color">
-            <input type="submit" value="Sil" class="btn btn-default" /> 
+            <input type="submit" value="Sil" class="btn btn-primary" /> 
             <a class="btn btn-default" asp-action="Index">Listeye Geri Dön</a>
         </div>
     </form>

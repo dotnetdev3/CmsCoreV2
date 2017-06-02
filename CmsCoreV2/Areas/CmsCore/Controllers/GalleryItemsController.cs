@@ -56,12 +56,13 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         public IActionResult Create()
         {
 
-            ViewData["GalleryId"] = new SelectList(_context.Galleries.ToList(), "Id", "Name");
             var galleryItem = new GalleryItem();
             galleryItem.CreatedBy = User.Identity.Name ?? "username";
             galleryItem.CreateDate = DateTime.Now;
             galleryItem.UpdatedBy = User.Identity.Name ?? "username";
             galleryItem.UpdateDate = DateTime.Now;
+            ViewData["GalleryId"] = new SelectList(_context.Galleries.ToList(), "Id", "Name",galleryItem.GalleryId);
+            ViewBag.CategoryList = GetGalleryItemCategories();
             return View(galleryItem);
         }
 
@@ -84,6 +85,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["GalleryId"] = new SelectList(_context.Galleries.ToList(), "Id", "Name", galleryItem.GalleryId);
+            ViewBag.CategoryList = GetGalleryItemCategories();
             return View(galleryItem);
         }
 
@@ -101,6 +103,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
             ViewData["GalleryId"] = new SelectList(_context.Galleries.ToList(), "Id", "Id", galleryItem.GalleryId);
+            ViewBag.CategoryList = GetGalleryItemCategories();
             return View(galleryItem);
         }
 
@@ -140,6 +143,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["GalleryId"] = new SelectList(_context.Galleries.ToList(), "Id", "Id", galleryItem.GalleryId);
+            ViewBag.CategoryList = GetGalleryItemCategories();
             return View(galleryItem);
         }
 
@@ -176,6 +180,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         private bool GalleryItemExists(long id)
         {
             return _context.GalleryItems.Any(e => e.Id == id);
+        }
+        public IEnumerable<GalleryItemCategory> GetGalleryItemCategories()
+        {
+            var galleryItemCategories = _context.GalleryItemCategories.AsQueryable().Include("ChildCategories").ToList(); ;
+            return galleryItemCategories;
+
         }
     }
 }
