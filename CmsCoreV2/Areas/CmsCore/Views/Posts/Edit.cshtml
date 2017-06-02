@@ -3,154 +3,227 @@
 @{
     ViewData["Title"] = "Düzenle";
 }
+<link href="@(ViewBag.AssetsUrl)/metronic/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css">
 
 <h2>Yazı Düzenle</h2>
 
-<form asp-action="Edit">
-    <div class="form-horizontal">
-      
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Title" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Slug" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Slug" class="form-control" />
-                <span asp-validation-for="Slug" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Body" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Body" class="form-control" />
-                <span asp-validation-for="Body" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Description" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Photo" class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Photo)</label>
-            <div class="col-md-9">
-                <div class="input-group">
-                    <input asp-for="Photo" class="form-control" />
-                    <span class="input-group-btn">
-                        <a class="btn btn-info" id="uploadModal" type="button" onclick="browseMedia('Photo')">...</a>
-                    </span>
+<hr />
+
+<form asp-action="Edit" asp-controller="Posts" method="post">
+    <div class="portlet-body form">
+        <div class="form-body">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    
                 </div>
             </div>
-            @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            <label asp-for="Meta1" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Meta1" class="form-control" />
-                <span asp-validation-for="Meta1" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Meta2" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Meta2" class="form-control" />
-                <span asp-validation-for="Meta2" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="ViewCount" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="ViewCount" class="form-control" />
-                <span asp-validation-for="ViewCount" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="SeoTitle" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="SeoTitle" class="form-control" />
-                <span asp-validation-for="SeoTitle" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="SeoDescription" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="SeoDescription" class="form-control" />
-                <span asp-validation-for="SeoDescription" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="SeoKeywords" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="SeoKeywords" class="form-control" />
-                <span asp-validation-for="SeoKeywords" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <div class="checkbox">
-                    <input asp-for="IsPublished" />
-                    <label asp-for="IsPublished"></label>
+            <div class="form-group">
+                <div id="tree">
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="LanguageId" class="control-label col-md-2"></label>
-            <div class="col-md-10">
-                <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.LanguageId"></select>
-                <span asp-validation-for="LanguageId" class="text-danger"></span>
-            </div>
-        </div>
-    <input type="hidden" asp-for="Id" />
-        <div class="form-group">
-            <label asp-for="CreateDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input readonly asp-for="CreateDate" class="form-control" />
-                <span asp-validation-for="CreateDate" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="CreatedBy" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input readonly asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="UpdateDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input readonly asp-for="UpdateDate" class="form-control" />
-                <span asp-validation-for="UpdateDate" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label  asp-for="UpdatedBy" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input readonly asp-for="UpdatedBy" class="form-control" />
-                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
-            </div>
-        </div>
-    </div>
 </form>
+            <form asp-action="Edit">
+                <div class="form-horizontal">
 
-<div>
-    <a asp-action="Index">Listeye Geri Dön</a>
-</div>
-@Html.Partial("_BrowseMedia", new ViewDataDictionary(this.ViewData) { { "element", "Photo" } })
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Title" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input type="text" asp-for="Title" class="form-control" tabindex="1" autofocus="autofocus" onblur="if ($('#Slug').val() == '') {$('#Slug').val(slug($('#Title').val().toLowerCase(),'-'));}" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                    </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+                    <div class="form-group">
+                        <label asp-for="Slug" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input type="text" asp-for="Slug" class="form-control" tabindex="2" onblur="if ($('#Slug').val() == '') {$('#Slug').val(slug($('#Title').val().toLowerCase(),'-'));}" />
+                            <span class="text-danger" asp-validation-for="Slug"></span>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="form-group">
+                        <label asp-for="Body" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="Body" class="form-control" />
+                            <span asp-validation-for="Body" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Photo" class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Photo)</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <input asp-for="Photo" class="form-control" />
+                                <span class="input-group-btn">
+                                    <a class="btn btn-info" id="uploadModal" type="button" onclick="browseMedia('Photo')">...</a>
+                                </span>
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Meta1" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="Meta1" class="form-control" />
+                            <span asp-validation-for="Meta1" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Meta2" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="Meta2" class="form-control" />
+                            <span asp-validation-for="Meta2" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ViewCount" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="ViewCount" class="form-control" />
+                            <span asp-validation-for="ViewCount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SeoTitle" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="SeoTitle" class="form-control" />
+                            <span asp-validation-for="SeoTitle" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SeoDescription" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <textarea asp-for="SeoDescription" class="form-control"></textarea>
+                            <span asp-validation-for="SeoDescription" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SeoKeywords" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <textarea asp-for="SeoKeywords" class="form-control"></textarea>
+                            <span asp-validation-for="SeoKeywords" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                <input asp-for="IsPublished" />
+                                <label asp-for="IsPublished"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LanguageId" class="control-label col-md-2"></label>
+                        <div class="col-md-10">
+                            <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.LanguageId"></select>
+                            <span asp-validation-for="LanguageId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="CreateDate" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input readonly asp-for="CreateDate" class="form-control" />
+                            <span asp-validation-for="CreateDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CreatedBy" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input readonly asp-for="CreatedBy" class="form-control" />
+                            <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UpdateDate" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input readonly asp-for="UpdateDate" class="form-control" />
+                            <span asp-validation-for="UpdateDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UpdatedBy" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input readonly asp-for="UpdatedBy" class="form-control" />
+                            <span asp-validation-for="UpdatedBy" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Kaydet" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+   </form>
+
+            <div>
+                <a asp-action="Index">Listeye Geri Dön</a>
+            </div>
+            @Html.Partial("_BrowseMedia", new ViewDataDictionary(this.ViewData) { { "element", "Photo" } })
+
+            @section scripts {
+
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+                <script src="@(ViewBag.AssetsUrl)/metronic/global/plugins/jstree/dist/jstree.js"></script>
+
+
+                <script>
+        var handleSample = function () {
+            $('#tree').jstree({
+                'plugins': ["wholerow", "checkbox"],
+                'core': {
+                    "themes": {
+                        "responsive": false,
+                        "icons": false
+                    },
+                    'data': [
+                            @foreach(PostCategory item in (IEnumerable<PostCategory>)ViewBag.CategoryList)
+                    {
+                    if(item.ParentCategoryId==null)
+                    {
+                        <text>
+                        { "id": '@item.Id', "parent": "#", "text": "@item.Name" },
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                        { "id": '@item.Id', "parent": "@item.ParentCategoryId", "text": "@item.Name" },
+                        </text>
+                    }
+                }
+                    ]
+                }
+            });
+            }
+        handleSample();
+                </script>
+                <script>
+                    $(function () {
+                        // 6 create an instance when the DOM is ready
+                        $('#tree').jstree();
+                        // 7 bind to events triggered on the tree
+                        $('#tree').on("changed.jstree", function (e, data) {
+                            console.log(data.selected);
+                            $('#categoriesHidden').val(data.selected);
+                        });
+                        // 8 interact with the tree - either way is OK
+                        $('button').on('click', function () {
+                            $('#tree').jstree(true).select_node('child_node_1');
+                            $('#tree').jstree('select_node', 'child_node_1');
+                            $.jstree.reference('#tree').select_node('child_node_1');
+                        });
+                    });
+                </script>
+            }

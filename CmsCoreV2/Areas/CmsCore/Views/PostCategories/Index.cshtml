@@ -18,7 +18,7 @@
                 @Html.DisplayNameFor(model => model.Slug)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Language)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreateDate)
@@ -36,7 +36,7 @@
                 @Html.DisplayNameFor(model => model.AppTenantId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Language)
+                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ParentCategory)
@@ -55,7 +55,7 @@
                     @Html.DisplayFor(modelItem => item.Slug)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @Html.DisplayFor(modelItem => item.Language.NativeName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreateDate)
@@ -73,7 +73,7 @@
                     @Html.DisplayFor(modelItem => item.AppTenantId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Language.Culture)
+                    @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ParentCategory.Name)

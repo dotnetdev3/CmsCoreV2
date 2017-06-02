@@ -5,7 +5,15 @@
 }
 
 <h2>Düzenle</h2>
-
+<div class="form-group">
+    <label asp-for="ImageUrl" class="col-md-2 control-label">@Html.DisplayNameFor(model => model.ImageUrl)</label>
+    <div class="col-md-9">
+        <div class="input-group">
+            <img src="/@Model.ImageUrl" alt="img" class="img-responsive" style="height:200px; max-width:300px; ">
+        </div>
+    </div>
+    @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })
+</div>
 <form asp-action="Edit">
     <div class="form-horizontal">
         <h4>Customization</h4>
@@ -45,18 +53,7 @@
             </div>
             @Html.ValidationMessageFor(model => model.Logo, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            <label asp-for="ImageUrl" class="col-md-2 control-label">@Html.DisplayNameFor(model => model.ImageUrl)</label>
-            <div class="col-md-9">
-                <div class="input-group">
-                    <input asp-for="ImageUrl" class="form-control" />
-                    <span class="input-group-btn">
-                        <a class="btn btn-info" id="uploadModal" type="button" onclick="browseMedia('ImageUrl')">...</a>
-                    </span>
-                </div>
-            </div>
-            @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })
-        </div>
+        
         <div class="form-group">
             <label asp-for="MetaTitle" class="col-md-2 control-label"></label>
             <div class="col-md-9">
@@ -67,14 +64,14 @@
         <div class="form-group">
             <label asp-for="MetaDescription" class="col-md-2 control-label"></label>
             <div class="col-md-9">
-                <input asp-for="MetaDescription" class="form-control" />
+                <textarea asp-for="MetaDescription" class="form-control" />
                 <span asp-validation-for="MetaDescription" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="MetaKeywords" class="col-md-2 control-label"></label>
             <div class="col-md-9">
-                <input asp-for="MetaKeywords" class="form-control" />
+                <textarea asp-for="MetaKeywords" class="form-control" />
                 <span asp-validation-for="MetaKeywords" class="text-danger"></span>
             </div>
         </div>
