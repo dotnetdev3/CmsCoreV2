@@ -33,7 +33,8 @@ namespace CmsCoreV2.Models
         
         [Display(Name = "Meta Açıklama")]
         public string MetaDescription { get; set; }
-        
+        [Display(Name = "Menu Konumları")]
+        public string MenuLocations { get; set; }
         [Display(Name = "Anahtar kelimeler")]
         public string MetaKeywords { get; set; }
         public string CustomCSS { get; set; }
