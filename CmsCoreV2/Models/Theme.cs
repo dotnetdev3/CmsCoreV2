@@ -42,8 +42,8 @@ namespace CmsCoreV2.Models
         [Display(Name = "Oluşturulma Tarihi")]
         public DateTime CreateDate { get; set; }
         [StringLength(200)]
-        [Display(Name = "Menu Konumları")]
-        public string MenuLocations { get; set; }
+        //[Display(Name = "Menu Konumları")]
+        //public string MenuLocations { get; set; }
         [Required]
         [StringLength(200)]
         [Display(Name = "Oluşturan Kişi")]

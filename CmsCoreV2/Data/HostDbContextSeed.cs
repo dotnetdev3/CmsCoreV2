@@ -64,7 +64,7 @@ namespace CmsCoreV2.Data
             defaultTheme.CreatedBy = "UserName";
             defaultTheme.UpdatedBy = "UserName";
             defaultTheme.CustomCSS = "";
-            defaultTheme.MenuLocations = "Primary";   
+            //defaultTheme.MenuLocations = "Primary";   
 
             context.Themes.Add(defaultTheme);
             context.SaveChanges();
