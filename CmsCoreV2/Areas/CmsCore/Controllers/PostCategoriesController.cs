@@ -59,7 +59,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             postCategory.UpdateDate = DateTime.Now;
             postCategory.AppTenantId = tenant.AppTenantId;
 
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture");
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "NativeName");
             ViewData["ParentCategoryId"] = new SelectList(_context.PostCategories, "Id", "Name");
             return View(postCategory);
         }
@@ -83,7 +83,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "NativeName", postCategory.LanguageId);
             return View(postCategory);
         }
 
@@ -100,7 +100,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "NativeName", postCategory.LanguageId);
 
             ViewData["ParentCategoryId"] = new SelectList(_context.PostCategories, "Id", "Name", postCategory.ParentCategoryId);
 
@@ -146,7 +146,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "Culture", postCategory.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "NativeName", postCategory.LanguageId);
             ViewData["ParentCategoryId"] = new SelectList(_context.PostCategories, "Id", "Name", postCategory.ParentCategoryId);
             return View(postCategory);
         }
