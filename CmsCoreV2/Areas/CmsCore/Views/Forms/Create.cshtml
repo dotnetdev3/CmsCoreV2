@@ -4,6 +4,8 @@
     ViewData["Title"] = "Oluştur";
 }
 
+<script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
+
 <h2>Form Oluştur</h2>
 
 <form asp-action="Create">
@@ -38,56 +40,75 @@
                 <span asp-validation-for="EmailCc" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Description" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Template" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Template" class="form-control" />
-                <span asp-validation-for="Template" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="ClosingDescription" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="ClosingDescription" class="form-control" />
-                <span asp-validation-for="ClosingDescription" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="GoogleAnalyticsCode" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <textarea asp-for="GoogleAnalyticsCode" class="form-control"></textarea>
-                <span asp-validation-for="GoogleAnalyticsCode" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <div class="checkbox">
-                    <input asp-for="IsPublished" />
-                    <label asp-for="IsPublished"></label>
+        
+            <div class="form-group">
+                <label asp-for="Description" class="col-md-2 control-label"></label>
+
+                <div class="col-md-10">
+                    <textarea asp-for="Description" tabindex="3" class="form-control"></textarea>
+                    <span class="text-danger" asp-validation-for="Description"></span>
+                    <script type="text/javascript">
+                        CKEDITOR.replace('Description');
+                    </script>
+
+                    <div id="content2" style="display: none" data-sample="2">
+                        <p>The number of <code>change</code> events:<strong><span id="changes"></span></strong>.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="LanguageId" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="LanguageId" class ="form-control" asp-items="ViewBag.LanguageId">
-                    <option value="">Seçiniz...</option>
-                </select>
+            <div class="form-group">
+                <label asp-for="Template" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Template" class="form-control" />
+                    <span asp-validation-for="Template" class="text-danger"></span>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
+            
+            <div>
+                <div class="form-group">
+                    <label asp-for="ClosingDescription" class="col-md-2 control-label"></label>
+
+                    <div class="col-md-10">
+                        <textarea asp-for="ClosingDescription" tabindex="3" class="form-control"></textarea>
+                        <span class="text-danger" asp-validation-for="ClosingDescription"></span>
+                        <script type="text/javascript">
+                            CKEDITOR.replace('ClosingDescription');
+                        </script>
+
+                        <div id="content2" style="display: none" data-sample="2">
+                            <p>The number of <code>change</code> events:<strong><span id="changes"></span></strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GoogleAnalyticsCode" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="GoogleAnalyticsCode" class="form-control" />
+                        <span asp-validation-for="GoogleAnalyticsCode" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            <input asp-for="IsPublished" />
+                            <label asp-for="IsPublished"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LanguageId" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.LanguageId">
+                            <option value="">Seçiniz...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Kaydet" class="btn btn-primary" />
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 </form>
 
 <div>

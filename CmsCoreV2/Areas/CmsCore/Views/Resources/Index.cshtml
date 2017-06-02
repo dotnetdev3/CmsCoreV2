@@ -30,11 +30,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.UpdatedBy)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppTenantId)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.Language)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppTenantId)
             </th>
             <th data-orderable="false" class="all">Eylemler</th>
         </tr>
@@ -61,11 +62,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.UpdatedBy)
                 </td>
+                
                 <td>
-                    @Html.DisplayFor(modelItem => item.AppTenantId)
+                    @Html.DisplayFor(modelItem => item.Language.NativeName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Language.Name)
+                    @Html.DisplayFor(modelItem => item.AppTenantId)
                 </td>
                 <td class="text-nowrap">
                     <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
