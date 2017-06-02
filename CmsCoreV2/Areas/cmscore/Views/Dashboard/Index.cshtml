@@ -1,6 +1,6 @@
-﻿
+﻿@inject AppTenant Tenant
 @{
-    ViewData["Title"] = "CmsCore Yönetim Paneli";
+    ViewData["Title"] = @Tenant.Name + " Yönetim Paneli";
 }
 <h2>CmsCore v2.0'da Neler Yeni?</h2> 
 <ul>
