@@ -63,8 +63,7 @@ namespace CmsCoreV2.Data
             defaultTheme.UpdateDate = DateTime.Now;
             defaultTheme.CreatedBy = "UserName";
             defaultTheme.UpdatedBy = "UserName";
-            defaultTheme.CustomCSS = "";
-            //defaultTheme.MenuLocations = "Primary";   
+            defaultTheme.CustomCSS = ""; 
 
             context.Themes.Add(defaultTheme);
             context.SaveChanges();
