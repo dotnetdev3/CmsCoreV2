@@ -3,100 +3,162 @@
 @{
     ViewData["Title"] = "Create";
 }
-<link href="~/metronic/global/plugins/jstree/dist/themes/default/style.css" rel="stylesheet" type="text/css">
-<script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
-<script src="~/js/generate-slug.js"> </script><br />
+<link href="/metronic/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css">
+<script src="~/js/generate-slug.js"> </script>
 
 <h2>Yeni Galeri Öğesi Oluştur</h2>
 
-<form asp-action="Create">
-    <div class="form-horizontal">
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
+<form asp-controller="GalleryItems" asp-action="Create" method="post" enctype="multipart/form-data">
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-md-12">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <div class="form-body">
             <div class="form-group">
-                <label asp-for="Title" class="col-md-2 control-label"></label>
-                <div class="col-md-9">
-                    <input asp-for="Title" class="form-control" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="Description" class="col-md-2 control-label"></label>
-                <div class="col-md-9">
-                    <textarea rows="6" asp-for="Description" class="form-control" ></textarea>
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Position" class="col-md-2 control-label"></label>
-                <div class="col-md-9">
-                    <input asp-for="Position" class="form-control" />
-                    <span asp-validation-for="Position" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Position" class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Photo)</label>
-                <div class="col-md-9">
-                    <div class="input-group">
-                        <input asp-for="Photo" class="form-control" />
-                        <span class="input-group-btn">
-                            <a class="btn btn-info" id="uploadModal" type="button" onclick="browseMedia('Photo')">...</a>
-                        </span>
-                 </div>
-                </div>
-                @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                <label asp-for="Position" class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Video)</label>
-                <div class="col-md-9">
-                    <div class="input-group">
-                        <input asp-for="Video" class="form-control" />
-                        <span class="input-group-btn">
-                            <a class="btn btn-info" id="uploadModal" type="button" onclick="browseMedia('Video')">...</a>
-                        </span>
-                    </div>
-                </div>
-                @Html.ValidationMessageFor(model => model.Video, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                <label asp-for="Meta1" class="col-md-2 control-label"></label>
-                <div class="col-md-9">
-                    <input asp-for="Meta1" class="form-control" />
-                    <span asp-validation-for="Meta1" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="GalleryId" class="col-md-2 control-label"></label>
-                <div class="col-md-9">
-                    <select asp-for="GalleryId" class="form-control" asp-items="ViewBag.GalleryId"></select>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-9">
-                    <div class="checkbox">
-                        <input asp-for="IsPublished" />
-                        <label asp-for="IsPublished"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-9">
-                    <input type="submit" value="Kaydet" class="btn btn-primary" />
+                <div id="tree">
+
                 </div>
             </div>
         </div>
+
+        <div class="form-horizontal">
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label asp-for="Title" class="col-md-2 control-label"></label>
+                    <div class="col-md-9">
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description" class="col-md-2 control-label"></label>
+                    <div class="col-md-9">
+                        <textarea rows="6" asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Position" class="col-md-2 control-label"></label>
+                    <div class="col-md-9">
+                        <input asp-for="Position" class="form-control" />
+                        <span asp-validation-for="Position" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Position" class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Photo)</label>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <input asp-for="Photo" class="form-control" />
+                            <span class="input-group-btn">
+                                <a class="btn btn-info" id="uploadModal" type="button" onclick="browseMedia('Photo')">...</a>
+                            </span>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label asp-for="Position" class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Video)</label>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <input asp-for="Video" class="form-control" />
+                            <span class="input-group-btn">
+                                <a class="btn btn-info" id="uploadModal" type="button" onclick="browseMedia('Video')">...</a>
+                            </span>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Video, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label asp-for="Meta1" class="col-md-2 control-label"></label>
+                    <div class="col-md-9">
+                        <input asp-for="Meta1" class="form-control" />
+                        <span asp-validation-for="Meta1" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GalleryId" class="col-md-2 control-label"></label>
+                    <div class="col-md-9">
+                        <select asp-for="GalleryId" class="form-control" asp-items="ViewBag.GalleryId"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-9">
+                        <div class="checkbox">
+                            <input asp-for="IsPublished" />
+                            <label asp-for="IsPublished"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-9">
+                        <input type="submit" value="Kaydet" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
     </div>
-</form>  
+        </form>
 
-@Html.Partial("_BrowseMedia", new ViewDataDictionary(this.ViewData) { { "element", "Photo" } })
-@Html.Partial("_BrowseMedia", new ViewDataDictionary(this.ViewData) { { "element", "Video" } })
+        @Html.Partial("_BrowseMedia", new ViewDataDictionary(this.ViewData) { { "element", "Photo" } })
+        @Html.Partial("_BrowseMedia", new ViewDataDictionary(this.ViewData) { { "element", "Video" } })
 
-@section Scripts {
+        @section scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script src="/metronic/global/plugins/jstree/dist/jstree.js"></script>
 
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-<script src="~/metronic/global/plugins/jstree/dist/jstree.js"></script>
-
-}
+           <script>
+        var handleSample = function () {
+            $('#tree').jstree({
+                'plugins': ["wholerow", "checkbox"],
+                'core': {
+                    "themes": {
+                        "responsive": false,
+                        "icons": false
+                    },
+                    'data': [
+                            @foreach(GalleryItemCategory item in (IEnumerable<GalleryItemCategory>)ViewBag.CategoryList)
+                    {
+                    if(item.ParentCategoryId==null)
+                    {
+                        <text>
+                        { "id": '@item.Id', "parent": "#", "text": "@item.Name" },
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                        { "id": '@item.Id', "parent": "@item.ParentCategoryId", "text": "@item.Name" },
+                        </text>
+                    }
+                }
+                    ]
+                }
+            });
+            }
+        handleSample();
+</script>
+<script>
+        $(function () {
+            // 6 create an instance when the DOM is ready
+            $('#tree').jstree();
+            // 7 bind to events triggered on the tree
+            $('#tree').on("changed.jstree", function (e, data) {
+                console.log(data.selected);
+                $('#categoriesHidden').val(data.selected);
+            });
+            // 8 interact with the tree - either way is OK
+            $('button').on('click', function () {
+                $('#tree').jstree(true).select_node('child_node_1');
+                $('#tree').jstree('select_node', 'child_node_1');
+                $.jstree.reference('#tree').select_node('child_node_1');
+            });
+        });
+</script>
+        }
