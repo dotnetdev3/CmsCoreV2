@@ -150,6 +150,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
+            
+            var feedbackValue = await _context.FeedbackValues.SingleOrDefaultAsync(m => m.FeedbackId == id);
+
+            _context.FeedbackValues.Remove(feedbackValue);
+            await _context.SaveChangesAsync();
             var feedback = await _context.Feedbacks.SingleOrDefaultAsync(m => m.Id == id);
             _context.Feedbacks.Remove(feedback);
             await _context.SaveChangesAsync();

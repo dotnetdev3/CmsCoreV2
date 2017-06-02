@@ -3,10 +3,10 @@
     ViewData["Title"] = "Post Kategorileri";
 }
 
-<h2>Post Kategorileri</h2>
+<h2>Yazı Kategorileri</h2>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Yeni Post Kategorisi Oluştur</a>
+    <a class="btn btn-primary" asp-action="Create">Yeni Yazı Kategorisi Oluştur</a>
 </p>
 <table id="tblRecords" class="table table-striped table-hover">
     <thead>
@@ -41,7 +41,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ParentCategory)
             </th>
-            <th></th>
+            <th data-orderable="false" class="all">Eylemler</th>
         </tr>
     </thead>
     <tbody>

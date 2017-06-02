@@ -8,7 +8,7 @@
 <script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
 <script src="~/js/generate-slug.js"> </script>
 
-<h2>Post Oluştur</h2>
+<h2>Yazı Oluştur</h2>
 <hr />
 
 <form asp-controller="Posts" asp-action="Create" method="post" enctype="multipart/form-data">
@@ -57,10 +57,11 @@
                         <p>The number of <code>change</code> events:<strong><span id="changes"></span></strong>.</p>
                     </div>
                 </div>
+           </div>
                 <div class="form-group">
                     <label asp-for="Description" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="Description" class="form-control" />
+                        <textarea asp-for="Description" class="form-control"></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </div>
@@ -110,14 +111,14 @@
                 <div class="form-group">
                     <label asp-for="SeoDescription" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="SeoDescription" class="form-control" />
+                        <textarea asp-for="SeoDescription" class="form-control"></textarea>
                         <span asp-validation-for="SeoDescription" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="SeoKeywords" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="SeoKeywords" class="form-control" />
+                        <textarea asp-for="SeoKeywords" class="form-control"></textarea>
                         <span asp-validation-for="SeoKeywords" class="text-danger"></span>
                     </div>
                 </div>
@@ -182,26 +183,11 @@
 
 
 @section scripts {
+    
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="@(ViewBag.AssetsUrl)/metronic/global/plugins/jstree/dist/jstree.js"></script>
-    <script>
-        $(function () {
-            $("#uploadModal").click(function () {
-                $.ajax({
-                    cache: false,
-                    type: "GET",
-                    url: "/Media/Create",
-                    success: function (view) {
-                        $('.modal-body').html(view);
-                        $('.modal').modal();
-                    },
-                    error: function (err) {
-                        alert("bilinmeyen bir hata oluştu!" + err);
-                    }
-                });
-            });
-        });
-    </script>
+<script src="@(ViewBag.AssetsUrl)/metronic/global/plugins/jstree/dist/jstree.js"></script>
+
+
     <script>
         var handleSample = function () {
             $('#tree').jstree({

@@ -18,8 +18,10 @@ namespace CmsCoreV2.Models
         public string MapLon { get; set; }
         //MAIL
         [StringLength(200)]
+        [Display(Name = "Smtp Kullanıcı Adı")]
         public string SmtpUserName { get; set; }
         [StringLength(200)]
+        [Display(Name = "Smtp Şifresi")]
         public string SmtpPassword { get; set; }
         [StringLength(200)]
         public string SmtpHost { get; set; }

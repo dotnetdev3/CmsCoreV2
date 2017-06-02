@@ -9,6 +9,10 @@ namespace CmsCoreV2.Models
 {
     public class FormField:BaseEntity
     {
+        public FormField()
+        {
+            Position = 0;
+        }
         [Required]
         [StringLength(200)]
         [Display(Name = "Form Alanı Adı")]
