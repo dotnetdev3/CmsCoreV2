@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CmsCoreV2.Models.Resource>
 
 @{
-    ViewData["Title"] = "Resources";
+    ViewData["Title"] = "Kaynaklar";
 }
 
 <h2>Kaynaklar</h2>
@@ -64,7 +64,7 @@
                 </td>
                 
                 <td>
-                    @Html.DisplayFor(modelItem => item.Language.Name)
+                    @Html.DisplayFor(modelItem => item.Language.NativeName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.AppTenantId)

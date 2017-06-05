@@ -143,9 +143,15 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item start ">
-                                    <a href="/" class="nav-link ">
+                                    <a asp-controller="Dashboard" asp-action="Index" class="nav-link">
                                         <i class="icon-bar-chart"></i>
                                         <span class="title">Giriş</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start ">
+                                    <a href="/" class="nav-link ">
+                                        <i class="icon-globe"></i>
+                                        <span class="title">Siteye Geç</span>
                                     </a>
                                 </li>
                             </ul>
@@ -392,12 +398,12 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a asp-controller="Accounts" asp-action="Index" class="nav-link">
+                                    <a asp-controller="ApplicationUsers" asp-action="Index" class="nav-link">
                                         <span class="title">Tüm Kullanıcılar</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Accounts" asp-action="Register" class="nav-link">
+                                    <a asp-area="" asp-controller="Account" asp-action="Register" class="nav-link">
                                         <span class="title">Kullanıcı Oluştur</span>
                                     </a>
                                 </li>
@@ -1164,7 +1170,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN FOOTER -->
         <div class="page-footer">
             <div class="page-footer-inner">
-                @DateTime.Now.Year &copy; EURECERT
+                @DateTime.Now.Year &copy; CmsCore v2.0
             </div>
             <div class="scroll-to-top">
                 <i class="icon-arrow-up"></i>

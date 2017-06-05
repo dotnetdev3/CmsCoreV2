@@ -1,8 +1,9 @@
 ﻿@model CmsCoreV2.Models.PostCategory
 
 @{
-    ViewData["Title"] = "Düzenle";
+    ViewData["Title"] = "Yazı Kategorisini Düzenle";
 }
+<script src="~/js/generate-slug.js"> </script>
 
 <h2>Yazı Kategorisi Düzenle</h2>
 
@@ -14,15 +15,15 @@
         <div class="form-group">
             <label asp-for="Name" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Name" class="form-control" />
+                <input type="text" asp-for="Name" class="form-control" tabindex="1" autofocus="autofocus" onblur="if ($('#Slug').val() == '') {$('#Slug').val(slug($('#Name').val().toLowerCase(),'-'));}" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Slug" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Slug" class="form-control" />
-                <span asp-validation-for="Slug" class="text-danger"></span>
+                <input type="text" asp-for="Slug" class="form-control" tabindex="2" onblur="if ($('#Slug').val() == '') {$('#Slug').val(slug($('#Name').val().toLowerCase(),'-'));}" />
+                <span class="text-danger" asp-validation-for="Slug"></span>
             </div>
         </div>
         <div class="form-group">

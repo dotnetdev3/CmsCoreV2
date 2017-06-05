@@ -1,13 +1,13 @@
-@model CmsCoreV2.Models.Redirect
+﻿@model CmsCoreV2.Models.Redirect
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Yönlendirme Detayları";
 }
 
-<h2>Details</h2>
+<h2>Detaylar</h2>
 
 <div>
-    <h4>Redirect</h4>
+   
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -62,6 +62,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a>
+    <a asp-action="Index">Listeye Geri Dön</a>
 </div>

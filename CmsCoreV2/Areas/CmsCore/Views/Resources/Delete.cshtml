@@ -1,7 +1,7 @@
 ﻿@model CmsCoreV2.Models.Resource
 
 @{
-    ViewData["Title"] = "Kaynak Sil";
+    ViewData["Title"] = "Kaynağı Sil";
 }
 
 <h2>Kaynak Sil</h2>
@@ -59,7 +59,7 @@
                 @Html.DisplayNameFor(model => model.Language)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Language.Name)
+                @Html.DisplayFor(model => model.Language.NativeName)
             </dd>
         </dl>
 

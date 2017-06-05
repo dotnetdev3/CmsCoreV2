@@ -8,9 +8,10 @@ using CmsCoreV2.Data;
 namespace CmsCoreV2.Migrations.HostDb
 {
     [DbContext(typeof(HostDbContext))]
-    partial class HostDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170602095121_themePropertyAdded")]
+    partial class themePropertyAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -22,9 +23,6 @@ namespace CmsCoreV2.Migrations.HostDb
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ConnectionString");
-
-                    b.Property<string>("Folder")
-                        .HasMaxLength(200);
 
                     b.Property<string>("Hostname");
 

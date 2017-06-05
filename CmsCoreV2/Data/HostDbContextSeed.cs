@@ -59,14 +59,14 @@ namespace CmsCoreV2.Data
             defaultTheme.MetaDescription = "";
             defaultTheme.MetaTitle = "";
             defaultTheme.MetaKeywords = "";
-            defaultTheme.PageTemplates = "";
-            defaultTheme.ComponentTemplates = "";
             defaultTheme.CreateDate = DateTime.Now;
             defaultTheme.UpdateDate = DateTime.Now;
             defaultTheme.CreatedBy = "UserName";
             defaultTheme.UpdatedBy = "UserName";
-            defaultTheme.CustomCSS = ""; 
-
+            defaultTheme.CustomCSS = "";
+            defaultTheme.MenuLocations = "Primary";
+            defaultTheme.ComponentTemplates = "Default,Gallery,MiniGallery,ContactForm,JobApplicationForm,PreRegistrationForm,SurveyForm,LogoSlider,Secondary";
+            defaultTheme.PageTemplates = "Page,Blog,Contact,Gallery,Index,JobApplication,Post,Posts,PreRegistration,Search,SiteMap,Survey";
             context.Themes.Add(defaultTheme);
             context.SaveChanges();
             return defaultTheme;

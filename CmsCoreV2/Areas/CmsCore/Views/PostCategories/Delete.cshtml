@@ -1,7 +1,7 @@
 ﻿@model CmsCoreV2.Models.PostCategory
 
 @{
-    ViewData["Title"] = "Sİl";
+    ViewData["Title"] = "Yazı Kategorisini Sİl";
 }
 
 <h2>Sil</h2>
@@ -64,7 +64,7 @@
                 @Html.DisplayNameFor(model => model.Language)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Language.Culture)
+                @Html.DisplayFor(model => model.Language.NativeName)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.ParentCategory)
