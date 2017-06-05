@@ -109,7 +109,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                         string FilePath = UploadPath + category + "\\";
                         string dosyaismi = Path.GetFileName(uploadFile.FileName);
                         var yuklemeYeri = Path.Combine(FilePath, dosyaismi);
-                        media.FileUrl = "uploads/" + category + "/";
+                        media.FileUrl =  tenant.Folder + "/" + category + "/";
                         try
                         {
                             if (!Directory.Exists(FilePath))
@@ -209,7 +209,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                         string FilePath = UploadPath + category + "\\";
                         string dosyaismi = Path.GetFileName(uploadFile.FileName);
                         var yuklemeYeri = Path.Combine(FilePath, dosyaismi);
-                        media.FileUrl = "uploads/" + category + "/";
+                        media.FileUrl = tenant.Folder + "/" + category + "/";
+
                         try
                         {
                             if (!Directory.Exists(FilePath))
@@ -296,7 +297,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                         string FilePath = UploadPath + category + "\\";
                         string dosyaismi = Path.GetFileName(uploadFile.FileName);
                         var yuklemeYeri = Path.Combine(FilePath, dosyaismi);
-                        media.FileUrl = "uploads/" + category + "/";
+                        media.FileUrl =  tenant.Folder + "/" + category + "/";
+
                         try
                         {
                             if (!Directory.Exists(FilePath))
