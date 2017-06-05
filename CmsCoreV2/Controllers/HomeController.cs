@@ -63,7 +63,12 @@ namespace CmsCoreV2.Controllers
                     postVM.SeoDescription = post.SeoDescription;
                     postVM.SeoKeywords = post.SeoKeywords;
                     postVM.Photo = post.Photo;
+
+                    post.ViewCount++;
                     postVM.ViewCount = post.ViewCount;
+
+                    _context.Update(post);
+                    _context.SaveChangesAsync();
                     return View("Post", postVM);
                 }
             }
@@ -85,8 +90,14 @@ namespace CmsCoreV2.Controllers
                 pageVM.SeoTitle = page.SeoTitle;
                 pageVM.SeoKeywords = page.SeoKeywords;
                 pageVM.SeoDescription = page.SeoDescription;
+
+                page.ViewCount++;
+                _context.Update(page);
+                _context.SaveChangesAsync();
+                pageVM.ViewCount = page.ViewCount;
                 if (!String.IsNullOrEmpty(page.Template))
                 {
+                    
                     return View(page.Template, pageVM);
                 }
                 return View(pageVM);
