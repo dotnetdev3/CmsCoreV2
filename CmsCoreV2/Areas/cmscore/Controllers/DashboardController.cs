@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SaasKit.Multitenancy;
+using CmsCoreV2.Models;
+using CmsCoreV2.Data;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -11,6 +14,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
 
     public class DashboardController: ControllerBase
     {
+        public DashboardController( ITenant<AppTenant> tenant, ApplicationDbContext context) : base(context, tenant)
+        {
+            
+        }
         public IActionResult Index()
         {
             return View();

@@ -9,6 +9,7 @@ using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using SaasKit.Multitenancy;
 using Microsoft.AspNetCore.Identity;
+using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -16,19 +17,16 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     public class RolesController : ControllerBase
     {
         private readonly RoleManager<Role> _roleManager;
-        private readonly ApplicationDbContext _context;
-        protected readonly AppTenant tenant;
 
-        public RolesController(ApplicationDbContext context, ITenant<AppTenant> tenant)
+        public RolesController(ApplicationDbContext context, ITenant<AppTenant> tenant) : base(context, tenant)
         {
-            _context = context;
-            this.tenant = tenant?.Value;
+
         }
 
         // GET: CmsCore/Roles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Role.ToListAsync());
+            return View(await _context.SetFiltered<Role>().Where(x => x.AppTenantId == tenant.AppTenantId).ToListAsync());
         }
 
         // GET: CmsCore/Roles/Details/5

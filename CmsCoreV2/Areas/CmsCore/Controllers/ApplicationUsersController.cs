@@ -17,10 +17,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         private readonly ApplicationDbContext _context;
         protected readonly AppTenant tenant;
 
-        public ApplicationUsersController(ApplicationDbContext context, ITenant<AppTenant> tenant)
+        public ApplicationUsersController(ApplicationDbContext context, ITenant<AppTenant> tenant) 
         {
-            _context = context;
             this.tenant = tenant?.Value;
+            this._context = context;
         }
 
         // GET: CmsCore/ApplicationUsers

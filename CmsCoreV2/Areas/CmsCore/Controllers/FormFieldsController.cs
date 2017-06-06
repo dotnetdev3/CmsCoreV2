@@ -8,25 +8,22 @@ using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using SaasKit.Multitenancy;
+using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
-    public class FormFieldsController : Controller
+    public class FormFieldsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
 
-        protected readonly AppTenant tenant;
-
-        public FormFieldsController(ApplicationDbContext context, ITenant<AppTenant> tenant)
+        public FormFieldsController(ApplicationDbContext context, ITenant<AppTenant> tenant) : base(context, tenant)
         {
-            _context = context;
-            this.tenant = tenant?.Value;
+        
         }
         // GET: CmsCore/FormFields
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.FormFields.Include(f => f.Form);
+            var applicationDbContext = _context.SetFiltered<FormField>().Where(x => x.AppTenantId == tenant.AppTenantId).Include(f => f.Form);
             return View(await applicationDbContext.ToListAsync());
         }
 

@@ -8,25 +8,22 @@ using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using SaasKit.Multitenancy;
+using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
-    public class MenuItemsController : Controller
+    public class MenuItemsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        protected readonly AppTenant tenant;
-
-        public MenuItemsController(ApplicationDbContext context, ITenant<AppTenant> tenant)
+        public MenuItemsController(ApplicationDbContext context, ITenant<AppTenant> tenant) : base(context, tenant)
         {
-            _context = context;
-            this.tenant = tenant?.Value;
+            
         }
 
         // GET: CmsCore/MenuItems
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.MenuItems.Include(m => m.Menu).Include(m => m.ParentMenuItem);
+            var applicationDbContext = _context.SetFiltered<MenuItem>().Where(x => x.AppTenantId == tenant.AppTenantId).Include(m => m.Menu).Include(m => m.ParentMenuItem);
             return View(await applicationDbContext.ToListAsync());
         }
 
