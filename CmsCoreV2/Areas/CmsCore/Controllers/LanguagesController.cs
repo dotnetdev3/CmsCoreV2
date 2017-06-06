@@ -9,22 +9,19 @@ using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using Microsoft.AspNetCore.Hosting;
 using SaasKit.Multitenancy;
+using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
     public class LanguagesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
         private IHostingEnvironment env;
-        protected readonly AppTenant tenant;
 
 
-        public LanguagesController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context)
+        public LanguagesController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context) : base(context, tenant)
         {
-            _context = context;
             this.env = _env;
-            this.tenant = tenant?.Value;
         }
 
 
@@ -32,7 +29,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/Languages
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Languages.ToListAsync());
+            return View(await _context.SetFiltered<Language>().Where(x => x.AppTenantId == tenant.AppTenantId).ToListAsync());
         }
 
         // GET: CmsCore/Languages/Details/5

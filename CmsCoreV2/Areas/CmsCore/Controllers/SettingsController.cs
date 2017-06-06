@@ -10,26 +10,22 @@ using CmsCoreV2.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using SaasKit.Multitenancy;
+using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
     public class SettingsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;      
-
-        protected readonly AppTenant tenant;
-        public SettingsController( ITenant<AppTenant> tenant, ApplicationDbContext context)
+        public SettingsController( ITenant<AppTenant> tenant, ApplicationDbContext context) : base(context, tenant)
         {
-            _context = context;
-    
-            this.tenant = tenant?.Value;
+
         }
 
         // GET: CmsCore/Settings
         public async Task<IActionResult> Index()
         {
-            var setting = await _context.Settings.FirstOrDefaultAsync();
+            var setting = await _context.SetFiltered<Setting>().Where(x => x.AppTenantId == tenant.AppTenantId).FirstOrDefaultAsync();
 
             return View(setting);
         }

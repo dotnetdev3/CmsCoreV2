@@ -8,6 +8,7 @@ using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using CmsCoreV2.Services;
 using Microsoft.AspNetCore.Http;
+using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Controllers
 {
@@ -24,8 +25,8 @@ namespace CmsCoreV2.Controllers
         }
         public string GetCategoryName(long id)
         {
-            var postcat = _context.PostCategories.ToList();
-            var pcId = _context.PostPostCategories.Where(w => w.PostId == id).FirstOrDefault().PostCategoryId;
+            var postcat = _context.SetFiltered<PostCategory>().ToList();
+            var pcId = _context.SetFiltered<PostPostCategory>().Where(w => w.PostId == id).FirstOrDefault().PostCategoryId;
             var val = postcat.FirstOrDefault(p => p.Id == pcId).Name;
             return val;
         }
@@ -36,10 +37,10 @@ namespace CmsCoreV2.Controllers
                 return Redirect("/tr");
             }
             slug = slug.ToLower();
-            var page = _context.Pages.FirstOrDefault(p => p.Slug.ToLower() == slug);
+            var page = _context.SetFiltered<Page>().FirstOrDefault(p => p.Slug.ToLower() == slug);
             if (page == null || page.IsPublished == false)
             {
-                var post = _context.Posts.FirstOrDefault(p => p.Slug.ToLower() == slug);
+                var post = _context.SetFiltered<Post>().FirstOrDefault(p => p.Slug.ToLower() == slug);
                 if (post == null)
                 {
                     return View("Page404");
@@ -73,7 +74,7 @@ namespace CmsCoreV2.Controllers
                 {
                     return View("Page404");
                 }
-                var setting = _context.Settings.FirstOrDefault();
+                var setting = _context.SetFiltered<Setting>().FirstOrDefault();
                 ViewBag.MapLat = setting.MapLat;
                 ViewBag.MapLon = setting.MapLon;
                 PageViewModel pageVM = new PageViewModel();

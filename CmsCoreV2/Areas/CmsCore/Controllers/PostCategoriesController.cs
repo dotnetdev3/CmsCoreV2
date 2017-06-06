@@ -8,24 +8,22 @@ using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using SaasKit.Multitenancy;
+using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
-    public class PostCategoriesController : Controller
+    public class PostCategoriesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        protected readonly AppTenant tenant;
-        public PostCategoriesController(ApplicationDbContext context, ITenant<AppTenant> tenant)
+        public PostCategoriesController(ApplicationDbContext context, ITenant<AppTenant> tenant) : base(context, tenant)
         {
-            _context = context;
-            this.tenant = tenant?.Value;
+
         }
 
         // GET: CmsCore/PostCategories
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.PostCategories.Include(p => p.Language).Include(p => p.ParentCategory);
+            var applicationDbContext = _context.SetFiltered<PostCategory>().Where(x => x.AppTenantId == tenant.AppTenantId).Include(p => p.Language).Include(p => p.ParentCategory);
             return View(await applicationDbContext.ToListAsync());
         }
 

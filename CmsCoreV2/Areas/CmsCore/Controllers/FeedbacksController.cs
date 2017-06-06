@@ -13,27 +13,23 @@ using MimeKit;
 using MailKit.Net.Smtp;
 using System.Linq.Expressions;
 using CmsCoreV2.Services;
+using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     
     [Area("CmsCore")]
-    public class FeedbacksController : Controller
+    public class FeedbacksController : ControllerBase
     {
-        
-        private readonly ApplicationDbContext _context;
-        protected readonly AppTenant tenant;
         private readonly IFeedbackService feedbackService;
-        public FeedbacksController(ApplicationDbContext context, ITenant<AppTenant> tenant, IFeedbackService feedbackService)
+        public FeedbacksController(ApplicationDbContext context, ITenant<AppTenant> tenant, IFeedbackService feedbackService) : base(context, tenant)
         {
-            _context = context;
-            this.tenant = tenant?.Value;
             this.feedbackService = feedbackService;
         }
         // GET: CmsCore/Feedbacks
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Feedbacks.ToListAsync());
+            return View(await _context.SetFiltered<Feedback>().Where(x => x.AppTenantId == tenant.AppTenantId).ToListAsync());
         }
 
         // GET: CmsCore/Feedbacks/Details/5
@@ -45,7 +41,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var feedback = await _context.Feedbacks.AsQueryable().Include("FeedbackValues")
+            var feedback = await _context.SetFiltered<Feedback>().Where(x => x.AppTenantId == tenant.AppTenantId).AsQueryable().Include("FeedbackValues")
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (feedback == null)
             {
@@ -82,7 +78,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var feedback = await _context.Feedbacks.SingleOrDefaultAsync(m => m.Id == id);
+            var feedback = await _context.SetFiltered<Feedback>().SingleOrDefaultAsync(m => m.Id == id);
             if (feedback == null)
             {
                 return NotFound();
