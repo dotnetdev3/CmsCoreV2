@@ -9,25 +9,24 @@ using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using Microsoft.AspNetCore.Hosting;
 using SaasKit.Multitenancy;
+using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
     public class SlidersController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+
         
-        protected readonly AppTenant tenant;
-        public SlidersController(ITenant<AppTenant> tenant, ApplicationDbContext context)
+        public SlidersController(ITenant<AppTenant> tenant, ApplicationDbContext context) : base(context, tenant)
         {
-            this.tenant = tenant.Value;
-            _context = context;
+
         }
 
         // GET: CmsCore/Sliders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Sliders.ToListAsync());
+            return View(await _context.SetFiltered<Slider>().Where(x => x.AppTenantId == tenant.AppTenantId).ToListAsync());
         }
 
         // GET: CmsCore/Sliders/Details/5

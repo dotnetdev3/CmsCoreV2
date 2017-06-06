@@ -9,26 +9,23 @@ using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using Microsoft.AspNetCore.Hosting;
 using SaasKit.Multitenancy;
+using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
     public class GalleriesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
         private IHostingEnvironment env;
-        protected readonly AppTenant tenant;
-        public GalleriesController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context)
-        {
-            _context = context;
+        public GalleriesController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context) : base(context, tenant)
+        { 
             this.env = _env;
-            this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/Galleries
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Galleries.ToListAsync());
+            return View(await _context.SetFiltered<Gallery>().Where(x => x.AppTenantId == tenant.AppTenantId).ToListAsync());
         }
 
         // GET: CmsCore/Galleries/Details/5

@@ -10,6 +10,8 @@ using Microsoft.Extensions.Options;
 using CmsCoreV2.Models;
 using CmsCoreV2.Models.ManageViewModels;
 using CmsCoreV2.Services;
+using CmsCoreV2.Data;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
@@ -24,12 +26,13 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         private readonly ILogger _logger;
 
         public ProfileController(
+          ApplicationDbContext context, ITenant<AppTenant> tenant,
           UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
           IOptions<IdentityCookieOptions> identityCookieOptions,
           IEmailSender emailSender,
           ISmsSender smsSender,
-          ILoggerFactory loggerFactory)
+          ILoggerFactory loggerFactory) : base(context, tenant)
         {
             _userManager = userManager;
             _signInManager = signInManager;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +18,9 @@ namespace CmsCoreV2.Models
         [ForeignKey("ThemeId")]
         public Theme Theme { get; set; }
         public string ConnectionString { get; set; }
+        [StringLength(200)]
+        public string Folder { get; set; }
+
     }
 
 }

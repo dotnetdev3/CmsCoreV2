@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Menü Öğesi Oluştur";
 }
+<script src="~/js/generate-slug.js"> </script>
 
 <h2>Yeni Menü Öğesi Oluştur</h2>
 
@@ -14,15 +15,15 @@
         <div class="form-group">
             <label asp-for="Name" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Name" class="form-control" />
+                <input type="text" asp-for="Name" class="form-control" tabindex="1" autofocus="autofocus" onblur="if ($('#Url').val() == '') {$('#Url').val(slug($('#Name').val().toLowerCase(),'-'));}" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Url" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Url" class="form-control" />
-                <span asp-validation-for="Url" class="text-danger"></span>
+                <input type="text" asp-for="Url" class="form-control" tabindex="2" onblur="if ($('#Url').val() == '') {$('#Url').val(slug($('#Name').val().toLowerCase(),'-'));}" />
+                <span class="text-danger" asp-validation-for="Url"></span>
             </div>
         </div>
         <div class="form-group">

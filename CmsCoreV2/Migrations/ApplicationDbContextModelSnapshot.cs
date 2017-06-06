@@ -936,6 +936,41 @@ namespace CmsCoreV2.Migrations
                     b.ToTable("Sliders");
                 });
 
+            modelBuilder.Entity("CmsCoreV2.Models.Subscription", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppTenantId");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                    b.Property<string>("FullName")
+                        .HasMaxLength(200);
+
+                    b.Property<bool>("IsSubscribed");
+
+                    b.Property<DateTime>("SubscriptionDate");
+
+                    b.Property<DateTime>("UnsubscriptionDate");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subscriptions");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")

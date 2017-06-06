@@ -11,27 +11,25 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using SaasKit.Multitenancy;
+using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
     [Area("CmsCore")]
     public class MediasController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
         private IHostingEnvironment env;
-        protected readonly AppTenant tenant;
 
-        public MediasController(IHostingEnvironment _env, ITenant<AppTenant> tenant,ApplicationDbContext context) 
+        public MediasController(IHostingEnvironment _env, ITenant<AppTenant> tenant,ApplicationDbContext context) :base(context,tenant)
         {
-            _context = context;
-            this.env = _env;
-            this.tenant = tenant?.Value;
+             this.env = _env;
+         
         }
 
         // GET: CmsCore/Medias
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Medias.ToListAsync());
+            return View(await _context.SetFiltered<Media>().Where(x => x.AppTenantId == tenant.AppTenantId).ToListAsync());
         }
 
         // GET: CmsCore/Medias/Details/5
@@ -109,7 +107,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                         string FilePath = UploadPath + category + "\\";
                         string dosyaismi = Path.GetFileName(uploadFile.FileName);
                         var yuklemeYeri = Path.Combine(FilePath, dosyaismi);
-                        media.FileUrl = "uploads/" + category + "/";
+                        media.FileUrl =  tenant.Folder + "/" + category + "/";
                         try
                         {
                             if (!Directory.Exists(FilePath))
@@ -209,7 +207,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                         string FilePath = UploadPath + category + "\\";
                         string dosyaismi = Path.GetFileName(uploadFile.FileName);
                         var yuklemeYeri = Path.Combine(FilePath, dosyaismi);
-                        media.FileUrl = "uploads/" + category + "/";
+                        media.FileUrl = tenant.Folder + "/" + category + "/";
+
                         try
                         {
                             if (!Directory.Exists(FilePath))
@@ -296,7 +295,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                         string FilePath = UploadPath + category + "\\";
                         string dosyaismi = Path.GetFileName(uploadFile.FileName);
                         var yuklemeYeri = Path.Combine(FilePath, dosyaismi);
-                        media.FileUrl = "uploads/" + category + "/";
+                        media.FileUrl =  tenant.Folder + "/" + category + "/";
+
                         try
                         {
                             if (!Directory.Exists(FilePath))
