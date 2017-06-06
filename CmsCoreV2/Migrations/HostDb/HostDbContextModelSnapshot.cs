@@ -23,6 +23,9 @@ namespace CmsCoreV2.Migrations.HostDb
 
                     b.Property<string>("ConnectionString");
 
+                    b.Property<string>("Folder")
+                        .HasMaxLength(200);
+
                     b.Property<string>("Hostname");
 
                     b.Property<string>("Name");

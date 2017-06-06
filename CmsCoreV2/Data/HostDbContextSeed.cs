@@ -33,6 +33,7 @@ namespace CmsCoreV2.Data
             appTenant.Hostname = "localhost:60002";
             appTenant.ThemeName = theme.Name;
             appTenant.ConnectionString = $"Server=.;Database={appTenant.Name};Trusted_Connection=True;MultipleActiveResultSets=true";
+            appTenant.Folder = "bilgikoleji";
             appTenant.Theme = theme;
             appTenant.ThemeId = theme.Id;
             context.AppTenants.Add(appTenant);
@@ -43,6 +44,7 @@ namespace CmsCoreV2.Data
             appTenant2.Hostname = "localhost:60001";
             appTenant2.ThemeName = theme.Name;
             appTenant2.ConnectionString = $"Server=.;Database={appTenant2.Name};Trusted_Connection=True;MultipleActiveResultSets=true";
+            appTenant2.Folder = "birinsan";
             appTenant2.Theme = theme;
             appTenant2.ThemeId = theme.Id;
             context.AppTenants.Add(appTenant2);

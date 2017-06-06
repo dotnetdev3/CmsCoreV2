@@ -18,11 +18,14 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Sakura.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
 namespace CmsCoreV2
 {
     public class Startup
     {
+
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -99,6 +102,8 @@ namespace CmsCoreV2
             services.AddTransient<IFeedbackService, FeedbackService>();
         }
 
+
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
@@ -116,21 +121,22 @@ namespace CmsCoreV2
                 app.UseExceptionHandler("/Home/Error");
             }
             
-            app.UseStaticFiles();
+
+
             var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(options.Value);
             // ana veritabanın kayıtları girilir
             app.ApplicationServices.GetRequiredService<HostDbContext>().Seed();
             // multi-tenancy kullanılmaya başlanılır
             app.UseMultitenancy<AppTenant>();
-            
+            app.UsePerTenantStaticFiles<AppTenant>("tenant", x => x.Folder);
+            app.UseStaticFiles();
             // üyelik sistemi devreye alınır
             app.UseIdentity();
 
 
-        
 
-            // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
+          
 
             app.UseMvc(routes =>
             {
@@ -150,6 +156,8 @@ namespace CmsCoreV2
                 routes.MapRoute(name: "default",
                    template: "{controller=Home}/{action=Page404}");
             });
+
+
         }
     }
 }
