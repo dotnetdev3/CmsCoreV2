@@ -18,6 +18,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Sakura.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2
 {
@@ -50,6 +52,7 @@ namespace CmsCoreV2
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMultitenancy<AppTenant, CachingAppTenantResolver>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddEntityFrameworkSqlServer().AddDbContext<ApplicationDbContext>();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddIdentity<ApplicationUser, Role>()
@@ -126,9 +129,8 @@ namespace CmsCoreV2
             
             // üyelik sistemi devreye alınır
             app.UseIdentity();
+            
 
-
-        
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
 
@@ -150,6 +152,8 @@ namespace CmsCoreV2
                 routes.MapRoute(name: "default",
                    template: "{controller=Home}/{action=Page404}");
             });
+
+            
         }
     }
 }
