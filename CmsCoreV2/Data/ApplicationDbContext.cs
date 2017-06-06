@@ -24,17 +24,17 @@ namespace CmsCoreV2.Data
                 this.tenant = tenant;
                 var tenantId = this.tenant.AppTenantId;
                 this.Seed(accessor);
-                QueryFilterManager.Filter<Page>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<Language>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<Media>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<Gallery>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<GalleryItem>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<GalleryItemCategory>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<Post>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<PostCategory>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<PostPostCategory>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<ApplicationUser>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<Role>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<Page>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<Language>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<Media>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<Gallery>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<GalleryItem>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<GalleryItemCategory>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<Post>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<PostCategory>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<PostPostCategory>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<ApplicationUser>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<Role>(q => q.Where(x => x.AppTenantId == tenantId));
 
                 //QueryFilterManager.Filter<Customization>(c => c.Where(x => x.AppTenantId == tenantId));
                 //QueryFilterManager.Filter<Setting>(q => q.Where(x => x.AppTenantId == tenantId));
