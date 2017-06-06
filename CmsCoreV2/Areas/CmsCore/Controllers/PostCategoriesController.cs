@@ -9,9 +9,11 @@ using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using SaasKit.Multitenancy;
 using Z.EntityFramework.Plus;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
+    [Authorize(Roles = "ADMIN,POST")]
     [Area("CmsCore")]
     public class PostCategoriesController : ControllerBase
     {
