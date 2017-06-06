@@ -69,6 +69,7 @@ namespace CmsCoreV2.Data
         public DbSet<GalleryItemGalleryItemCategory> GalleryItemGalleryItemCategories { get; set; }
         public DbSet<Customization> Customizations { get; set; }
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
         // diğer dbsetler buraya eklenir
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -98,11 +99,12 @@ namespace CmsCoreV2.Data
         public DbSet<CmsCoreV2.Models.Role> Role { get; set; }
         // diğer dbsetler buraya eklenir
 
-        public DbSet<CmsCoreV2.Models.ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<CmsCoreV2.Models.ApplicationUser> ApplicationUser { get;set; }
+    
 
         // diğer dbsetler buraya eklenir
 
-       
+
 
     }
 }

@@ -166,7 +166,25 @@ namespace CmsCoreV2.Controllers
 
             return View();
         }
+        [HttpPost]
+        public IActionResult Subscribe(Subscription subscription)
+        { var subs = _context.Subscriptions.FirstOrDefault(s => s.Email == subscription.Email);
+            if (subs==null)
 
+            {
+                subscription.AppTenantId = tenant.AppTenantId;
+                subscription.CreatedBy = User.Identity.Name ?? "username";
+                subscription.CreateDate = DateTime.Now;
+                subscription.UpdatedBy = User.Identity.Name ?? "username";
+                subscription.UpdateDate = DateTime.Now;
+                subscription.SubscriptionDate = DateTime.Now;
+                _context.Add(subscription);
+                _context.SaveChangesAsync();
+            }
+           
+            return RedirectToAction("Index");
+           
+        }
         public IActionResult Error()
         {
             return View();
