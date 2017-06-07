@@ -12,10 +12,10 @@
 <p>
     <a asp-action="Create" class="btn sbold green">Yeni Galeri Öğesi Oluştur</a>
 </p>
-<table class="table table-striped table-bordered table-hover table-checkable" id="tblRecords">
+<table id="tblRecords" class="table table-striped table-hover">
     <thead>
         <tr>
-            <th class="all">
+            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
@@ -23,6 +23,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+               Üst Kategori
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreateDate)
@@ -38,7 +41,7 @@
             </th>
 
 
-            <th data-orderable="false" class="all dt-right ">
+            <th data-orderable="false" class="all">
                 Eylemler
             </th>
 
@@ -61,21 +64,21 @@
                     @Html.DisplayFor(modelItem => item.ParentCategory.Name)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.CreateDate)
+                    @Html.DisplayFor(model => item.CreateDate)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.CreatedBy)
+                    @Html.DisplayFor(model => item.CreatedBy)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.UpdateDate)
+                    @Html.DisplayFor(model => item.UpdateDate)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.UpdatedBy)
+                    @Html.DisplayFor(model => item.UpdatedBy)
                 </td>
 
-                <td class="dt-right text-nowrap">
-                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Düzenle</a> |
-                    <a asp-action="Details" class="btn btn-default" asp-route-id="@item.Id">Detaylar</a> |
+                <td class="text-nowrap">
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Düzenle</a> 
+                    <a asp-action="Details" class="btn btn-default" asp-route-id="@item.Id">Detaylar</a> 
                     <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Sil</a>
                 </td>
             </tr>
