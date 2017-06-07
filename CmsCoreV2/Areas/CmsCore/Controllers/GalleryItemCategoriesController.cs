@@ -60,6 +60,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             galleryItemCategory.CreateDate = DateTime.Now;
             galleryItemCategory.UpdatedBy = User.Identity.Name ?? "username";
             galleryItemCategory.UpdateDate = DateTime.Now;
+            galleryItemCategory.AppTenantId = tenant.AppTenantId;
             return View(galleryItemCategory);
         }
 
