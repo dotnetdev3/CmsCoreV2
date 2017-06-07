@@ -72,7 +72,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Slug,Body,Description,Photo,Meta1,Meta2,ViewCount,SeoTitle,SeoDescription,SeoKeywords,IsPublished,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Post post)
+        public async Task<IActionResult> Create([Bind("Title,Slug,Body,Description,Photo,Meta1,Meta2,ViewCount,SeoTitle,SeoDescription,SeoKeywords,IsPublished,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Post post, string categoriesHidden)
         {
             if (ModelState.IsValid)
             {
@@ -84,10 +84,30 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
 
                 _context.Add(post);
                 await _context.SaveChangesAsync();
+                UpdatePostPostCategories(post.Id, categoriesHidden);
                 return RedirectToAction("Index");
             }
             ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "NativeName", post.LanguageId);
             return View(post);
+        }
+        public void UpdatePostPostCategories(long postId, string SelectedCategories)
+        {
+            string tenantId = tenant.AppTenantId;
+            Post post = _context.SetFiltered<Post>().Where(x=>x.AppTenantId == tenantId).FirstOrDefault(f=>f.Id==postId);
+
+            if (SelectedCategories != null)
+            {
+                post.PostPostCategories.Clear();
+                _context.SaveChanges();
+                var cateArray = SelectedCategories.Split(',');
+
+                foreach (var item in cateArray)
+                {
+                    post.PostPostCategories.Add(new PostPostCategory { PostId = post.Id, PostCategoryId = Convert.ToInt64(item), AppTenantId = tenantId });
+                }
+            }
+            _context.Update(post);
+            _context.SaveChanges();
         }
 
         // GET: CmsCore/Posts/Edit/5
