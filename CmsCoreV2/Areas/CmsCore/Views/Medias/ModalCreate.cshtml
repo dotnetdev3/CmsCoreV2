@@ -10,11 +10,11 @@
 </style>
 <div id="myTabs">
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#upload" aria-controls="upload" role="tab" data-toggle="tab">Yükle</a></li>
+        <li role="presentation" class="active"><a href="#upload@(ViewBag.Element)" aria-controls="upload@(ViewBag.Element)" role="tab" data-toggle="tab">Yükle</a></li>
         <li role="presentation"><a href="#browse@(ViewBag.Element)" aria-controls="browse@(ViewBag.Element)" role="tab" data-toggle="tab">Gözat</a></li>
     </ul>
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane fade in active" id="upload">
+        <div role="tabpanel" class="tab-pane fade in active" id="upload@(ViewBag.Element)">
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
@@ -90,6 +90,26 @@
 
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 <script>
+    function monthandyearWrite@(ViewBag.Element)() {
+        var modal = $('#modal' + '@(ViewBag.Element)');
+        
+                var now = new Date();
+                for (var i = 1; i <= 12; i++) {
+                    if (i == now.getMonth() + 1) {
+                        modal.find('#month').append("<option id='" + i + "' selected>" + i + "</option>")
+                    } else {
+                        modal.find('#month').append("<option id='" + i + "'>" + i + "</option>")
+                    }
+                }
+                for (var i = now.getFullYear(); i >= 2017; i--) {
+                    if (i == now.getYear()) {
+                        modal.find('#year').append("<option id='" + i + "' selected>" + i + "</option>")
+                    }
+                    else {
+                        modal.find('#year').append("<option id='" + i + "'>" + i + "</option>")
+                    }
+                }
+            }
     function modalSaveFunc@(ViewBag.Element)() {
         var data = new FormData(document.getElementById("modalForm"));
         $.ajax({
@@ -127,25 +147,7 @@
         $(document).ready(function () {
             $.validator.unobtrusive.parse("#formVal");
 
-            $(function monthandyearWrite() {
-                var modal = $('#modal'+'@(ViewBag.Element)');
-                var now = new Date();
-                for (var i = 1; i <= 12; i++) {
-                    if (i == now.getMonth() + 1) {
-                        modal.find('#month').append("<option id='" + i + "' selected>" + i + "</option>")
-                    } else {
-                        modal.find('#month').append("<option id='" + i + "'>" + i + "</option>")
-                    }
-                }
-                for (var i = now.getFullYear(); i >= 2017; i--) {
-                    if (i == now.getYear()) {
-                        modal.find('#year').append("<option id='" + i + "' selected>" + i + "</option>")
-                    }
-                    else {
-                        modal.find('#year').append("<option id='" + i + "'>" + i + "</option>")
-                    }
-                }
-            });
+            monthandyearWrite@(ViewBag.Element)();
 
             $('#modal@(ViewBag.Element) #myTabs a').click(function (e) {
                 e.preventDefault();

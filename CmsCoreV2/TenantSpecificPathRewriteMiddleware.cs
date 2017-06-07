@@ -32,7 +32,7 @@ namespace CmsCoreV2
                 var originalPath = context.Request.Path;
                 var tenantFolder = tenantContext.Tenant.Folder;
                 var filePath = context.GetRouteValue("filePath");
-                var newPath = new PathString($"/tenant/{tenantFolder}/{filePath}");
+                var newPath = new PathString($"/uploads/{tenantFolder}/{filePath}");
 
                 context.Request.Path = newPath;
 
