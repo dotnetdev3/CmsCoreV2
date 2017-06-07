@@ -519,3 +519,20 @@ header .header-main .edugate-dropdown-menu-1 li .link-page, header .header-main 
 
     background-image: none !important;
 }
+
+
+.background-opacity:before {
+    background-image: url("http://www.waterwhale.com/wp-content/uploads/2014/12/empire-state-1500x300.jpg") !important;
+    background-size: cover;
+}
+
+.search-input {
+  
+    background-color: #c13e82 !important;
+
+}
+
+.btn {
+    float:right;
+    right:70px;
+}

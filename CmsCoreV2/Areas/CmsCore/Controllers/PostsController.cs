@@ -61,7 +61,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
 
             
 
-            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Culture");
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "NativeName");
             ViewBag.CategoryList = GetPostCategories();
 
             return View(post);
@@ -126,7 +126,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Culture", post.LanguageId);
+            ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "NativeName", post.LanguageId);
             ViewBag.CategoryList = GetPostCategories();
             ViewBag.CheckList = post.PostPostCategories;
 

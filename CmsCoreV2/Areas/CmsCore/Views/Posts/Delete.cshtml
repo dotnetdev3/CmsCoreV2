@@ -4,9 +4,9 @@
     ViewData["Title"] = "Yazıyı Sil";
 }
 
-<h2>Sİl</h2>
+<h2>Sil</h2>
 
-<h3>Sİlmek istediğinize emin misiniz?</h3>
+<h3>Silmek istediğinize emin misiniz?</h3>
 <div>
     <form asp-action="Delete" asp-route-id="@Model.Id">
         
@@ -118,7 +118,7 @@
                 @Html.DisplayNameFor(model => model.Language)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Language.Culture)
+                @Html.DisplayFor(model => model.Language.NativeName)
             </dd>
         </dl>
 
