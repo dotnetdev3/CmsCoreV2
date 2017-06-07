@@ -15,6 +15,7 @@ using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
+    [Authorize]
     [Area("CmsCore")]
     public class ProfileController : ControllerBase
     {

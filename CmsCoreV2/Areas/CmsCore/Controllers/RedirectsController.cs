@@ -10,9 +10,11 @@ using CmsCoreV2.Models;
 using SaasKit.Multitenancy;
 using Microsoft.AspNetCore.Hosting;
 using Z.EntityFramework.Plus;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
+    [Authorize(Roles = "ADMIN,SEO")]
     [Area("CmsCore")]
     public class RedirectsController : ControllerBase
     {

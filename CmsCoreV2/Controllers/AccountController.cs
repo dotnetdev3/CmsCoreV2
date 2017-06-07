@@ -13,6 +13,8 @@ using CmsCoreV2.Models;
 using CmsCoreV2.Models.AccountViewModels;
 using CmsCoreV2.Services;
 using SaasKit.Multitenancy;
+using CmsCoreV2.Data;
+using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Controllers
 {
@@ -21,15 +23,19 @@ namespace CmsCoreV2.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         protected readonly AppTenant tenant;
+        private string tenantId;
         private readonly string _externalCookieScheme;
 
         public AccountController(
+            ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            RoleManager<Role> roleManager,
             IOptions<IdentityCookieOptions> identityCookieOptions,
             IEmailSender emailSender,
             ISmsSender smsSender,
@@ -37,13 +43,45 @@ namespace CmsCoreV2.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
             this.tenant = tenant?.Value;
+            this.tenantId = this.tenant.AppTenantId;
+            if (context.ApplicationUser.Where(X=>X.AppTenantId == this.tenantId).Any() == false) { 
+                AddUsers(_userManager);
+                AddRoles(_roleManager);
+                AddRoleToUser(_userManager);
+            }
+        }
+        private ApplicationUser user;
+
+        private void AddUsers(UserManager<ApplicationUser> _userManager)
+        {
+            user = new ApplicationUser { Id = Guid.NewGuid(), UserName = "cmscore@gmail.com", Email = "cmscore@gmail.com", EmailConfirmed = true, NormalizedEmail = "CMSCORE@GMAIL.COM", NormalizedUserName = "CMSCORE@GMAIL.COM", AppTenantId = tenantId };
+            var task1 = Task.Run(() => _userManager.CreateAsync(user, "Cms123+"));
+            task1.Wait();
         }
 
+        private void AddRoles(RoleManager<Role> _roleManager)
+        {
+            string[] roles = { "ADMIN", "SLIDER", "MENU", "HOME", "FORM", "GALLERY", "MEDIA", "PAGE", "POST", "LINK", "SEO", "SETTING", "PRODUCT" };
+            string[] stamp = { "Yönetici", "Slayt", "Menü", "Anasayfa", "Formlar", "Galeri", "Medya", "Sayfalar", "Gönderiler", "Bağlantılar", "SEO", "Ayarlar", "Ürün" };
+
+            for (int i = 0; i < roles.Count(); i++)
+            {
+                var role = new Role { Id = Guid.NewGuid(), Name = roles[i], NormalizedName = roles[i], ConcurrencyStamp = stamp[i], AppTenantId = tenantId };
+                var task1 = Task.Run(() => _roleManager.CreateAsync(role));
+                task1.Wait();
+            }
+        }
+        private void AddRoleToUser(UserManager<ApplicationUser> _userManager)
+        {
+            var task1 = Task.Run(() => _userManager.AddToRoleAsync(user, "ADMIN"));
+            task1.Wait();
+        }
         //
         // GET: /Account/Login
         [HttpGet]
