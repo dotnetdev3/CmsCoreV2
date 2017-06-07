@@ -110,6 +110,12 @@ namespace CmsCoreV2.Controllers
         {
             return View();
         }
+
+        public IActionResult kindergarten()
+        {
+            return View();
+        }
+
         public IActionResult Successful()
         {
             return View("Successful");
