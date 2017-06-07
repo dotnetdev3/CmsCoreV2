@@ -93,14 +93,17 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         public void UpdatePostPostCategories(long postId, string SelectedCategories)
         {
             string tenantId = tenant.AppTenantId;
-            Post post = _context.SetFiltered<Post>().Where(x=>x.AppTenantId == tenantId).FirstOrDefault(f=>f.Id==postId);
-
+            var ppc = _context.SetFiltered<PostPostCategory>().Where(x => x.AppTenantId == tenantId).Where(f => f.PostId == postId).ToList();
+            var post = _context.SetFiltered<Post>().Where(x => x.AppTenantId == tenantId).Include("PostPostCategories").Where(f => f.Id == postId).FirstOrDefault();
             if (SelectedCategories != null)
             {
-                post.PostPostCategories.Clear();
+                foreach (var c in ppc)
+                {
+                    _context.PostPostCategories.Remove(c);
+                }
                 _context.SaveChanges();
                 var cateArray = SelectedCategories.Split(',');
-
+                
                 foreach (var item in cateArray)
                 {
                     post.PostPostCategories.Add(new PostPostCategory { PostId = post.Id, PostCategoryId = Convert.ToInt64(item), AppTenantId = tenantId });
@@ -118,13 +121,14 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Posts.SingleOrDefaultAsync(m => m.Id == id);
+            var post = await _context.Posts.Include("PostPostCategories").SingleOrDefaultAsync(m => m.Id == id);
             if (post == null)
             {
                 return NotFound();
             }
             ViewData["LanguageId"] = new SelectList(_context.Languages.ToList(), "Id", "Culture", post.LanguageId);
             ViewBag.CategoryList = GetPostCategories();
+            ViewBag.CheckList = post.PostPostCategories;
 
             post.UpdatedBy = User.Identity.Name ?? "username";
             post.UpdateDate = DateTime.Now;
@@ -138,7 +142,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Title,Slug,Body,Description,Photo,Meta1,Meta2,ViewCount,SeoTitle,SeoDescription,SeoKeywords,IsPublished,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Post post)
+        public async Task<IActionResult> Edit(long id, [Bind("Title,Slug,Body,Description,Photo,Meta1,Meta2,ViewCount,SeoTitle,SeoDescription,SeoKeywords,IsPublished,LanguageId,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Post post, string categoriesHidden)
         {
             if (id != post.Id)
             {
@@ -154,6 +158,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                     post.AppTenantId = tenant.AppTenantId;
                     _context.Update(post);
                     await _context.SaveChangesAsync();
+                    UpdatePostPostCategories(post.Id, categoriesHidden);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

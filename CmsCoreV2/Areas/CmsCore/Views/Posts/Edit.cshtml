@@ -166,6 +166,7 @@
                         </div>
                     </div>
                 </div>
+                <input type="hidden" name="categoriesHidden" id="categoriesHidden" />
    </form>
 
             <div>
@@ -179,7 +180,25 @@
                 <script src="/metronic/global/plugins/jstree/dist/jstree.js"></script>
 
 
-                <script>
+               <script>
+                    $(function () {
+                        $("#uploadModal").click(function () {
+                            $.ajax({
+                                cache: false,
+                                type: "GET",
+                                url: "/Media/Create",
+                                success: function (view) {
+                                    $('.modal-body').html(view);
+                                    $('.modal').modal();
+                                },
+                                error: function (err) {
+                                    alert("bilinmeyen bir hata oluştu!" + err);
+                                }
+                            });
+                        });
+                    });
+</script>
+<script>
         var handleSample = function () {
             $('#tree').jstree({
                 'plugins': ["wholerow", "checkbox"],
@@ -189,42 +208,68 @@
                         "icons": false
                     },
                     'data': [
+
                             @foreach(PostCategory item in (IEnumerable<PostCategory>)ViewBag.CategoryList)
-                    {
+                {
+
                     if(item.ParentCategoryId==null)
                     {
                         <text>
-                        { "id": '@item.Id', "parent": "#", "text": "@item.Name" },
+                        {
+                            "id": '@item.Id', "parent": "#", "text": "@item.Name", "state": {
+                                @foreach (var dist in (IEnumerable<PostPostCategory>)ViewBag.CheckList)
+                                    {
+                                        if (item.Id == dist.PostCategoryId)
+                                        {
+                                            <text>
+                                                selected: true
+                                            </text>
+                                        }
+                                    }
+                            }
+                        },
                         </text>
-                    }
-                    else
-                    {
+                                }
+                                else
+                                {
                         <text>
-                        { "id": '@item.Id', "parent": "@item.ParentCategoryId", "text": "@item.Name" },
+                        { "id": '@item.Id', "parent": "@item.ParentCategoryId", "text": "@item.Name","state": {
+                                @foreach (var dist in (IEnumerable<PostPostCategory>)ViewBag.CheckList)
+                                    {
+                                        if (item.Id == dist.PostCategoryId)
+                                        {
+                                            <text>
+                                                selected: true
+                                            </text>
+                                        }
+                                    }
+                                }
+                        },
                         </text>
                     }
                 }
                     ]
+
                 }
             });
-            }
+        }
         handleSample();
-                </script>
-                <script>
-                    $(function () {
-                        // 6 create an instance when the DOM is ready
-                        $('#tree').jstree();
-                        // 7 bind to events triggered on the tree
-                        $('#tree').on("changed.jstree", function (e, data) {
-                            console.log(data.selected);
-                            $('#categoriesHidden').val(data.selected);
-                        });
-                        // 8 interact with the tree - either way is OK
-                        $('button').on('click', function () {
-                            $('#tree').jstree(true).select_node('child_node_1');
-                            $('#tree').jstree('select_node', 'child_node_1');
-                            $.jstree.reference('#tree').select_node('child_node_1');
-                        });
-                    });
-                </script>
+</script>
+<script>
+        $(function () {
+                                    // 6 create an instance when the DOM is ready
+                                    $('#tree').jstree();
+                                // 7 bind to events triggered on the tree
+                                $('#tree').on("changed.jstree", function (e, data) {
+                                    console.log(data.selected);
+                                $('#categoriesHidden').val(data.selected);
+            });
+            // 8 interact with the tree - either way is OK
+            $('button').on('click', function () {
+                                    $('#tree').jstree(true).select_node('child_node_1');
+                $('#tree').jstree('select_node', 'child_node_1');
+                $.jstree.reference('#tree').select_node('child_node_1');
+            });
+        });
+</script>
             }
