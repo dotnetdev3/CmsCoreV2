@@ -44,8 +44,6 @@ namespace CmsCoreV2.Data
             AddLogoSlide(context, tenant);
             AddForms(context,tenant);
             AddFormFields(context, tenant);
-            AddFeedbacks(context, tenant);
-            AddFeedbackValues(context, tenant);
             AddGalleries(context, tenant);
             AddGalleryItems(context, tenant);
             AddGalleryItemCategories(context, tenant);
