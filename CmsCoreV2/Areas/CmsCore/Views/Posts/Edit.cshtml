@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Yazı Düzenle";
 }
-<link href="@(ViewBag.AssetsUrl)/metronic/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css">
+<link href="/metronic/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css">
 <script src="~/js/generate-slug.js"> </script>
 
 <h2>Yazı Düzenle</h2>
@@ -176,7 +176,7 @@
             @section scripts {
 
                 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-                <script src="@(ViewBag.AssetsUrl)/metronic/global/plugins/jstree/dist/jstree.js"></script>
+                <script src="/metronic/global/plugins/jstree/dist/jstree.js"></script>
 
 
                 <script>
