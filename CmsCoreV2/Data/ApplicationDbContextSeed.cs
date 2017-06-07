@@ -44,10 +44,9 @@ namespace CmsCoreV2.Data
             AddLogoSlide(context, tenant);
             AddForms(context,tenant);
             AddFormFields(context, tenant);
-            AddFeedbacks(context, tenant);
-            AddFeedbackValues(context, tenant);
             AddGalleries(context, tenant);
             AddGalleryItems(context, tenant);
+            AddGalleryItemCategories(context, tenant);
 
 
 
@@ -164,7 +163,9 @@ namespace CmsCoreV2.Data
         {
             context.AddRange(
                 new Form { FormName = "Sizi Arayalım", EmailTo = "mdemirci@outlook.com", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
-                new Form { FormName = "İletişim", EmailTo = "mdemirci@outlook.com", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId }
+                new Form { FormName = "İletişim", EmailTo = "mdemirci@outlook.com", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+                new Form { FormName = "Anaokulu iletişim", EmailTo = "mdemirci@outlook.com", LanguageId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId }
+
                 );
             context.SaveChanges();
         }
@@ -186,6 +187,13 @@ namespace CmsCoreV2.Data
                 new FormField { Name = "Telefon", FormId = 2, FieldType = FieldType.telephone, Position = 3, Required = false, Value = "", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
                 new FormField { Name = "Mesajınız", FormId = 2, FieldType = FieldType.largeText, Position = 3, Required = true, Value = "", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId }
                 );
+            context.SaveChanges();
+            context.AddRange(
+               new FormField { Name = "Ad Soyad", FormId = 3, FieldType = FieldType.fullName, Position = 1, Required = true, Value = "", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+               new FormField { Name = "Yaş Grubu", FormId = 3, FieldType = FieldType.smallText, Position = 2, Required = true, Value = "", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+               new FormField { Name = "Telefon Numarası", FormId = 3, FieldType = FieldType.telephone, Position = 3, Required = true, Value = "", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId },
+               new FormField { Name = "Veli Adı Soyadı", FormId = 3, FieldType = FieldType.fullName, Position = 4, Required = true, Value = "", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, AppTenantId = tenant.AppTenantId }
+               );
             context.SaveChanges();
         }
 
@@ -460,8 +468,18 @@ namespace CmsCoreV2.Data
 
 
             context.AddRange(
-            new Gallery { Name = "Galeri Sayfası", IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, },
-            new Gallery { Name = "Anasayfa Galeri", IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, });
+            new Gallery { Name = "Galeri Sayfası", IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+            new Gallery { Name = "Anasayfa Galeri", IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now });
+            context.SaveChanges();
+
+
+        }
+        private static void AddGalleryItemCategories(ApplicationDbContext context, AppTenant tenant)
+        {
+            
+            context.AddRange(
+            new GalleryItemCategory { Name = "Flat", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now,Description= "flat", ParentCategoryId = null, Slug = "flat" },
+            new GalleryItemCategory { Name = "Standart", CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, Description = "standart",ParentCategoryId=null,Slug= "standart" });
             context.SaveChanges();
 
 
@@ -469,8 +487,28 @@ namespace CmsCoreV2.Data
         private static void AddGalleryItems(ApplicationDbContext context,AppTenant tenant)
         {
            
-            var galleryItem = new GalleryItem { Title = "Ana Galeri Item1", Description = "Ana Galeri Item1", Position = 1, Photo = "/uploads/946468297image-slider-2.jpg", GalleryId=1,IsPublished=true,CreatedBy= "username", CreateDate= DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now }; galleryItem.AppTenantId = tenant.AppTenantId;
-            context.AddRange(galleryItem);
+            
+            context.AddRange(
+                new GalleryItem { Title = "flat1", Description = "flat 1", Position = 1, Photo = "https://colorlib.com/wp/wp-content/uploads/sites/2/2013/10/hudddle-logo.png",Video=null,Meta1= "grid-item-height1", GalleryId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "Empt", Description = "Empt", Position = 11, Photo = "http://jbcdn2.b0.upaiyun.com/2017/03/752e838aa02e32c905899447c7cfeb1f.jpeg", Video = null, Meta1 = "grid-item-height1", GalleryId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "bono", Description = "bono", Position = 7, Photo = "https://s-media-cache-ak0.pinimg.com/736x/ff/05/81/ff05811f23c9dda161730ac8b9688009.jpg", Video = null, Meta1 = "grid-item-height1", GalleryId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "kitcube", Description = "kit", Position = 6, Photo = "http://blog.karachicorner.com/wp-content/uploads/2013/08/longshadow-flat-design-9.jpg", Video = null, Meta1 = "grid-item-height1", GalleryId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "sch", Description = "sch", Position = 8, Photo = "https://s-media-cache-ak0.pinimg.com/originals/b0/6c/25/b06c2519ce91e1d0f35fa65df3cc84ce.png", Video = null, Meta1 = "grid-item-height1", GalleryId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "m-W", Description = "m-W", Position = 11, Photo = "https://cdn.dribbble.com/users/219762/screenshots/1554839/abstract_logo_1x.png", Video = null, Meta1 = "grid-item-height1", GalleryId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "catarse", Description = "cat", Position = 15, Photo = "https://s3.amazonaws.com/cdn.catarse/assets/logo-v-cor-negativo.png", Video = null, Meta1 = "grid-item-height1", GalleryId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "brand", Description = "brand", Position = 11, Photo = "http://zllox.com/wp-content/uploads/2016/04/Brand-Logo-Design.png", Video = null, Meta1 = "grid-item-height1", GalleryId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "firefox", Description = "fire", Position = 11, Photo = "https://stocklogos.com/sites/default/files/styles/blog-large/public/firefox_rebrand_flat_logo3_1.png", Video = null, Meta1 = "grid-item-height1", GalleryId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "joystick", Description = "x", Position = 12, Photo = "http://creativeadi.com/wp-content/uploads/2015/10/super_nintendo_ios_flat_app_icon.png", Video = null, Meta1 = "grid-item-height1", GalleryId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "fox", Description = "f", Position = 113, Photo = "https://s-media-cache-ak0.pinimg.com/736x/ae/bc/4a/aebc4a51bcf0736551b8fc34e55345a5.jpg", Video = null, Meta1 = "grid-item-height1", GalleryId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "dc", Description = "DC", Position = 14, Photo = "http://cdn.designbeep.com/wp-content/uploads/2013/10/7.long-shadow-flat-logo.png", Video = null, Meta1 = "grid-item-height1", GalleryId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "slug", Description = "sl", Position = 15, Photo = "http://designwebkit.com/wp-content/uploads/2013/07/flat-design-examples-logo-17.jpg", Video = null, Meta1 = "grid-item-height1", GalleryId = 1, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "Kalem", Description = "a", Position = 18, Photo = "http://blog.presentationload.com/wp-content/uploads/2015/09/Flat-Design-Shadow-Text.png", Video = null, Meta1 = "grid-item-height1", GalleryId = 2, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "kareli falan bir hareket", Description = null, Position = 18, Photo = "http://1vixa0rmxmp1rwx091zccmie-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/Smart-city-flat-line-web1200-x600-graphics-1.png", Video = null, Meta1 = "grid-item-height1", GalleryId = 2, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "dikey", Description = "s", Position = 17, Photo = "http://www.talonx.com/file/2014/07/talonX-Logo-Design-Menu.png", Video = null, Meta1 = "grid-item-height1", GalleryId = 2, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now },
+                new GalleryItem { Title = "web", Description = "webtrend", Position = 17, Photo = "http://www.kordahitechnologies.com/sites/default/files/Trending%20Web%20Design11.png", Video = null, Meta1 = "grid-item-height1", GalleryId = 2, IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now }
+
+
+            );
             context.SaveChanges();
         }
 
