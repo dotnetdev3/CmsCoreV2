@@ -7,34 +7,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
-using Microsoft.AspNetCore.Hosting;
-using SaasKit.Multitenancy;
-using Z.EntityFramework.Plus;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
-    [Authorize(Roles = "ADMIN,SETTING")]
+    [Authorize]
     [Area("CmsCore")]
-    public class LanguagesController : ControllerBase
+    public class SubscriptionsController : Controller
     {
-        private IHostingEnvironment env;
+        private readonly ApplicationDbContext _context;
 
-
-        public LanguagesController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context) : base(context, tenant)
+        public SubscriptionsController(ApplicationDbContext context)
         {
-            this.env = _env;
+            _context = context;    
         }
 
-
-
-        // GET: CmsCore/Languages
+        // GET: CmsCore/Subscriptions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.SetFiltered<Language>().Where(x => x.AppTenantId == tenant.AppTenantId).ToListAsync());
+            return View(await _context.Subscriptions.ToListAsync());
         }
 
-        // GET: CmsCore/Languages/Details/5
+        // GET: CmsCore/Subscriptions/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -42,45 +36,39 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var language = await _context.Languages
+            var subscription = await _context.Subscriptions
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (language == null)
+            if (subscription == null)
             {
                 return NotFound();
             }
 
-            return View(language);
+            return View(subscription);
         }
 
-        // GET: CmsCore/Languages/Create
+        // GET: CmsCore/Subscriptions/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: CmsCore/Languages/Create
+        // POST: CmsCore/Subscriptions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,NativeName,Culture,IsActive,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Language language)
+        public async Task<IActionResult> Create([Bind("Email,FullName,IsSubscribed,SubscriptionDate,UnsubscriptionDate,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Subscription subscription)
         {
             if (ModelState.IsValid)
             {
-                language.CreateDate = DateTime.Now;
-                language.CreatedBy = User.Identity.Name ?? "username";
-                language.UpdateDate = DateTime.Now;
-                language.UpdatedBy = User.Identity.Name ?? "username";
-                language.AppTenantId = tenant.AppTenantId;
-
-                _context.Add(language);
+                _context.Add(subscription);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(language);
+            return View(subscription);
         }
 
-        // GET: CmsCore/Languages/Edit/5
+        // GET: CmsCore/Subscriptions/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -88,22 +76,22 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var language = await _context.Languages.SingleOrDefaultAsync(m => m.Id == id);
-            if (language == null)
+            var subscription = await _context.Subscriptions.SingleOrDefaultAsync(m => m.Id == id);
+            if (subscription == null)
             {
                 return NotFound();
             }
-            return View(language);
+            return View(subscription);
         }
 
-        // POST: CmsCore/Languages/Edit/5
+        // POST: CmsCore/Subscriptions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,NativeName,Culture,IsActive,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Language language)
+        public async Task<IActionResult> Edit(long id, [Bind("Email,FullName,IsSubscribed,SubscriptionDate,UnsubscriptionDate,Id,CreateDate,CreatedBy,UpdateDate,UpdatedBy,AppTenantId")] Subscription subscription)
         {
-            if (id != language.Id)
+            if (id != subscription.Id)
             {
                 return NotFound();
             }
@@ -112,17 +100,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 try
                 {
-
-                    language.UpdateDate = DateTime.Now;
-                    language.UpdatedBy = User.Identity.Name ?? "username";
-                    language.AppTenantId = tenant.AppTenantId;
-
-                    _context.Update(language);
+                    _context.Update(subscription);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LanguageExists(language.Id))
+                    if (!SubscriptionExists(subscription.Id))
                     {
                         return NotFound();
                     }
@@ -133,10 +116,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(language);
+            return View(subscription);
         }
 
-        // GET: CmsCore/Languages/Delete/5
+        // GET: CmsCore/Subscriptions/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -144,30 +127,30 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
 
-            var language = await _context.Languages
+            var subscription = await _context.Subscriptions
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (language == null)
+            if (subscription == null)
             {
                 return NotFound();
             }
 
-            return View(language);
+            return View(subscription);
         }
 
-        // POST: CmsCore/Languages/Delete/5
+        // POST: CmsCore/Subscriptions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var language = await _context.Languages.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Languages.Remove(language);
+            var subscription = await _context.Subscriptions.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Subscriptions.Remove(subscription);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool LanguageExists(long id)
+        private bool SubscriptionExists(long id)
         {
-            return _context.Languages.Any(e => e.Id == id);
+            return _context.Subscriptions.Any(e => e.Id == id);
         }
     }
 }

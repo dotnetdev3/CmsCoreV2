@@ -1,24 +1,31 @@
 ﻿using CmsCoreV2.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SaasKit.Multitenancy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Data
 {
     public static class ApplicationDbContextSeed
     {
-        public static void Seed(this ApplicationDbContext context, AppTenant tenant)
+        public static void Seed(this ApplicationDbContext context, IHttpContextAccessor accessor)
         {
             // migration'ları veritabanına uygula
             context.Database.Migrate();
-
+            AppTenant tenant = context.tenant;
+            if (tenant != null) { 
+            string tenantId = tenant.AppTenantId;
             // Look for any pages record.
-            if (context.Languages.Any())
+            if (context.SetFiltered<Language>().Where(l => l.AppTenantId == tenantId).Any())
             {
                 return;   // DB has been seeded
             }
+            
             // Perform seed operations
             var languageId = AddLanguages(context, tenant);
             AddPages(context, tenant, languageId);
@@ -37,8 +44,9 @@ namespace CmsCoreV2.Data
             AddLogoSlide(context, tenant);
             AddForms(context,tenant);
             AddFormFields(context, tenant);
+            
             context.SaveChangesAsync();
-            context.Dispose();
+            }
 
         }
         public static long AddLanguages(ApplicationDbContext context, AppTenant tenant)
@@ -434,6 +442,14 @@ namespace CmsCoreV2.Data
             context.AddRange(galleryItem);
             context.SaveChanges();
         }
+
+     
+        
+        
+
+
+
+
     }
 }
 

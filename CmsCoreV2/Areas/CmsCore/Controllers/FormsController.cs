@@ -8,25 +8,26 @@ using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using SaasKit.Multitenancy;
+using Z.EntityFramework.Plus;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
+    [Authorize(Roles = "ADMIN,FORM")]
     [Area("CmsCore")]
-    public class FormsController : Controller
+    public class FormsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        protected readonly AppTenant tenant;
 
-        public FormsController(ApplicationDbContext context, ITenant<AppTenant> tenant)
+
+        public FormsController(ApplicationDbContext context, ITenant<AppTenant> tenant) : base(context, tenant)
         {
-            _context = context;
-            this.tenant = tenant?.Value;
+
         }
 
         // GET: CmsCore/Forms
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Forms.Include(f => f.Language);
+            var applicationDbContext = _context.SetFiltered<Form>().Where(x => x.AppTenantId == tenant.AppTenantId).Include(f => f.Language);
             return View(await applicationDbContext.ToListAsync());
         }
 

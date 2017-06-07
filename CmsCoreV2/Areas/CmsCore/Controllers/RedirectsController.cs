@@ -9,22 +9,21 @@ using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using SaasKit.Multitenancy;
 using Microsoft.AspNetCore.Hosting;
+using Z.EntityFramework.Plus;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
+    [Authorize(Roles = "ADMIN,SEO")]
     [Area("CmsCore")]
     public class RedirectsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
         private IHostingEnvironment env;
-        protected readonly AppTenant tenant;
 
 
-        public RedirectsController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context)
+        public RedirectsController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context) : base(context, tenant)
         {
-            _context = context;
             this.env = _env;
-            this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/Redirects
@@ -32,7 +31,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         {
             
        
-            return View(await _context.Redirects.ToListAsync());
+            return View(await _context.SetFiltered<Redirect>().Where(x => x.AppTenantId == tenant.AppTenantId).ToListAsync());
         }
 
         // GET: CmsCore/Redirects/Details/5

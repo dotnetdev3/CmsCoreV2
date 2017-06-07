@@ -8,24 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using SaasKit.Multitenancy;
+using Z.EntityFramework.Plus;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
+    [Authorize(Roles = "ADMIN,PAGE")]
     [Area("CmsCore")]
-    public class PagesController : Controller
+    public class PagesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        protected readonly AppTenant tenant;
-        public PagesController(ApplicationDbContext context, ITenant<AppTenant> tenant)
+      
+        public PagesController(ApplicationDbContext context, ITenant<AppTenant> tenant) : base(context, tenant)
         {
-            _context = context;
-            this.tenant = tenant?.Value;
+
         }
 
         // GET: CmsCore/Pages
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Pages.Include(p => p.Language).Include(p => p.ParentPage);
+            var applicationDbContext = _context.SetFiltered<Page>().Where(x=>x.AppTenantId==tenant.AppTenantId).Include(p => p.Language).Include(p => p.ParentPage);
             return View(await applicationDbContext.ToListAsync());
         }
 

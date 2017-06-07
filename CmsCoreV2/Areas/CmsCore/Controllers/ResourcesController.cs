@@ -9,28 +9,26 @@ using CmsCoreV2.Data;
 using CmsCoreV2.Models;
 using Microsoft.AspNetCore.Hosting;
 using SaasKit.Multitenancy;
+using Z.EntityFramework.Plus;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
+    [Authorize]
     [Area("CmsCore")]
     public class ResourcesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
         private IHostingEnvironment env;
-        protected readonly AppTenant tenant;
 
-
-        public ResourcesController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context)
+        public ResourcesController(IHostingEnvironment _env, ITenant<AppTenant> tenant, ApplicationDbContext context) : base(context, tenant)
         {
-            _context = context;
             this.env = _env;
-            this.tenant = tenant?.Value;
         }
 
         // GET: CmsCore/Resources
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Resources.Include(r => r.Language);
+            var applicationDbContext = _context.SetFiltered<Resource>().Where(x => x.AppTenantId == tenant.AppTenantId).Include(r => r.Language);
             return View(await applicationDbContext.ToListAsync());
         }
 

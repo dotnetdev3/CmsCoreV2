@@ -15,13 +15,11 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     [Area("CmsCore")]
     public class CustomizationsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private readonly AppTenant tenant;
 
-        public CustomizationsController(ApplicationDbContext context, ITenant<AppTenant> tenant)
+
+        public CustomizationsController(ApplicationDbContext context, ITenant<AppTenant> tenant) : base(context, tenant)
         {
-            _context = context;
-            this.tenant = tenant?.Value;
+            
         }
 
 

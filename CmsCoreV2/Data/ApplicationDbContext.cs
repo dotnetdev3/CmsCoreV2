@@ -6,38 +6,41 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using CmsCoreV2.Models;
 using Z.EntityFramework.Plus;
+using Microsoft.AspNetCore.Http;
 
 namespace CmsCoreV2.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Role, Guid>
     {
-        private readonly AppTenant tenant;
+        public readonly AppTenant tenant;
+        private readonly IHttpContextAccessor _accessor;
         public ApplicationDbContext() { }
-        public ApplicationDbContext(AppTenant tenant)
+        public ApplicationDbContext(AppTenant tenant, IHttpContextAccessor accessor)
         {
+            _accessor = accessor;
+        
             if (tenant != null)
             {
                 this.tenant = tenant;
-                this.Seed(this.tenant);
                 var tenantId = this.tenant.AppTenantId;
+                this.Seed(accessor);
+                //QueryFilterManager.Filter<Page>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<Language>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<Media>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<Gallery>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<GalleryItem>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<GalleryItemCategory>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<Post>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<PostCategory>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<PostPostCategory>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<ApplicationUser>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<Role>(q => q.Where(x => x.AppTenantId == tenantId));
 
-                QueryFilterManager.Filter<Page>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<Language>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<Media>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<Gallery>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<GalleryItem>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<GalleryItemCategory>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<Post>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<PostCategory>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<PostPostCategory>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<ApplicationUser>(q => q.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<Role>(q => q.Where(x => x.AppTenantId == tenantId));
-
-                QueryFilterManager.Filter<Customization>(c => c.Where(x => x.AppTenantId == tenantId));
-                QueryFilterManager.Filter<Setting>(q => q.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<Customization>(c => c.Where(x => x.AppTenantId == tenantId));
+                //QueryFilterManager.Filter<Setting>(q => q.Where(x => x.AppTenantId == tenantId));
 
 
-                QueryFilterManager.InitilizeGlobalFilter(this);
+                //QueryFilterManager.InitilizeGlobalFilter(this);
             }
         }
 
@@ -69,6 +72,7 @@ namespace CmsCoreV2.Data
         public DbSet<GalleryItemGalleryItemCategory> GalleryItemGalleryItemCategories { get; set; }
         public DbSet<Customization> Customizations { get; set; }
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
         // diğer dbsetler buraya eklenir
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -98,11 +102,12 @@ namespace CmsCoreV2.Data
         public DbSet<CmsCoreV2.Models.Role> Role { get; set; }
         // diğer dbsetler buraya eklenir
 
-        public DbSet<CmsCoreV2.Models.ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<CmsCoreV2.Models.ApplicationUser> ApplicationUser { get;set; }
+    
 
         // diğer dbsetler buraya eklenir
 
-       
+
 
     }
 }
