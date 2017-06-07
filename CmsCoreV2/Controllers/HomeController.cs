@@ -26,9 +26,13 @@ namespace CmsCoreV2.Controllers
         public string GetCategoryName(long id)
         {
             var postcat = _context.SetFiltered<PostCategory>().ToList();
-            var pcId = _context.SetFiltered<PostPostCategory>().Where(w => w.PostId == id).FirstOrDefault().PostCategoryId;
-            var val = postcat.FirstOrDefault(p => p.Id == pcId).Name;
-            return val;
+            var c = _context.SetFiltered<PostPostCategory>().Where(w => w.PostId == id).FirstOrDefault();
+            if (c!=null) { 
+                var pcId = c.PostCategoryId;
+                var val = postcat.FirstOrDefault(p => p.Id == pcId).Name;
+                return val;
+            }
+            return "";
         }
         public IActionResult Index(string slug, string culture = "tr")
         {
