@@ -44,10 +44,38 @@ namespace CmsCoreV2.Data
             AddLogoSlide(context, tenant);
             AddForms(context,tenant);
             AddFormFields(context, tenant);
-            
-            context.SaveChangesAsync();
+            AddFeedbacks(context, tenant);
+            AddFeedbackValues(context, tenant);
+            AddGalleries(context, tenant);
+            AddGalleryItems(context, tenant);
+
+
+
+
+                context.SaveChangesAsync();
             }
 
+        }
+        
+        private static void AddFeedbackValues(ApplicationDbContext context, AppTenant tenant)
+        {
+            context.AddRange(
+                new FeedbackValue { CreatedBy = "username", CreateDate = DateTime.Now, FeedbackId = 1, FieldType = FieldType.fullName, FormFieldId = 1, FormFieldName = "Ad Soyad", UpdatedBy = "username", UpdateDate = DateTime.Now, Position = 1 },
+
+                new FeedbackValue { CreatedBy = "username", CreateDate = DateTime.Now, FeedbackId = 1, FieldType = FieldType.email, FormFieldId = 2, FormFieldName = "E-posta", UpdatedBy = "username", UpdateDate = DateTime.Now, Position = 2 },
+                new FeedbackValue { CreatedBy = "username", CreateDate = DateTime.Now, FeedbackId = 1, FieldType = FieldType.telephone, FormFieldId = 3, FormFieldName = "Telefon", UpdatedBy = "username", UpdateDate = DateTime.Now, Position = 3 },
+                new FeedbackValue { CreatedBy = "username", CreateDate = DateTime.Now, FeedbackId = 1, FieldType = FieldType.radioButtons, FormFieldId = 4, FormFieldName = "Çocuğunuzu kaydettirmeyi düşündüğünüz okul aşağıdakilerden hangisidir?", UpdatedBy = "username", UpdateDate = DateTime.Now, Position = 4,Value=null },
+                new FeedbackValue { CreatedBy = "username", CreateDate = DateTime.Now, FeedbackId = 1, FieldType = FieldType.dropdownMenu, FormFieldId = 5, FormFieldName = "Çocuğunuzu kaydettirmeyi düşündüğünüz sınıf hangisidir?", UpdatedBy = "username", UpdateDate = DateTime.Now, Position = 5, Value = "Seçiniz" },
+                new FeedbackValue { CreatedBy = "username", CreateDate = DateTime.Now, FeedbackId = 1, FieldType = FieldType.checkbox, FormFieldId = 6, FormFieldName = "Abonelik", UpdatedBy = "username", UpdateDate = DateTime.Now, Position = 6, Value = null }
+                );
+        }
+        private static void AddFeedbacks(ApplicationDbContext context, AppTenant tenant)
+        {
+            context.AddRange(
+                new Feedback { CreatedBy= "username",CreateDate=DateTime.Now,FormId=1,FormName="Sizi Arayalım",UpdatedBy="username",UpdateDate=DateTime.Now,UserName="username",SentDate=DateTime.Now }
+
+                
+                );
         }
         public static long AddLanguages(ApplicationDbContext context, AppTenant tenant)
         {
@@ -427,10 +455,13 @@ namespace CmsCoreV2.Data
 
         private static void AddGalleries(ApplicationDbContext context,AppTenant tenant)
         {
-           
-            var gallery = new Gallery { Name = "Anasayfa Galeri", IsPublished=true,  CreatedBy = "username", CreateDate=DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now ,};
-            gallery.AppTenantId = tenant.AppTenantId;
-            context.AddRange(gallery);
+
+
+
+
+            context.AddRange(
+            new Gallery { Name = "Galeri Sayfası", IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, },
+            new Gallery { Name = "Anasayfa Galeri", IsPublished = true, CreatedBy = "username", CreateDate = DateTime.Now, UpdatedBy = "username", UpdateDate = DateTime.Now, });
             context.SaveChanges();
 
 
