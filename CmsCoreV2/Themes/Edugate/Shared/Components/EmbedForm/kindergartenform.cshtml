@@ -1,0 +1,43 @@
+﻿@model CmsCoreV2.Models.Form
+@addTagHelper "CmsCoreV2.Helpers.FormFieldHelper, CmsCoreV2"
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<form action="/Home/PostForm"  method="post" id="kindergartenForm">
+@if (Model != null && Model.Id > 0)
+{
+    <fieldset>
+        <input type="hidden" value="@Model.Id" name="FormId" />
+        @foreach (FormField item in Model.FormFields)
+        {
+            @*<label class="form-select style-1">@item.Name@Html.Raw(item.Required ? "<span class='highlight'>*</span>" : "")</label>*@
+           @*<input type="text" placeholder=@item.Name@Html.Raw(item.Required ? class="form-select style-1" />
+            <input type="text" placeholder="Yaş Grubu" class="form-select style-1" />
+            <input type="text" placeholder="Telefon Numarası" class="form-select style-1" />
+            <input type="text" placeholder="Veli Adı Soyadı" class="form-select style-1" />*@
+            @if (item.Required)
+            {
+                <formField form-field="item" required="true" css-class="form-select style-1" read_only="false" show-placeholder="true" />
+                @Html.ValidationMessage(item.Name, "", new { @class = "text-danger" })
+            }
+            else
+            {
+                <formField form-field="item" read_only="false" show-placeholder="true" />
+            }
+        }
+    </fieldset>
+}
+else
+{
+    <p> Form bulunamadı!</p>
+}
+    
+
+<div class="contact-submit">
+    <button type="submit" class="g-recaptcha btn btn-contact btn-green" data-sitekey="6LfZnCAUAAAAACP1aluJpAewm5GdbMMEbEWBb-j9" data-callback='onContactFormSubmit'><span>Gönder</span></button>
+</div>
+       
+</form>
+<script>
+        function onContactFormSubmit() {
+             document.getElementById("kindergartenForm").submit();
+        }
+</script>
