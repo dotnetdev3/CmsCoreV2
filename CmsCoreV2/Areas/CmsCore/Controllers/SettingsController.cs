@@ -14,6 +14,7 @@ using Z.EntityFramework.Plus;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
+    [Authorize(Roles = "ADMIN,SETTING")]
     [Area("CmsCore")]
     public class SettingsController : ControllerBase
     {

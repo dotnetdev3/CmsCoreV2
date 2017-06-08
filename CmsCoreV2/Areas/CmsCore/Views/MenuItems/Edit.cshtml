@@ -52,8 +52,9 @@
         <div class="form-group">
             <label asp-for="ParentMenuItemId" class="control-label col-md-2"></label>
             <div class="col-md-10">
-                <select asp-for="ParentMenuItemId" class="form-control" asp-items="ViewBag.ParentMenuItemId">
+                <select asp-for="ParentMenuItemId" class="form-control">
                     <option value=""> Seçiniz...</option>
+                    @Html.Raw(ViewBag.ParentMenuItem)
                 </select>
                 <span asp-validation-for="ParentMenuItemId" class="text-danger"></span>
             </div>

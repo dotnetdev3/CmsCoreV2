@@ -12,9 +12,11 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using SaasKit.Multitenancy;
 using Z.EntityFramework.Plus;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
+    [Authorize(Roles = "ADMIN,MEDIA")]
     [Area("CmsCore")]
     public class MediasController : ControllerBase
     {
@@ -61,7 +63,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             return View();
         }
 
-        public JsonResult ModalCreate(IFormFile uploadFile)
+        public JsonResult ModalCreate(string Title, string Description, IFormFile uploadFile)
         {
             //IFormFileCollection uploadedFiles = Request.Form.Files;
             //IFormFile uploadedFile = uploadedFiles[0];
@@ -71,6 +73,8 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 if (uploadFile != null)
                 {
                     Media media = new Media();
+                    media.Title = Title;
+                    media.Description = Description;
                     media.FileName = uploadFile.FileName;
                     media.Size = (uploadFile.Length / 1024);
                     media.CreatedBy = User.Identity.Name ?? "username";
@@ -104,10 +108,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                      )
                     {
                         string category = DateTime.Now.Month + "-" + DateTime.Now.Year;
-                        string FilePath = UploadPath + category + "\\";
+                        string FilePath = UploadPath + tenant.Folder + "\\" + category + "\\";
                         string dosyaismi = Path.GetFileName(uploadFile.FileName);
                         var yuklemeYeri = Path.Combine(FilePath, dosyaismi);
-                        media.FileUrl =  tenant.Folder + "/" + category + "/";
+                        media.FileUrl =  "tenant/" + category + "/";
                         try
                         {
                             if (!Directory.Exists(FilePath))
@@ -171,6 +175,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 if (uploadFile != null)
                 {                               
+                    
                     media.FileName = uploadFile.FileName;
                     media.Size = (uploadFile.Length / 1024);
                     media.CreatedBy = User.Identity.Name ?? "username";
@@ -204,10 +209,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                      )
                     {
                         string category = DateTime.Now.Month + "-" + DateTime.Now.Year;
-                        string FilePath = UploadPath + category + "\\";
+                        string FilePath = UploadPath + tenant.Folder + "\\" + category + "\\";
                         string dosyaismi = Path.GetFileName(uploadFile.FileName);
                         var yuklemeYeri = Path.Combine(FilePath, dosyaismi);
-                        media.FileUrl = tenant.Folder + "/" + category + "/";
+                        media.FileUrl = "tenant/" + category + "/";
 
                         try
                         {
@@ -292,10 +297,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                      )
                     {
                         string category = DateTime.Now.Month + "-" + DateTime.Now.Year;
-                        string FilePath = UploadPath + category + "\\";
+                        string FilePath = UploadPath + tenant.Folder + "\\" + category + "\\";
                         string dosyaismi = Path.GetFileName(uploadFile.FileName);
                         var yuklemeYeri = Path.Combine(FilePath, dosyaismi);
-                        media.FileUrl =  tenant.Folder + "/" + category + "/";
+                        media.FileUrl = "tenant/" + category + "/";
 
                         try
                         {

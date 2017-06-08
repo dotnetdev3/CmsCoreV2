@@ -4,9 +4,6 @@
     ViewBag.Title = "Media Düzenle";
 }
 
-<link href="/metronic/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" /><br />
-
-
 <form asp-controller="Medias" asp-action="Edit" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-12 ">
@@ -60,7 +57,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Description"></label>
-                            <textarea rows="15" asp-for="Description" class="form-control" tabindex="2" ></textarea>
+                            <textarea asp-for="Description" class="form-control" tabindex="2" ></textarea>
                             <span class="text-danger" asp-validation-for="Description"></span>
                         </div>
                        

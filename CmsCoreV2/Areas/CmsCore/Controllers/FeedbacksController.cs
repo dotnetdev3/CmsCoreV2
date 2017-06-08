@@ -14,10 +14,11 @@ using MailKit.Net.Smtp;
 using System.Linq.Expressions;
 using CmsCoreV2.Services;
 using Z.EntityFramework.Plus;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
-    
+    [Authorize]
     [Area("CmsCore")]
     public class FeedbacksController : ControllerBase
     {

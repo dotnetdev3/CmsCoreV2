@@ -10,9 +10,11 @@ using CmsCoreV2.Models;
 using Microsoft.AspNetCore.Hosting;
 using SaasKit.Multitenancy;
 using Z.EntityFramework.Plus;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CmsCoreV2.Areas.CmsCore.Controllers
 {
+    [Authorize(Roles = "ADMIN,GALLERY")]
     [Area("CmsCore")]
     public class GalleryItemCategoriesController : ControllerBase
     {
@@ -58,6 +60,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             galleryItemCategory.CreateDate = DateTime.Now;
             galleryItemCategory.UpdatedBy = User.Identity.Name ?? "username";
             galleryItemCategory.UpdateDate = DateTime.Now;
+            galleryItemCategory.AppTenantId = tenant.AppTenantId;
             return View(galleryItemCategory);
         }
 

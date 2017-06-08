@@ -13,10 +13,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="birinsan\6-2017\x.jpg">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\birinsan\6-2017\x.jpg" />
     <Content Include="wwwroot\edugate\css\Custom.css" />
     <Content Include="wwwroot\edugate\images\bg-404.jpg" />
     <Content Include="wwwroot\edugate\images\video_foto.png" />
