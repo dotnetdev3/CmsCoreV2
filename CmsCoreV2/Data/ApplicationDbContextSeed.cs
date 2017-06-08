@@ -49,6 +49,8 @@ namespace CmsCoreV2.Data
             AddGalleryItemCategories(context, tenant);
             AddPosts(context, tenant);
             AddPostCategories(context, tenant);
+            AddGalleryItemGalleryItemCategories(context, tenant);
+            AddPostPostCategories(context, tenant);
 
 
 
@@ -56,6 +58,45 @@ namespace CmsCoreV2.Data
                 context.SaveChangesAsync();
             }
 
+        }
+        private static void AddPostPostCategories(ApplicationDbContext context, AppTenant tenant)
+        {
+            context.AddRange(
+                new PostPostCategory { PostId=1,PostCategoryId=1 },
+                new PostPostCategory { PostId = 3, PostCategoryId = 1 },
+                new PostPostCategory { PostId = 4, PostCategoryId = 1 },
+                new PostPostCategory { PostId = 5, PostCategoryId = 1 },
+                new PostPostCategory { PostId = 6, PostCategoryId = 1 },
+                new PostPostCategory { PostId = 2, PostCategoryId = 3 }
+
+
+                );
+        }
+        private static void AddGalleryItemGalleryItemCategories(ApplicationDbContext context, AppTenant tenant)
+        {
+            context.AddRange(
+                new GalleryItemGalleryItemCategory { GalleryItemId=1,GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 4, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 5, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 6, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 8, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 12, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 14, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 15, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 16, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 17, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 18, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 19, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 20, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 21, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 22, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 23, GalleryItemCategoryId = 1 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 12, GalleryItemCategoryId = 2 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 13, GalleryItemCategoryId = 2 },
+                new GalleryItemGalleryItemCategory { GalleryItemId = 14, GalleryItemCategoryId = 2 }
+
+
+                );
         }
         private static void AddPostCategories(ApplicationDbContext context, AppTenant tenant)
         {
