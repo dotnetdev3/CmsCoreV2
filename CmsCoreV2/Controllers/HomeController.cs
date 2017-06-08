@@ -186,6 +186,20 @@ namespace CmsCoreV2.Controllers
             return RedirectToAction("Index");
            
         }
+
+        public IActionResult CustomCss()
+        {
+
+            Customization customization = _context.Customizations.FirstOrDefault();
+            if (customization != null)
+            {
+                return Content(customization.CustomCSS, "text/css");
+
+
+            }
+            return Content("", "text/css");
+
+        }
         public IActionResult Error()
         {
             return View();
