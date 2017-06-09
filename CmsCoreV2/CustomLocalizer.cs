@@ -32,12 +32,12 @@ namespace CmsCoreV2
         {
             get
             {
-                var l = _internalLocalizer[name, arguments];
-                if (l.ResourceNotFound)
-                {
-                   return  _languageService.GetResource(name, arguments);
-                }
-                return l;
+                //var l = _internalLocalizer[name, arguments];
+                //if (l.ResourceNotFound)
+                //{
+                   return  _languageService.GetResource(name, CurrentCulture, arguments);
+                //}
+                //return l;
             }
         }
 
@@ -45,12 +45,12 @@ namespace CmsCoreV2
         {
             get
             {
-                var l = _internalLocalizer[name];
-                if (l.ResourceNotFound)
-                {
-                    return _languageService.GetResource(name);
-                }
-                return l;
+                //var l = _internalLocalizer[name];
+                //if (l.ResourceNotFound)
+                //{
+                    return _languageService.GetResource(name, CurrentCulture);
+                //}
+                //return l;
             }
         }
 

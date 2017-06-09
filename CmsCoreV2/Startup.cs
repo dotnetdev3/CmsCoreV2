@@ -100,6 +100,8 @@ namespace CmsCoreV2
 
 
             // Add application services.
+            services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<CustomLocalizer, CustomLocalizer>();
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<IFeedbackService, FeedbackService>();
