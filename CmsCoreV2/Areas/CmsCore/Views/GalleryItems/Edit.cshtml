@@ -12,10 +12,9 @@
         <div class="row">
             <div class="col-md-12">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
             </div>
         </div>
-        <div class="portlet-body form">
-            <div class="form-body">
                 <div class="form-group">
                     <div id="tree">
 
@@ -117,16 +116,39 @@
                     </div>
                 </div>
             </div>
+         
+            <input type="hidden" name="categoriesHidden" id="categoriesHidden" />
 </form>
-
+@Html.Partial("_BrowseMedia", new ViewDataDictionary(this.ViewData) { { "element", "Photo" } })
+@Html.Partial("_BrowseMedia", new ViewDataDictionary(this.ViewData) { { "element", "Video" } })
 <div>
     <a asp-action="Index">Listeye Geri Dön</a>
 </div>
 
 @section scripts {
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="/metronic/global/plugins/jstree/dist/jstree.js"></script>
 
+
+    <script>
+        $(function () {
+            $("#uploadModal").click(function () {
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "/Media/Create",
+                    success: function (view) {
+                        $('.modal-body').html(view);
+                        $('.modal').modal();
+                    },
+                    error: function (err) {
+                        alert("bilinmeyen bir hata oluştu!" + err);
+                    }
+                });
+            });
+        });
+    </script>
     <script>
         var handleSample = function () {
             $('#tree').jstree({
@@ -137,39 +159,65 @@
                         "icons": false
                     },
                     'data': [
+
                             @foreach(GalleryItemCategory item in (IEnumerable<GalleryItemCategory>)ViewBag.CategoryList)
-                    {
+                {
+
                     if(item.ParentCategoryId==null)
                     {
                         <text>
-                        { "id": '@item.Id', "parent": "#", "text": "@item.Name" },
+                        {
+                            "id": '@item.Id', "parent": "#", "text": "@item.Name", "state": {
+                                @foreach (var dist in (IEnumerable<GalleryItemGalleryItemCategory>)ViewBag.CheckList)
+                                    {
+                                        if (item.Id == dist.GalleryItemCategoryId)
+                                        {
+                                            <text>
+                                                selected: true
+                                            </text>
+                                        }
+                                    }
+                            }
+                        },
                         </text>
-                    }
-                    else
-                    {
+                                }
+                                else
+                                {
                         <text>
-                        { "id": '@item.Id', "parent": "@item.ParentCategoryId", "text": "@item.Name" },
+                        { "id": '@item.Id', "parent": "@item.ParentCategoryId", "text": "@item.Name","state": {
+                                @foreach (var dist in (IEnumerable<GalleryItemGalleryItemCategory>)ViewBag.CheckList)
+                                    {
+                                        if (item.Id == dist.GalleryItemCategoryId)
+                                        {
+                                            <text>
+                                                selected: true
+                                            </text>
+                                        }
+                                    }
+                                }
+                        },
                         </text>
                     }
                 }
                     ]
+
                 }
             });
-            }
+        }
         handleSample();
     </script>
     <script>
         $(function () {
-            // 6 create an instance when the DOM is ready
-            $('#tree').jstree();
-            // 7 bind to events triggered on the tree
-            $('#tree').on("changed.jstree", function (e, data) {
-                console.log(data.selected);
-                $('#categoriesHidden').val(data.selected);
+                                    // 6 create an instance when the DOM is ready
+                                    $('#tree').jstree();
+                                // 7 bind to events triggered on the tree
+                                $('#tree').on("changed.jstree", function (e, data) {
+                                    console.log(data.selected);
+                                $('#categoriesHidden').val(data.selected);
             });
             // 8 interact with the tree - either way is OK
             $('button').on('click', function () {
-                $('#tree').jstree(true).select_node('child_node_1');
+                                    $('#tree').jstree(true).select_node('child_node_1');
                 $('#tree').jstree('select_node', 'child_node_1');
                 $.jstree.reference('#tree').select_node('child_node_1');
             });
