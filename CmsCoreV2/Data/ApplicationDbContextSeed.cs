@@ -141,6 +141,10 @@ namespace CmsCoreV2.Data
 
                 
                 );
+            AddGalleries(context, tenant);
+            context.SaveChangesAsync();
+            context.Dispose();
+
         }
         public static long AddLanguages(ApplicationDbContext context, AppTenant tenant)
         {
