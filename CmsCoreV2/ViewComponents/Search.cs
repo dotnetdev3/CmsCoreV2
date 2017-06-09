@@ -40,9 +40,9 @@ namespace CmsCoreV2.ViewComponents
             return View("Default", new List<SearchDto>().ToPagedList(pageSize, 1));
 
         }
-        private Task<List<SearchDto>> GetSearch(string word)
+        private async Task<List<SearchDto>> GetSearch(string word)
         {
-            return Task.FromResult(SearchResults(word));
+            return await Task.FromResult(SearchResults(word));
         }
         public List<SearchDto> SearchResults(string search)
         {

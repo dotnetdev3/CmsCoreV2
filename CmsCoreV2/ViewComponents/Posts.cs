@@ -28,20 +28,20 @@ namespace CmsCoreV2.ViewComponents
             {
                 pageNumber = Convert.ToInt32(Request.Query["page"]);
             }
-            var items = GetItems(categoryNames).AsEnumerable();
+            var items = await GetItems(categoryNames);
             var pagedData = items.ToPagedList(pageSize, pageNumber);
 
             return View(pagedData);
         }
-        public List<Post> GetItems(string categoryNames)
+        public async Task<List<Post>> GetItems(string categoryNames)
         {
             if (categoryNames != null)
             {
-                return GetPostsByCategoryNames(categoryNames, 4).Where(w => w.IsPublished == true).ToList();
+                return await Task.FromResult(GetPostsByCategoryNames(categoryNames, 4).Where(w => w.IsPublished == true).ToList());
             }
             else
             {
-                return GetPosts().Where(w => w.IsPublished == true).ToList();
+                return await Task.FromResult(GetPosts().Where(w => w.IsPublished == true).ToList());
             }
         }
         public IEnumerable<Post> GetPosts()

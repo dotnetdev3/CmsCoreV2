@@ -26,9 +26,9 @@ namespace CmsCoreV2.ViewComponents
             return View(items);
         }
 
-        public Task<List<Page>> RelatedPage(long Id)
+        public async Task<List<Page>> RelatedPage(long Id)
         {
-            return Task.FromResult(ChildPagesWeb(Id,true).ToList());
+            return await Task.FromResult(ChildPagesWeb(Id,true).ToList());
         }
         
         public IEnumerable<Page> ChildPagesWeb(long id,bool isPublished)

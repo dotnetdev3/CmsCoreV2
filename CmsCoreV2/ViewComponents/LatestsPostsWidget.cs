@@ -23,10 +23,10 @@ namespace CmsCoreV2.ViewComponents
 
             return View(items);
         }
-        private Task<List<Post>> GetItems(string categoryNames, int count, long id)
+        private async Task<List<Post>> GetItems(string categoryNames, int count, long id)
         {
             List<Post> posts = GetPostsByCategoryNames(categoryNames, count, id).Where(w => w.IsPublished == true).ToList();
-            return Task.FromResult(posts);
+            return await Task.FromResult(posts);
         }
 
         //services postbycategoryNames
