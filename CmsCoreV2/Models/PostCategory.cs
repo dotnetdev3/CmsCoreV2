@@ -28,7 +28,7 @@ namespace CmsCoreV2.Models
 
         [Display(Name = "Üst Kategori")]
         public long? ParentCategoryId { get; set; }
-        [Display(Name = "Üst Sayfa")]
+        [Display(Name = "Üst Kategori")]
         public virtual PostCategory ParentCategory { get; set; }
         public virtual ICollection<PostCategory> ChildCategories { get; set; }
 
