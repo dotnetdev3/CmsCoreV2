@@ -29,7 +29,7 @@ namespace CmsCoreV2.ViewComponents
 
         }
 
-        public virtual Form GetById(long id, params string[] navigations)
+        public Form GetById(long id, params string[] navigations)
         {
             var set = _context.Forms.AsQueryable();
             foreach (string nav in navigations)
@@ -58,9 +58,9 @@ namespace CmsCoreV2.ViewComponents
             return form;
         }
 
-        private Task<CmsCoreV2.Models.Form> GetForm(string formName, string template)
+        private async Task<CmsCoreV2.Models.Form> GetForm(string formName, string template)
         {
-            return Task.FromResult(GetForm(formName));
+            return await Task.FromResult(GetForm(formName));
         }
     }
 }
