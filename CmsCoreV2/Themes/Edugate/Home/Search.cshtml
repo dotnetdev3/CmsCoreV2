@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Bilgi Koleji Ara";
 }
+@inject CustomLocalizer Localizer
 <div id="wrapper-content">
     <!-- PAGE WRAPPER-->
     <div id="page-wrapper">
@@ -14,8 +15,8 @@
                             <div class="search-input-wrapper">
                                 <form action="/ara" method="get">
                                     <div class="form-group form-inline">
-                                        <input type="text" placeholder="Arayınız." name="query" class="form-input" />
-                                        <button type="submit" class="form-submit btn btn-blue"><span>hızlı ara<i class="fa fa-search"></i></span></button>
+                                        <input type="text" placeholder=@Localizer["Arayınız..."] name="query" class="form-input" />
+                                        <button type="submit" class="form-submit btn btn-blue"><span>@Localizer["Hızlı Ara"]<i class="fa fa-search"></i></span></button>
                                         <div class="clearfix"></div>
                                     </div>
                                 </form>

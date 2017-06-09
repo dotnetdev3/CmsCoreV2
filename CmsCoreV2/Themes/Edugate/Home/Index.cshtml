@@ -3,7 +3,7 @@
 }
 
 @await Component.InvokeAsync("Slider", new { Name = "Anasayfa Slider"})
-
+@inject CustomLocalizer Localizer
 <!-- CHOOSE COURSES-->
 <div class="section section-padding choose-course">
     <div class="container">
@@ -23,7 +23,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="name-course"><a href="/anaokulu">Anaokulu</a></div>
+                    <div class="name-course"><a href="/anaokulu">@Localizer["Anaokulu"]</a></div>
                 </div>
             </div>
             <div class="col-md-3">
@@ -35,7 +35,7 @@
                         </div>
 
                     </div>
-                    <div class="name-course"><a href="/ilkokul">İlkokul</a></div>
+                    <div class="name-course"><a href="/ilkokul">@Localizer["İlkokul"]</a></div>
                 </div>
             </div>
             <div class="col-md-3">
@@ -46,7 +46,7 @@
                             <div class="info-back"><a href="/ortaokul"><img src="~/edugate/images/ortaokul-kiz.png" border="0" style="width:100%" /></a></div>
                         </div>
                     </div>
-                    <div class="name-course"><a href="/ortaokul">Ortaokul</a></div>
+                    <div class="name-course"><a href="/ortaokul">@Localizer["Ortaokul"]</a></div>
                 </div>
             </div>
             <div class="col-md-4">
@@ -57,7 +57,7 @@
                             <div class="info-back"><a href="/lise"><img src="~/edugate/images/lise-kiz.png" border="0" style="width:100%" /></a></div>
                         </div>
                     </div>
-                    <div class="name-course"><a href="/lise">Lise</a></div>
+                    <div class="name-course"><a href="/lise">@Localizer["Lise"]</a></div>
                 </div>
             </div>
         </div>
