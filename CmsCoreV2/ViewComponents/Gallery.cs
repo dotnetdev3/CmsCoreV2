@@ -13,7 +13,7 @@ namespace CmsCoreV2.ViewComponents
     public class Gallery:ViewComponent
     {
         private readonly ApplicationDbContext _context;
-        private readonly DbSet<Gallery> dbSet;
+      
         public Gallery(ApplicationDbContext context)
         {
             _context = context;
@@ -23,10 +23,10 @@ namespace CmsCoreV2.ViewComponents
             var items = await GetItems(name, count);
             return View(template, items);
         }
-        private Task<List<CmsCoreV2.Models.GalleryItem>> GetItems(string galleryName, int count)
+        private async Task<List<CmsCoreV2.Models.GalleryItem>> GetItems(string galleryName, int count)
         {
             List<CmsCoreV2.Models.GalleryItem> galleries = GetGalleryItems(galleryName, count).Where(w => w.IsPublished == true).ToList();
-            return Task.FromResult(galleries);
+            return await Task.FromResult(galleries);
         }
         public IEnumerable<GalleryItem> GetGalleryItems(string galleryName, int count)
         {

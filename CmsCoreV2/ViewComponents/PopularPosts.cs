@@ -13,7 +13,6 @@ namespace CmsCoreV2.ViewComponents
 
     {
         private readonly ApplicationDbContext _context;
-        private readonly DbSet<PopularPosts> dbSet;
 
 
         public PopularPosts(ApplicationDbContext context)
@@ -25,16 +24,16 @@ namespace CmsCoreV2.ViewComponents
             var items = await Popular(total, id);
             return View(items);
         }
-        public Task<List<Post>> Popular(int total, long id)
+        public async Task<List<Post>> Popular(int total, long id)
         {
-            return Task.FromResult(PopulerPost(total, id).Where(w => w.IsPublished == true).ToList());
+            return await Task.FromResult(PopulerPost(total, id).Where(w => w.IsPublished == true).ToList());
         }
         public IEnumerable<Post> PopulerPost(int total, long id)
         {
             var post = GetAll().Where(u => u.Id != id).OrderByDescending(m => m.ViewCount).Take(total).ToList();
             return post;
         }
-        public virtual IEnumerable<Models.Post> GetAll(params string[] navigations)
+        public IEnumerable<Models.Post> GetAll(params string[] navigations)
         {
             var set = _context.Posts.AsQueryable();
             foreach (string nav in navigations)

@@ -24,10 +24,10 @@ namespace CmsCoreV2.ViewComponents
             return View(items);
         }
 
-        private Task<List<Page>> GetItems(long? parentPageId)
+        private async Task<List<Page>> GetItems(long? parentPageId)
         {
             List<Page> pages = context.Pages.Include("Language").Where(p => p.ParentPageId == parentPageId).ToList<Page>();
-            return Task.FromResult(pages);
+            return await Task.FromResult(pages);
         }
     }
 }
