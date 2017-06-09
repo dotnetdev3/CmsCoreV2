@@ -19,7 +19,6 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
     {
         public PostCategoriesController(ApplicationDbContext context, ITenant<AppTenant> tenant) : base(context, tenant)
         {
-
         }
 
         // GET: CmsCore/PostCategories
@@ -58,12 +57,28 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             postCategory.UpdatedBy = User.Identity.Name ?? "username";
             postCategory.UpdateDate = DateTime.Now;
             postCategory.AppTenantId = tenant.AppTenantId;
-
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "NativeName");
             ViewData["ParentCategoryId"] = new SelectList(_context.PostCategories, "Id", "Name");
+            var parentPost = _context.PostCategories.ToList();
+            var result = "";
+            recursePost(ref parentPost, null, 0, ref result);
+            ViewBag.ParentPostOptions = result;
+
+           
             return View(postCategory);
         }
+        static void recursePost(ref List<PostCategory> cl, PostCategory start, int level, ref string result)
+        {
+            foreach (PostCategory child in cl)
+            {
+                if (child.ParentCategory == start)
+                {
+                    result += "<option value='" + child.Id.ToString() + "'>" + (new String(' ', level * 2)).Replace(" ", "&nbsp&nbsp;") + child.Name + "</option>";
+                    recursePost(ref cl, child, level + 1, ref result);
+                }
+            }
 
+        }
         // POST: CmsCore/PostCategories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -84,6 +99,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "NativeName", postCategory.LanguageId);
+
+            var parentPost = _context.PostCategories.ToList();
+            var result = "";
+            recursePost(ref parentPost, null, 0, ref result);
+            ViewBag.ParentPostOptions = result;
+
             return View(postCategory);
         }
 
@@ -103,10 +124,16 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "NativeName", postCategory.LanguageId);
 
             ViewData["ParentCategoryId"] = new SelectList(_context.PostCategories, "Id", "Name", postCategory.ParentCategoryId);
+            var parentPost = _context.PostCategories.ToList();
+            var result = "";
+            recursePost(ref parentPost, null, 0, ref result);
+            ViewBag.ParentPostOptions = result;
 
             postCategory.UpdatedBy = User.Identity.Name ?? "username";
             postCategory.UpdateDate = DateTime.Now;
             postCategory.AppTenantId = tenant.AppTenantId;
+
+           
             return View(postCategory);
         }
 
@@ -148,6 +175,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             }
             ViewData["LanguageId"] = new SelectList(_context.Languages, "Id", "NativeName", postCategory.LanguageId);
             ViewData["ParentCategoryId"] = new SelectList(_context.PostCategories, "Id", "Name", postCategory.ParentCategoryId);
+            var parentPost = _context.PostCategories.ToList();
+            var result = "";
+            recursePost(ref parentPost, null, 0, ref result);
+            ViewBag.ParentPostOptions = result;
             return View(postCategory);
         }
 

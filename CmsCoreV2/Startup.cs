@@ -147,6 +147,13 @@ namespace CmsCoreV2
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(name: "redirectRoute",
+                   template: "{*oldUrl}",
+                    defaults: new { controller = "Home", action = "RedirectToNewUrl" },
+                    constraints: new
+                    {
+                        oldUrl = new RedirectRouteConstraint()
+                    });
                 routes.MapRoute(
                     name: "cultureRoute",
                     template: "{culture}/{*slug}",

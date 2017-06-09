@@ -130,6 +130,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             page.UpdatedBy = User.Identity.Name ?? "username";
             page.UpdateDate = DateTime.Now;
             page.AppTenantId = tenant.AppTenantId;
+
             var parentPages = _context.Pages.ToList();
             var result = "";
             recursePages(ref parentPages, null, 0, ref result);

@@ -29,8 +29,9 @@
         <div class="form-group">
             <label asp-for="ParentCategoryId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="ParentCategoryId" class="form-control" asp-items="ViewBag.ParentCategoryId">
+                <select asp-for="ParentCategoryId" class="form-control" >
                     <option value="">Seçiniz..</option>
+                    @Html.Raw(ViewBag.ParentPostOptions)
                 </select>
             </div>
         </div>

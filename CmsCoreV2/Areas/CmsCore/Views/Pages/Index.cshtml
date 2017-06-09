@@ -12,7 +12,7 @@
 <table id="tblRecords" class="table">
     <thead>
         <tr>
-                <th class="text-nowrap">
+                <th class="text-nowrap all">
                     @Html.DisplayNameFor(model => model.Title)
                 </th>
                 <th class="text-nowrap">
@@ -24,7 +24,7 @@
                 <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.SeoTitle)
                 </th>
-                <th class="text-nowrap">
+                <th class="text-nowrap" >
                     @Html.DisplayNameFor(model => model.SeoDescription)
                 </th>
                 <th class="text-nowrap">
@@ -51,7 +51,7 @@
                 <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.AppTenantId)
                 </th>
-            <th class="text-nowrap">
+            <th class="text-nowrap all" >
                 @Html.DisplayNameFor(model => model.Language)
             </th>
             <th class="text-nowrap">
@@ -103,7 +103,7 @@
                 @Html.DisplayFor(modelItem => item.AppTenantId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Language.Id)
+                @Html.DisplayFor(modelItem => item.Language.NativeName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ParentPage.Id)

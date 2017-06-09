@@ -47,7 +47,8 @@ namespace CmsCoreV2.Models
         [Display(Name = "Seo Başlığı")]
         public string SeoTitle { get; set; }
 
-        [Display(Name = "Seo Açıklama")]
+        [Display(Name = "Seo Açıklama"),]
+        
         public string SeoDescription { get; set; }
 
         [Display(Name = "Seo Anahtar Kelimeler")]
