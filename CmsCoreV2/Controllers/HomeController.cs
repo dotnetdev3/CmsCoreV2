@@ -34,6 +34,10 @@ namespace CmsCoreV2.Controllers
             }
             return "";
         }
+        public IActionResult RedirectToNewUrl(string oldUrl)
+        {
+            return Redirect(HttpContext.Items["NewUrl"].ToString());
+        }
         public IActionResult Index(string slug, string culture = "tr")
         {
             if (culture == "no")

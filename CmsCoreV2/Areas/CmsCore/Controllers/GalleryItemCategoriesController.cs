@@ -54,14 +54,34 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         // GET: CmsCore/GalleryItemCategories/Create
         public IActionResult Create()
         {
-            ViewData["ParentCategoryId"] = new SelectList(_context.GalleryItemCategories.ToList(), "Id", "Name");
+            
             var galleryItemCategory = new GalleryItemCategory();
+
+            var parentCategory = _context.GalleryItemCategories.ToList();
+            var result = "";
+            recurseGalleryItem(ref parentCategory, null, 0, ref result);
+            ViewBag.ParentCategory = result;
+
+
             galleryItemCategory.CreatedBy = User.Identity.Name ?? "username";
             galleryItemCategory.CreateDate = DateTime.Now;
             galleryItemCategory.UpdatedBy = User.Identity.Name ?? "username";
             galleryItemCategory.UpdateDate = DateTime.Now;
             galleryItemCategory.AppTenantId = tenant.AppTenantId;
             return View(galleryItemCategory);
+        }
+
+        static void recurseGalleryItem(ref List<GalleryItemCategory> cl, GalleryItemCategory start, int level, ref string result)
+        {
+            foreach (GalleryItemCategory child in cl)
+            {
+                if (child.ParentCategory == start)
+                {
+                    result += "<option value='" + child.Id.ToString() + "'>" + (new String(' ', level * 2)).Replace(" ", "&nbsp") + child.Name + "</option>";
+                    recurseGalleryItem(ref cl, child, level + 1, ref result);
+                }
+            }
+
         }
 
         // POST: CmsCore/GalleryItemCategories/Create
@@ -99,7 +119,10 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.GalleryItemCategories.ToList(), "Id", "Id", galleryItemCategory.ParentCategoryId);
+            var parentCategory = _context.GalleryItemCategories.ToList();
+            var result = "";
+            recurseGalleryItem(ref parentCategory, null, 0, ref result);
+            ViewBag.ParentCategory = result;
             return View(galleryItemCategory);
         }
 

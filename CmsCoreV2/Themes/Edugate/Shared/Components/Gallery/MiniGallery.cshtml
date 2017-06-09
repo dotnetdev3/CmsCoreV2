@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<GalleryItem>
+@inject CustomLocalizer Localizer
 <div class="gallery-widget widget">
-    <div class="title-widget">GALERİ</div>
+    <div class="title-widget">@Localizer["Galeri"]</div>
     <div class="content-widget">
         <div class="gallery-list">
             @foreach (GalleryItem item in Model)
@@ -10,6 +11,6 @@
 
         </div>
         <div class="clearfix"></div>
-        <a href="/galeri" class="view-more">Daha fazla fotoğraf&nbsp;<i class="fa fa-angle-double-right mls"></i></a>
+        <a href="/galeri" class="view-more">@Localizer["Daha Fazla Fotoğraf"]&nbsp;<i class="fa fa-angle-double-right mls"></i></a>
     </div>
 </div>

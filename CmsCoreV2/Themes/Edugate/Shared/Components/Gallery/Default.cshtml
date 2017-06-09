@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<GalleryItem>
+@inject CustomLocalizer Localizer
 <div class="section section-padding picture-gallery">
     <div class="group-title-index">
-        <h4 class="top-title">GÖRÜN VE HİSSEDİN</h4>
+        <h4 class="top-title">@Localizer["Görün Ve Hissedin"]</h4>
 
-        <h2 class="center-title">GALERİ</h2>
+        <h2 class="center-title">@Localizer["Galeri"]</h2>
 
         <div class="bottom-title"><i class="bottom-icon icon-a-1-01"></i></div>
     </div>
