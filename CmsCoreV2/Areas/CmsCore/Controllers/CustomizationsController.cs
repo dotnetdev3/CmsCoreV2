@@ -26,7 +26,7 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         public async Task<IActionResult> Edit()
         {
             var _tenantCustomizationThemeId = tenant.ThemeId;
-
+            
             CustomizationViewModel customizationViewModel = new CustomizationViewModel();
 
             var customization = await _context.Customizations.SingleOrDefaultAsync(c => c.ThemeId == _tenantCustomizationThemeId);

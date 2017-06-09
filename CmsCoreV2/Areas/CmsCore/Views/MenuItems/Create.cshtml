@@ -51,8 +51,9 @@
         <div class="form-group">
             <label asp-for="ParentMenuItemId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="ParentMenuItemId" class ="form-control" asp-items="ViewBag.ParentMenuItemId">
+                <select asp-for="ParentMenuItemId" class ="form-control">
                     <option value="">Lütfen Menü Üst Öğesi Seçiniz!</option>
+                    @Html.Raw(ViewBag.ParentMenuItem)
                 </select>
                 
             </div>

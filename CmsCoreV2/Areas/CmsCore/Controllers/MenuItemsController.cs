@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,8 +53,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
         public IActionResult Create()
         {
             ViewData["MenuId"] = new SelectList(_context.Menus.ToList(), "Id", "Name");
-            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems.ToList(), "Id", "Name");
+           
             var menuItem = new MenuItem();
+            var parentMenuItem = _context.MenuItems.ToList();
+            var result = "";
+            recurseMenuItem(ref parentMenuItem, null, 0, ref result);
+            ViewBag.ParentMenuItem = result;
             return View(menuItem);
         }
 
@@ -75,11 +79,35 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 _context.Add(menuItem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
+
+
+
             }
+
+            var parentMenuItem = _context.MenuItems.ToList();
+            var result = "";
+            recurseMenuItem(ref parentMenuItem, null, 0, ref result);
+            ViewBag.ParentMenuItem = result;
+
             ViewData["MenuId"] = new SelectList(_context.Menus.ToList(), "Id", "Name", menuItem.MenuId);
-            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems.ToList(), "Id", "Name", menuItem.ParentMenuItemId);
+           
             return View(menuItem);
         }
+
+
+        static void recurseMenuItem(ref List<MenuItem> cl, MenuItem start, int level, ref string result)
+        {
+            foreach (MenuItem child in cl)
+            {
+                if (child.ParentMenuItem == start)
+                {
+                    result += "<option value='" + child.Id.ToString() + "'>" + (new String(' ', level*2 )).Replace(" ", "&nbsp") + child.Name + "</option>";
+                    recurseMenuItem(ref cl, child, level + 1, ref result);
+                }
+            }
+
+        }
+
 
         // GET: CmsCore/MenuItems/Edit/5
         public async Task<IActionResult> Edit(long? id)
@@ -95,9 +123,14 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return NotFound();
             }
             ViewData["MenuId"] = new SelectList(_context.Menus.ToList(), "Id", "Name", menuItem.MenuId);
-            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems.Where(mi => mi.Id != id && mi.ParentMenuItem != menuItem).ToList(), "Id", "Name", menuItem.ParentMenuItemId);
-            //ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems.Where(mi => mi.Id != id && mi.ParentMenuItemId == null ).ToList(), "Id", "Name", menuItem.ParentMenuItemId);
-            
+
+            var parentMenuItem = _context.MenuItems.ToList();
+            var result = "";
+            recurseMenuItem(ref parentMenuItem, null, 0, ref result);
+            ViewBag.ParentMenuItem = result;
+
+            //ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems.Where(mi => mi.Id != id && mi.ParentMenuItem != menuItem).ToList(), "Id", "Name", menuItem.ParentMenuItemId);
+
             return View(menuItem);
         }
 
@@ -137,7 +170,12 @@ namespace CmsCoreV2.Areas.CmsCore.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["MenuId"] = new SelectList(_context.Menus.ToList(), "Id", "Name", menuItem.MenuId);
-            ViewData["ParentMenuItemId"] = new SelectList(_context.MenuItems.ToList(), "Id", "Name", menuItem.ParentMenuItemId);
+            
+            var parentMenuItem = _context.MenuItems.ToList();
+            var result = "";
+            recurseMenuItem(ref parentMenuItem, null, 0, ref result);
+            ViewBag.ParentMenuItem = result;
+            
             return View(menuItem);
         }
 

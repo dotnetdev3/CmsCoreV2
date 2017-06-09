@@ -56,8 +56,9 @@
             <div class="form-group">
                 <label asp-for="ParentPageId" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    <select asp-for="ParentPageId" class="form-control" asp-items="ViewBag.ParentPageId">
-                        <option value="">Seçiniz..</option>
+                    <select asp-for="ParentPageId" class="form-control">
+                        <option value="">Seçiniz</option>
+                        @Html.Raw(ViewBag.ParentPagesOptions)
                     </select>
                 </div>
             </div>
