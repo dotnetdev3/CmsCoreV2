@@ -142,8 +142,7 @@ namespace CmsCoreV2.Data
                 
                 );
             AddGalleries(context, tenant);
-            context.SaveChangesAsync();
-            context.Dispose();
+            context.SaveChanges();
 
         }
         public static long AddLanguages(ApplicationDbContext context, AppTenant tenant)
@@ -343,7 +342,6 @@ namespace CmsCoreV2.Data
             slider.UpdateDate = DateTime.Now;
             slider.UpdatedBy = "username";
             slider.Slides = new HashSet<Slide>();
-
             context.Sliders.Add(slider);
             context.SaveChanges();
 

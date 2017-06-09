@@ -77,7 +77,7 @@ namespace CmsCoreV2.Controllers
                     postVM.ViewCount = post.ViewCount;
 
                     _context.Update(post);
-                    _context.SaveChangesAsync();
+                    _context.SaveChanges();
                     return View("Post", postVM);
                 }
             }
@@ -102,7 +102,7 @@ namespace CmsCoreV2.Controllers
 
                 page.ViewCount++;
                 _context.Update(page);
-                _context.SaveChangesAsync();
+                _context.SaveChanges();
                 pageVM.ViewCount = page.ViewCount;
                 if (!String.IsNullOrEmpty(page.Template))
                 {
@@ -194,7 +194,7 @@ namespace CmsCoreV2.Controllers
                 subscription.UpdateDate = DateTime.Now;
                 subscription.SubscriptionDate = DateTime.Now;
                 _context.Add(subscription);
-                _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
            
             return RedirectToAction("Index");
