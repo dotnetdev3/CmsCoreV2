@@ -22,9 +22,9 @@ namespace CmsCoreV2.ViewComponents
             var items = await GetItems(menuLocation);
             return View(items);
         }
-        private Task<List<MenuItem>> GetItems(string menuLocation)
+        private async Task<List<MenuItem>> GetItems(string menuLocation)
         {
-            return Task.FromResult(GetMenuItemsByLocationName(menuLocation).Where(w => w.IsPublished == true).ToList());
+            return await Task.FromResult(GetMenuItemsByLocationName(menuLocation).Where(w => w.IsPublished == true).ToList());
         }
         public IEnumerable<MenuItem> GetMenuItemsByLocationName(string menuLocation)
         {

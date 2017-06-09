@@ -34,6 +34,10 @@ namespace CmsCoreV2.Controllers
             }
             return "";
         }
+        public IActionResult RedirectToNewUrl(string oldUrl)
+        {
+            return Redirect(HttpContext.Items["NewUrl"].ToString());
+        }
         public IActionResult Index(string slug, string culture = "tr")
         {
             if (culture == "no")
@@ -195,6 +199,20 @@ namespace CmsCoreV2.Controllers
            
             return RedirectToAction("Index");
            
+        }
+
+        public IActionResult CustomCss()
+        {
+
+            Customization customization = _context.Customizations.FirstOrDefault();
+            if (customization != null)
+            {
+                return Content(customization.CustomCSS, "text/css");
+
+
+            }
+            return Content("", "text/css");
+
         }
         public IActionResult Error()
         {

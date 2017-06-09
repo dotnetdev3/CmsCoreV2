@@ -35,28 +35,17 @@ namespace CmsCoreV2.ViewComponents
             return View("Default", slider);
 
         }
-        private Task<CmsCoreV2.Models.Slider> GetSlider(string sliderName)
+        private async Task<Models.Slider> GetSlider(string sliderName)
         {
   
 
-            return Task.FromResult(GetSliderByName(sliderName, true));
+            return await GetSliderByName(sliderName, true);
         }
-        public IEnumerable<Models.Slider> GetSliders()
-        {
-            var sliders = GetAll();
-            return sliders;
-        }
-        public virtual IEnumerable<Models.Slider> GetAll(params string[] navigations)
-        {
-            var set = context.Sliders.AsQueryable();
-            foreach (string nav in navigations)
-                set = set.Include(nav);
-            return set.AsEnumerable();
-        }
-        public Models.Slider GetSliderByName(string name, bool? status)
+       
+        public async Task<Models.Slider> GetSliderByName(string name, bool? status)
         {
             name = name.ToLower();
-            var slider = Get(s => s.Name == name, "Slides");
+            var slider = await Get(s => s.Name == name, "Slides");
             if (status == null) { return slider; }
             if (status.HasValue && status.Value == true)
             {
@@ -74,12 +63,12 @@ namespace CmsCoreV2.ViewComponents
                 return slider;
             }
         }
-        public Models.Slider Get(Expression<Func<Models.Slider, bool>> where, params string[] navigations)
+        public async Task<Models.Slider> Get(Expression<Func<Models.Slider, bool>> where, params string[] navigations)
         {
             var set = context.Sliders.AsQueryable();
             foreach (string nav in navigations)
                 set = set.Include(nav);
-            return set.Where(where).FirstOrDefault();
+            return await set.Where(where).FirstOrDefaultAsync();
         }
 
 

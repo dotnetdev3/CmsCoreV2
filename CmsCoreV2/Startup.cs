@@ -100,6 +100,8 @@ namespace CmsCoreV2
 
 
             // Add application services.
+            services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<CustomLocalizer, CustomLocalizer>();
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<IFeedbackService, FeedbackService>();
@@ -145,6 +147,13 @@ namespace CmsCoreV2
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(name: "redirectRoute",
+                   template: "{*oldUrl}",
+                    defaults: new { controller = "Home", action = "RedirectToNewUrl" },
+                    constraints: new
+                    {
+                        oldUrl = new RedirectRouteConstraint()
+                    });
                 routes.MapRoute(
                     name: "cultureRoute",
                     template: "{culture}/{*slug}",

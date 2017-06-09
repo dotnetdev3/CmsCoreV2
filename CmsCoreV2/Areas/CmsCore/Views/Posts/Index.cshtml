@@ -121,7 +121,7 @@
                     @Html.DisplayFor(modelItem => item.AppTenantId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Language.Culture)
+                    @Html.DisplayFor(modelItem => item.Language.NativeName)
                 </td>
                 <td class="text-nowrap">
                     <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
