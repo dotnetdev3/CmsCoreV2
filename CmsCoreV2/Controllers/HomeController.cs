@@ -9,6 +9,7 @@ using CmsCoreV2.Models;
 using CmsCoreV2.Services;
 using Microsoft.AspNetCore.Http;
 using Z.EntityFramework.Plus;
+using SaasKit.Multitenancy;
 
 namespace CmsCoreV2.Controllers
 {
@@ -17,11 +18,11 @@ namespace CmsCoreV2.Controllers
         protected readonly AppTenant tenant;
         private readonly ApplicationDbContext _context;
         private readonly IFeedbackService feedbackService;
-        public HomeController(ApplicationDbContext context, IFeedbackService _feedbackService, AppTenant _tenant)
+        public HomeController(ApplicationDbContext context, IFeedbackService _feedbackService, ITenant<AppTenant> _tenant)
         {
             _context = context;
             this.feedbackService = _feedbackService;
-            this.tenant = _tenant;
+            this.tenant = _tenant.Value;
         }
         public string GetCategoryName(long id)
         {
